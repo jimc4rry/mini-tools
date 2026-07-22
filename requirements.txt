@@ -6,3 +6,5 @@ whitenoise==6.12.0
 gunicorn==26.0.0
 Markdown==3.10.2
 twilio==9.10.9
+qrcode==7.4.2
+Pillow==10.1.0

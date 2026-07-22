@@ -21,4 +21,5 @@ urlpatterns = [
     path("docs/", include("apps.docs.urls")),
     path("tools/", include("apps.tools.urls")),
     path("expiration-tracker/", include("apps.tracker.urls")),
+    path("qr-code-generator/", include("apps.qr_generator.urls")),
 ]

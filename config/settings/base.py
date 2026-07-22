@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "apps.docs",
     "apps.tools",
     "apps.tracker",
+    "apps.qr_generator",
 ]
 
 MIDDLEWARE = [

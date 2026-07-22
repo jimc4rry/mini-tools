@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block title %}Free QR Code Generator — Minitools Hub{% endblock %}
+
+{% block content %}
+<style>
+  .qr-tool { max-width: 640px; margin: 0 auto; }
+  .qr-tool h1 { text-align: center; margin-bottom: 0.25rem; }
+  .qr-tool .lede { text-align: center; margin-bottom: 1.5rem; }
+
+  .qr-type-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+  .qr-type-tabs input[type="radio"] { position: absolute; opacity: 0; pointer-events: none; }
+  .qr-type-tabs label {
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.12s ease;
+    margin: 0;
+  }
+  .qr-type-tabs input[type="radio"]:checked + label {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .qr-type-tabs input[type="radio"]:focus-visible + label { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .qr-field-group { display: none; margin-bottom: 0.75rem; }
+  .qr-field-group.active { display: block; }
+  .qr-field-group label { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.3rem; }
+  .qr-field-group input, .qr-field-group textarea, .qr-field-group select {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    margin-bottom: 0.5rem;
+  }
+  .qr-field-group input:focus, .qr-field-group textarea:focus, .qr-field-group select:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .qr-error { color: #ff6b6b; font-size: 0.85rem; margin-bottom: 0.75rem; }
+
+  .qr-submit {
+    display: block;
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .qr-submit:hover { opacity: 0.92; }
+
+  .qr-result { text-align: center; margin-top: 1.5rem; }
+  .qr-result img {
+    width: 220px;
+    height: 220px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 12px;
+    background: #fff;
+  }
+  .qr-download {
+    display: inline-block;
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 1.1rem;
+    color: var(--text);
+  }
+  .qr-download:hover { border-color: var(--accent); text-decoration: none; }
+
+  .qr-faq { margin-top: 3rem; }
+  .qr-faq h2 { font-size: 1.1rem; margin-bottom: 1rem; }
+  .qr-faq-item { margin-bottom: 1.25rem; }
+  .qr-faq-item h3 { font-size: 0.95rem; margin-bottom: 0.3rem; }
+  .qr-faq-item p { color: var(--muted); line-height: 1.6; margin: 0; }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this QR code generator really free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. No account, no watermark, no usage limit. You can generate and download as many QR codes as you want."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does the QR code expire?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The QR code itself never expires - a URL code will keep working for as long as the destination URL stays live; a text, phone, Wi-Fi, or contact code has the information built in and works forever."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What types of QR codes can I create?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A website link, plain text, a phone number, an email address, an SMS message, a Wi-Fi network login, or a contact card (vCard) that saves straight into someone's phone contacts when scanned."
+      }
+    }
+  ]
+}
+</script>
+
+<div class="qr-tool">
+  <h1>Free QR Code Generator</h1>
+  <p class="lede muted">Pick a type, fill in the details, get a downloadable QR code. No account, no watermark, no catch.</p>
+
+  <div class="card">
+    <form method="post" id="qr-form">
+      {% csrf_token %}
+
+      <div class="qr-type-tabs" role="radiogroup" aria-label="QR code type">
+        <input type="radio" name="qr_type" id="type-url" value="url" {% if qr_type == 'url' %}checked{% endif %}>
+        <label for="type-url">URL</label>
+
+        <input type="radio" name="qr_type" id="type-text" value="text" {% if qr_type == 'text' %}checked{% endif %}>
+        <label for="type-text">Text</label>
+
+        <input type="radio" name="qr_type" id="type-phone" value="phone" {% if qr_type == 'phone' %}checked{% endif %}>
+        <label for="type-phone">Phone</label>
+
+        <input type="radio" name="qr_type" id="type-email" value="email" {% if qr_type == 'email' %}checked{% endif %}>
+        <label for="type-email">Email</label>
+
+        <input type="radio" name="qr_type" id="type-sms" value="sms" {% if qr_type == 'sms' %}checked{% endif %}>
+        <label for="type-sms">SMS</label>
+
+        <input type="radio" name="qr_type" id="type-wifi" value="wifi" {% if qr_type == 'wifi' %}checked{% endif %}>
+        <label for="type-wifi">Wi-Fi</label>
+
+        <input type="radio" name="qr_type" id="type-contact" value="contact" {% if qr_type == 'contact' %}checked{% endif %}>
+        <label for="type-contact">Contact</label>
+      </div>
+
+      <div class="qr-field-group" data-type="url">
+        <label for="url-input">URL to encode</label>
+        <input type="text" id="url-input" name="url" placeholder="https://example.com" value="{{ form.url }}">
+      </div>
+
+      <div class="qr-field-group" data-type="text">
+        <label for="text-input">Text</label>
+        <textarea id="text-input" name="text" rows="3">{{ form.text }}</textarea>
+      </div>
+
+      <div class="qr-field-group" data-type="phone">
+        <label for="phone-input">Phone number</label>
+        <input type="tel" id="phone-input" name="phone" placeholder="+1 555 123 4567" value="{{ form.phone }}">
+      </div>
+
+      <div class="qr-field-group" data-type="email">
+        <label for="email-input">Email address</label>
+        <input type="email" id="email-input" name="email" placeholder="name@example.com" value="{{ form.email }}">
+        <label for="email-subject-input">Subject (optional)</label>
+        <input type="text" id="email-subject-input" name="email_subject" value="{{ form.email_subject }}">
+        <label for="email-body-input">Message (optional)</label>
+        <textarea id="email-body-input" name="email_body" rows="2">{{ form.email_body }}</textarea>
+      </div>
+
+      <div class="qr-field-group" data-type="sms">
+        <label for="sms-phone-input">Phone number</label>
+        <input type="tel" id="sms-phone-input" name="sms_phone" placeholder="+1 555 123 4567" value="{{ form.sms_phone }}">
+        <label for="sms-message-input">Message (optional)</label>
+        <textarea id="sms-message-input" name="sms_message" rows="2">{{ form.sms_message }}</textarea>
+      </div>
+
+      <div class="qr-field-group" data-type="wifi">
+        <label for="wifi-ssid-input">Network name (SSID)</label>
+        <input type="text" id="wifi-ssid-input" name="wifi_ssid" value="{{ form.wifi_ssid }}">
+        <label for="wifi-password-input">Password</label>
+        <input type="text" id="wifi-password-input" name="wifi_password" value="{{ form.wifi_password }}">
+        <label for="wifi-encryption-input">Security</label>
+        <select id="wifi-encryption-input" name="wifi_encryption">
+          <option value="WPA" {% if form.wifi_encryption == 'WPA' or not form.wifi_encryption %}selected{% endif %}>WPA/WPA2</option>
+          <option value="WEP" {% if form.wifi_encryption == 'WEP' %}selected{% endif %}>WEP</option>
+          <option value="nopass" {% if form.wifi_encryption == 'nopass' %}selected{% endif %}>No password</option>
+        </select>
+      </div>
+
+      <div class="qr-field-group" data-type="contact">
+        <label for="vcard-name-input">Name</label>
+        <input type="text" id="vcard-name-input" name="vcard_name" value="{{ form.vcard_name }}">
+        <label for="vcard-phone-input">Phone (optional)</label>
+        <input type="tel" id="vcard-phone-input" name="vcard_phone" value="{{ form.vcard_phone }}">
+        <label for="vcard-email-input">Email (optional)</label>
+        <input type="email" id="vcard-email-input" name="vcard_email" value="{{ form.vcard_email }}">
+        <label for="vcard-org-input">Company (optional)</label>
+        <input type="text" id="vcard-org-input" name="vcard_org" value="{{ form.vcard_org }}">
+      </div>
+
+      {% if error %}<div class="qr-error">{{ error }}</div>{% endif %}
+      <button type="submit" class="qr-submit">Generate QR Code</button>
+    </form>
+
+    {% if qr_image_data_uri %}
+      <div class="qr-result">
+        <img src="{{ qr_image_data_uri }}" alt="Generated QR code">
+        <div>
+          <a href="{{ qr_image_data_uri }}" download="qr-code.png" class="qr-download">Download PNG</a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="qr-faq">
+    <h2>Frequently asked questions</h2>
+    <div class="qr-faq-item">
+      <h3>Is this QR code generator really free?</h3>
+      <p>Yes. No account, no watermark, no usage limit. You can generate and download as many QR codes as you want.</p>
+    </div>
+    <div class="qr-faq-item">
+      <h3>Does the QR code expire?</h3>
+      <p>No. The QR code itself never expires — a URL code will keep working for as long as the destination URL stays live; a text, phone, Wi-Fi, or contact code has the information built in and works forever.</p>
+    </div>
+    <div class="qr-faq-item">
+      <h3>What types of QR codes can I create?</h3>
+      <p>A website link, plain text, a phone number, an email address, an SMS message, a Wi-Fi network login, or a contact card (vCard) that saves straight into someone's phone contacts when scanned.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const radios = document.querySelectorAll('.qr-type-tabs input[type="radio"]');
+  const groups = document.querySelectorAll('.qr-field-group');
+
+  function showActiveGroup() {
+    const selected = document.querySelector('.qr-type-tabs input[type="radio"]:checked');
+    const type = selected ? selected.value : 'url';
+    groups.forEach(function (g) { g.classList.toggle('active', g.dataset.type === type); });
+  }
+
+  radios.forEach(function (r) { r.addEventListener('change', showActiveGroup); });
+  showActiveGroup();
+})();
+</script>
+{% endblock %}
