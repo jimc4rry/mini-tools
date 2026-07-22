@@ -6,3 +6,10 @@ class CoreConfig(AppConfig):
     name = "apps.core"
     label = "core"
     verbose_name = "Core"
+
+    def ready(self):
+        from django.contrib import admin
+
+        admin.site.site_header = "Minitools Hub"
+        admin.site.site_title = "Minitools Hub Admin"
+        admin.site.index_title = "Administration"
