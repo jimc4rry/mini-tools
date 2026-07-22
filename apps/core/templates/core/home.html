@@ -7,20 +7,7 @@
     {% include "docs/_sidebar.html" %}
     <div>
       <h1>Minitools Hub</h1>
-      <p class="muted">Support documents, policies and standalone mini-tools in one place.</p>
-
-      <h2>Latest documents</h2>
-      <div class="grid">
-        {% for document in documents %}
-          <div class="card">
-            <a href="{{ document.get_absolute_url }}"><strong>{{ document.title }}</strong></a>
-            <p class="muted">{{ document.summary }}</p>
-            {% if document.project %}<span class="badge">{{ document.project.name }}</span>{% endif %}
-          </div>
-        {% empty %}
-          <p class="muted">No documents published yet.</p>
-        {% endfor %}
-      </div>
+      <p class="muted">Pick a project on the left to see its documents, or browse the tools below.</p>
 
       <h2>Tools</h2>
       <div class="grid">

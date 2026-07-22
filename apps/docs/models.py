@@ -10,6 +10,16 @@ class Project(models.Model):
 
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
+    is_public = models.BooleanField(
+        default=True,
+        help_text=(
+            "Whether this project is shown in the sidebar and browsable via "
+            "its project page. Turn off while a project isn't ready to be "
+            "publicly listed yet — its individual documents stay reachable "
+            "by direct link regardless, since those are what get shared "
+            "externally (e.g. submitted to a marketplace listing)."
+        ),
+    )
 
     class Meta:
         ordering = ["name"]

@@ -5,7 +5,8 @@ from .models import Document, Project
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ("name", "slug")
+    list_display = ("name", "slug", "is_public")
+    list_filter = ("is_public",)
     prepopulated_fields = {"slug": ("name",)}
 
 
