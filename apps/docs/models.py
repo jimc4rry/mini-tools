@@ -2,16 +2,23 @@ from django.db import models
 from django.urls import reverse
 
 
-class Category(models.Model):
-    name = models.CharField(max_length=100)
+class Project(models.Model):
+    """
+    Groups documents under the external project/app they belong to
+    (e.g. a Jira Marketplace app), shown in the left sidebar on doc pages.
+    """
+
+    name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
 
     class Meta:
-        verbose_name_plural = "categories"
         ordering = ["name"]
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("docs:project_detail", args=[self.slug])
 
 
 class Document(models.Model):
@@ -26,8 +33,8 @@ class Document(models.Model):
         unique=True,
         help_text="Used in the public URL. Treat as permanent once shared externally.",
     )
-    category = models.ForeignKey(
-        Category, on_delete=models.PROTECT, related_name="documents", null=True, blank=True
+    project = models.ForeignKey(
+        Project, on_delete=models.PROTECT, related_name="documents", null=True, blank=True
     )
     summary = models.CharField(max_length=300, blank=True)
     body = models.TextField(help_text="Markdown is supported.")

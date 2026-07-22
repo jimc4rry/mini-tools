@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}Documents — Minitools Hub{% endblock %}
+{% block title %}{{ project.name }} — Minitools Hub{% endblock %}
 
 {% block content %}
   <div class="docs-layout">
     {% include "docs/_sidebar.html" %}
     <div>
-      <h1>Documents</h1>
+      <p><a href="{% url 'docs:list' %}">&larr; All documents</a></p>
+      <h1>{{ project.name }}</h1>
       <div class="grid">
         {% for document in documents %}
           <div class="card">
             <a href="{{ document.get_absolute_url }}"><strong>{{ document.title }}</strong></a>
             <p class="muted">{{ document.summary }}</p>
-            {% if document.project %}<span class="badge">{{ document.project.name }}</span>{% endif %}
           </div>
         {% empty %}
-          <p class="muted">No documents published yet.</p>
+          <p class="muted">No documents in this project yet.</p>
         {% endfor %}
       </div>
     </div>
