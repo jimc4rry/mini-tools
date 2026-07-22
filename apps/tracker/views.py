@@ -4,6 +4,7 @@ from decimal import Decimal
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -28,12 +29,37 @@ def _redirect_no_business(request):
     return redirect("login")
 
 
+SIGNUP_RATE_LIMIT_WINDOW_SECONDS = 3600
+SIGNUP_RATE_LIMIT_MAX_ATTEMPTS = 5
+
+
+def _is_signup_rate_limited(request):
+    """Per-IP throttle on signup POSTs - the account gets a 14-day free trial with no
+    email verification, which is exactly what a bot farming free accounts wants."""
+    client_ip = request.META.get("REMOTE_ADDR", "unknown")
+    cache_key = f"signup_rate_limit:{client_ip}"
+    count = cache.get(cache_key, 0)
+    if count >= SIGNUP_RATE_LIMIT_MAX_ATTEMPTS:
+        return True
+    cache.set(cache_key, count + 1, SIGNUP_RATE_LIMIT_WINDOW_SECONDS)
+    return False
+
+
 def signup(request):
     if request.user.is_authenticated:
         return redirect("dashboard")
     if request.method == "POST":
+        if _is_signup_rate_limited(request):
+            messages.error(request, "Πάρα πολλές προσπάθειες εγγραφής από αυτό το δίκτυο. Δοκίμασε ξανά αργότερα.")
+            return render(request, "registration/signup.html", {"form": SignupForm()})
+
         form = SignupForm(request.POST)
         if form.is_valid():
+            if form.cleaned_data.get("website"):
+                # Honeypot field was filled in - only a bot does this. Pretend
+                # success without creating an account, so the bot gets no signal
+                # that it was caught.
+                return redirect("login")
             user = form.save()
             login(request, user)
             messages.success(request, "Καλωσόρισες! Ο λογαριασμός σου δημιουργήθηκε.")

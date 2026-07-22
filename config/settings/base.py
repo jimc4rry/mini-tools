@@ -18,6 +18,13 @@ DEBUG = env.bool("DEBUG", default=False)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 
+# Canonical site URL (e.g. https://minitoolshub.com) used to build canonical/
+# og:url tags — see apps.core.context_processors.site_context. Without this,
+# the app would self-canonicalize on whatever host served the request, which
+# risks Railway's own *.up.railway.app domain and a custom domain both being
+# indexed as duplicate content.
+SITE_URL = env("SITE_URL", default="http://127.0.0.1:8000").rstrip("/")
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -56,6 +63,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "apps.core.context_processors.site_context",
             ],
         },
     },
@@ -92,6 +100,10 @@ STORAGES = {
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# Protect against decompression-bomb / oversized-POST DoS attempts.
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5 MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5 * 1024 * 1024  # 5 MB
 
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "dashboard"

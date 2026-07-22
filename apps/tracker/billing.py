@@ -16,17 +16,62 @@ so the endpoint can be exercised locally with unsigned test payloads. In product
 """
 import hashlib
 import hmac
+import ipaddress
 import json
+import logging
 
+import requests
 from django.conf import settings
+from django.core.cache import cache
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
 from .models import Business
 
+logger = logging.getLogger(__name__)
+
 ACTIVE_SUBSCRIPTION_STATUSES = {"active", "trialing"}
 INACTIVE_SUBSCRIPTION_STATUSES = {"canceled", "paused"}
+
+PADDLE_IPS_CACHE_KEY = "paddle_webhook_ip_ranges"
+PADDLE_IPS_CACHE_TTL = 60 * 60 * 6  # 6 hours - these change rarely, per Paddle
+
+
+def _paddle_webhook_ip_ranges():
+    """Fetches and caches Paddle's current webhook-sending IPv4 ranges from their own
+    /ips endpoint (never hardcoded - Paddle documents this list can change). Returns
+    None on any failure so the caller can treat "unknown" differently from "mismatch"."""
+    cached = cache.get(PADDLE_IPS_CACHE_KEY)
+    if cached is not None:
+        return cached
+    try:
+        response = requests.get("https://api.paddle.com/ips", timeout=5)
+        response.raise_for_status()
+        networks = [ipaddress.ip_network(cidr) for cidr in response.json()["data"]["ipv4_cidrs"]]
+    except Exception:
+        logger.exception("Could not fetch Paddle webhook IP ranges")
+        return None
+    cache.set(PADDLE_IPS_CACHE_KEY, networks, PADDLE_IPS_CACHE_TTL)
+    return networks
+
+
+def is_known_paddle_webhook_ip(remote_addr):
+    """Checks remote_addr against Paddle's published webhook IP ranges - logging only,
+    not enforced. This deployment sits behind Railway's proxy and REMOTE_ADDR has not
+    been confirmed to reflect the real caller (vs. the proxy's own address), so a
+    mismatch here is a signal to investigate, not proof the request is forged. The
+    HMAC signature in _verify_signature() is the actual authentication - do not
+    reject webhook requests based on this check without first confirming REMOTE_ADDR
+    is trustworthy on this deployment (see the log line this produces)."""
+    networks = _paddle_webhook_ip_ranges()
+    if networks is None:
+        return None  # couldn't fetch the list - unknown, not a mismatch
+    try:
+        ip = ipaddress.ip_address(remote_addr)
+    except ValueError:
+        return False
+    return any(ip in network for network in networks)
 
 
 def _verify_signature(request):
@@ -68,6 +113,11 @@ def _find_business(data):
 def paddle_webhook(request):
     if not _verify_signature(request):
         return HttpResponseBadRequest("invalid signature")
+
+    remote_addr = request.META.get("REMOTE_ADDR", "")
+    known_ip = is_known_paddle_webhook_ip(remote_addr)
+    if known_ip is False:
+        logger.warning("Paddle webhook request from unrecognized IP %s (signature was valid)", remote_addr)
 
     try:
         payload = json.loads(request.body)

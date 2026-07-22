@@ -4,6 +4,7 @@ from io import BytesIO
 from urllib.parse import urlencode
 
 import qrcode
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator, URLValidator
 from django.shortcuts import render
@@ -137,6 +138,23 @@ _ENCODERS = {
     "contact": _encode_contact,
 }
 
+GENERATE_RATE_LIMIT_WINDOW_SECONDS = 300
+GENERATE_RATE_LIMIT_MAX_REQUESTS = 30
+
+
+def _is_generate_rate_limited(request):
+    """Simple per-IP throttle: this endpoint is public with no login and does real
+    image-encoding work per request, so it's an easy target for a scripted hammering
+    loop even though each individual generation is cheap. Generous limit since it's
+    a legitimate free tool, not a target for tight abuse prevention."""
+    client_ip = request.META.get("REMOTE_ADDR", "unknown")
+    cache_key = f"qr_generate_rate_limit:{client_ip}"
+    count = cache.get(cache_key, 0)
+    if count >= GENERATE_RATE_LIMIT_MAX_REQUESTS:
+        return True
+    cache.set(cache_key, count + 1, GENERATE_RATE_LIMIT_WINDOW_SECONDS)
+    return False
+
 
 def index(request):
     """
@@ -153,7 +171,9 @@ def index(request):
     if qr_type not in QR_TYPES:
         qr_type = "url"
 
-    if request.method == "POST":
+    if request.method == "POST" and _is_generate_rate_limited(request):
+        error = "Too many requests from this network. Please try again in a few minutes."
+    elif request.method == "POST":
         try:
             payload = _ENCODERS[qr_type](post)
         except QRInputError as e:

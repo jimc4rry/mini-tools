@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Minitools Hub{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Support documents, policies, and free mini-tools in one place.{% endblock %}">
+  <link rel="canonical" href="{% block canonical_url %}{{ site_url }}{{ request.path }}{% endblock %}">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Minitools Hub">
+  <meta property="og:title" content="{% block og_title %}Minitools Hub{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Support documents, policies, and free mini-tools in one place.{% endblock %}">
+  <meta property="og:url" content="{% block og_url %}{{ site_url }}{{ request.path }}{% endblock %}">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f8cff'/%3E%3Crect x='22' y='22' width='56' height='56' rx='10' fill='white'/%3E%3Crect x='34' y='34' width='32' height='32' rx='6' fill='%234f8cff'/%3E%3C/svg%3E">
   <style>
     :root {
       --bg: #0f1216;
