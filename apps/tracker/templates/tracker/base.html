@@ -85,6 +85,7 @@
 <nav>
   <p class="brand">📦 Expiration Tracker</p>
   <div>
+    <a href="{% url 'core:home' %}">&larr; Minitools Hub</a>
     {% if user.is_authenticated %}
       <a href="{% url 'dashboard' %}">Dashboard</a>
       <a href="{% url 'category_list' %}">Κατηγορίες</a>
