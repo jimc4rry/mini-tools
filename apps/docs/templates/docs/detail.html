@@ -11,7 +11,7 @@
     <p><a href="{{ document.project.get_absolute_url }}" class="badge">{{ document.project.name }}</a></p>
   {% endif %}
   <p class="muted">Last updated {{ document.updated_at|date:"d/m/Y" }}</p>
-  <div class="card">
+  <div class="card prose">
     {{ document.body|markdownify }}
   </div>
 {% endblock %}
