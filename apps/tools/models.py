@@ -2,6 +2,25 @@ from django.db import models
 from django.urls import NoReverseMatch, reverse
 
 
+class ToolCategory(models.Model):
+    """A category shown in the left sidebar of the tools marketplace page."""
+
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
+    icon = models.CharField(max_length=10, blank=True, help_text="Optional emoji shown next to the name.")
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order", "name"]
+        verbose_name_plural = "tool categories"
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("tools:list") + f"?category={self.slug}"
+
+
 class Tool(models.Model):
     """
     Registry entry for a mini-tool listed on the marketplace landing page.
@@ -15,6 +34,9 @@ class Tool(models.Model):
 
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
+    category = models.ForeignKey(
+        ToolCategory, on_delete=models.PROTECT, related_name="tools", null=True, blank=True
+    )
     description = models.TextField(blank=True)
     url_name = models.CharField(
         max_length=200,

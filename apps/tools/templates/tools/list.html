@@ -1,18 +1,49 @@
 {% extends "base.html" %}
 
 {% block title %}Tools — Minitools Hub{% endblock %}
+{% block main_class %}wide{% endblock %}
 
 {% block content %}
   <h1>Tools</h1>
-  <div class="grid">
-    {% for tool in tools %}
-      <div class="card">
-        <a href="{{ tool.get_absolute_url }}"><strong>{{ tool.icon }} {{ tool.name }}</strong></a>
-        <p class="muted">{{ tool.description }}</p>
-        {% if not tool.is_free %}<span class="badge">paid</span>{% endif %}
+  <p class="muted">Browse mini-tools by category.</p>
+
+  <div class="tools-layout">
+    <aside class="tools-sidebar">
+      <ul>
+        <li>
+          <a href="{% url 'tools:list' %}"{% if not current_category %} class="active"{% endif %}>
+            <span class="cat-icon">&#9638;</span> All
+          </a>
+        </li>
+        {% for category in categories %}
+          <li>
+            <a href="{{ category.get_absolute_url }}"{% if category == current_category %} class="active"{% endif %}>
+              <span class="cat-icon">{{ category.icon|default:"&bull;" }}</span> {{ category.name }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </aside>
+
+    <div>
+      <div class="tool-grid">
+        {% for tool in tools %}
+          <div class="tool-card">
+            <a class="tool-card-link" href="{{ tool.get_absolute_url }}">
+              <div class="tool-thumb">{{ tool.icon|default:"🧰" }}</div>
+              <div class="tool-card-body">
+                <span class="tool-card-title">{{ tool.name }}</span>
+                <p class="tool-card-desc">{{ tool.description }}</p>
+                {% if not tool.is_free %}<span class="badge">paid</span>{% endif %}
+              </div>
+            </a>
+          </div>
+        {% empty %}
+          <p class="muted">
+            {% if current_category %}No tools in "{{ current_category.name }}" yet.{% else %}No tools published yet.{% endif %}
+          </p>
+        {% endfor %}
       </div>
-    {% empty %}
-      <p class="muted">No tools published yet.</p>
-    {% endfor %}
+    </div>
   </div>
 {% endblock %}
