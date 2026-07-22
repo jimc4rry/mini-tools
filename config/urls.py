@@ -9,5 +9,5 @@ urlpatterns = [
     path("", include("apps.core.urls")),
     path("docs/", include("apps.docs.urls")),
     path("tools/", include("apps.tools.urls")),
-    path("inventory/", include("apps.tracker.urls")),
+    path("expiration-tracker/", include("apps.tracker.urls")),
 ]
