@@ -36,6 +36,8 @@ class Project(models.Model):
 
     class Meta:
         ordering = ["order", "name"]
+        verbose_name = "Application"
+        verbose_name_plural = "Applications"
 
     def __str__(self):
         return self.name
