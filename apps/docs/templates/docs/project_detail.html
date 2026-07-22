@@ -11,7 +11,13 @@
     <div class="card">
       {{ project.description|markdownify }}
       {% with app_url=project.get_app_url %}
-        {% if app_url %}<p><a href="{{ app_url }}" class="badge">Open the app &rarr;</a></p>{% endif %}
+        {% if app_url %}
+          <p>
+            <a href="{{ app_url }}" class="badge"{% if project.external_url %} target="_blank" rel="noopener"{% endif %}>
+              Open the app &rarr;
+            </a>
+          </p>
+        {% endif %}
       {% endwith %}
     </div>
   {% endif %}

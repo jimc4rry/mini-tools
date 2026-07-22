@@ -17,9 +17,18 @@ class Project(models.Model):
         max_length=200,
         blank=True,
         help_text=(
-            "Named URL of the project's own app, if it has one (e.g. 'dashboard'). "
-            "Shown as an 'Open' link on the project's page. Leave blank for "
-            "doc-only projects."
+            "Named URL of the project's own app, if it's hosted inside this "
+            "Django project (e.g. 'dashboard'). Shown as an 'Open' link on "
+            "the project's page. Leave blank for doc-only projects, or use "
+            "external_url instead for an app hosted elsewhere."
+        ),
+    )
+    external_url = models.URLField(
+        blank=True,
+        help_text=(
+            "Full URL of the app, if it's hosted on its own separate site "
+            "(e.g. https://getmenuhub.com/) rather than inside this Django "
+            "project. Takes priority over url_name for the 'Open' link."
         ),
     )
     is_public = models.BooleanField(
@@ -46,6 +55,8 @@ class Project(models.Model):
         return reverse("project_detail", args=[self.slug])
 
     def get_app_url(self):
+        if self.external_url:
+            return self.external_url
         if not self.url_name:
             return ""
         try:
