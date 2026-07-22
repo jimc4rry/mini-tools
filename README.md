@@ -14,6 +14,13 @@ Django project that hosts:
   to charge for.
 - **Core** (`apps/core`) — landing page + `/healthz` for Railway's health
   check.
+- **Expiration Tracker** (`apps/tracker`) — a full multi-tenant inventory app
+  (mounted at `/inventory/`), ported in from a previously standalone Django
+  project. Unlike the docs/tools apps it has real user accounts (signup
+  creates a `Business` tied to the user) and keeps its own look
+  (`apps/tracker/templates/tracker/base.html`) rather than the shared
+  Minitools Hub chrome. Uses the site's single shared Django auth — there's
+  one login for the whole project, not a separate auth system per app.
 
 This is a separate project from the existing Django+Postgres app — separate
 codebase, separate Railway project/service, separate database.
@@ -28,8 +35,9 @@ config/
   urls.py, wsgi.py, asgi.py
 apps/
   core/    home page, health check
-  docs/    Document/Category models, markdown rendering, admin
+  docs/    Document/Project models, markdown rendering, admin
   tools/   Tool registry model, marketplace landing page, admin
+  tracker/ Expiration Tracker: full app with its own auth, models, templates
 templates/base.html   shared layout
 static/, staticfiles/  served via whitenoise
 ```
