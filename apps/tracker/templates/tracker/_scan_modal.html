@@ -1,0 +1,14 @@
+<div id="scan-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;">
+  <div class="card" style="width:min(420px, 92vw);">
+    <div class="top-row" style="margin-bottom:12px;">
+      <h3 style="margin:0;">Σάρωση barcode</h3>
+      <button type="button" class="btn secondary" id="scan-close-btn">Κλείσιμο</button>
+    </div>
+    <div id="qr-reader" style="width:100%;"></div>
+    <p class="helptext" id="scan-status" style="margin-top:8px;"></p>
+  </div>
+</div>
+
+{% load static %}
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="{% static 'tracker/barcode-scanner.js' %}"></script>

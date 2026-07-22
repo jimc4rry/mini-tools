@@ -1,0 +1,22 @@
+{% extends "tracker/base.html" %}
+{% block title %}Ρυθμίσεις{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Ρυθμίσεις ειδοποιήσεων</h2>
+  <p class="helptext">Επιχείρηση: {{ business.name }} ({{ business.get_business_type_display }}) — Πλάνο: {{ business.get_plan_status_display }}</p>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <div class="field-body">
+          {{ field }}
+          {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
+          {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
+        </div>
+      </div>
+    {% endfor %}
+    <div class="field-actions"><button class="btn" type="submit">Αποθήκευση</button></div>
+  </form>
+</div>
+{% endblock %}

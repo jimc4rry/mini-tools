@@ -8,7 +8,12 @@
   <p><a href="{% url 'core:home' %}">&larr; All projects</a></p>
   <h1>{{ project.name }}</h1>
   {% if project.description %}
-    <div class="card">{{ project.description|markdownify }}</div>
+    <div class="card">
+      {{ project.description|markdownify }}
+      {% with app_url=project.get_app_url %}
+        {% if app_url %}<p><a href="{{ app_url }}" class="badge">Open the app &rarr;</a></p>{% endif %}
+      {% endwith %}
+    </div>
   {% endif %}
   <div class="grid">
     {% for document in documents %}

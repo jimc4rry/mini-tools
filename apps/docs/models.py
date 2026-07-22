@@ -1,5 +1,5 @@
 from django.db import models
-from django.urls import reverse
+from django.urls import NoReverseMatch, reverse
 
 
 class Project(models.Model):
@@ -13,6 +13,15 @@ class Project(models.Model):
     description = models.TextField(
         blank=True, help_text="Markdown supported. Shown at the top of the project's page."
     )
+    url_name = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text=(
+            "Named URL of the project's own app, if it has one (e.g. 'dashboard'). "
+            "Shown as an 'Open' link on the project's page. Leave blank for "
+            "doc-only projects."
+        ),
+    )
     is_public = models.BooleanField(
         default=True,
         help_text=(
@@ -23,15 +32,24 @@ class Project(models.Model):
             "externally (e.g. submitted to a marketplace listing)."
         ),
     )
+    order = models.PositiveIntegerField(default=0)
 
     class Meta:
-        ordering = ["name"]
+        ordering = ["order", "name"]
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
         return reverse("docs:project_detail", args=[self.slug])
+
+    def get_app_url(self):
+        if not self.url_name:
+            return ""
+        try:
+            return reverse(self.url_name)
+        except NoReverseMatch:
+            return ""
 
 
 class Document(models.Model):

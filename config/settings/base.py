@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.docs",
     "apps.tools",
+    "apps.tracker",
 ]
 
 MIDDLEWARE = [
@@ -90,3 +91,27 @@ STORAGES = {
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "dashboard"
+LOGOUT_REDIRECT_URL = "login"
+
+# Email (console backend for dev; SMTP env vars for production)
+EMAIL_BACKEND = env("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
+EMAIL_HOST = env("EMAIL_HOST", default="")
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="noreply@minitools.local")
+
+# Paddle billing for the Expiration Tracker app (see apps/tracker/billing.py).
+# Signature verification is skipped in dev until this is set.
+PADDLE_WEBHOOK_SECRET = env("PADDLE_WEBHOOK_SECRET", default="")
+
+# Twilio WhatsApp notifications for the Expiration Tracker app (see
+# apps/tracker/management/commands/send_whatsapp_notifications.py).
+# Left blank until a Twilio account is set up.
+TWILIO_ACCOUNT_SID = env("TWILIO_ACCOUNT_SID", default="")
+TWILIO_AUTH_TOKEN = env("TWILIO_AUTH_TOKEN", default="")
+TWILIO_WHATSAPP_FROM = env("TWILIO_WHATSAPP_FROM", default="")

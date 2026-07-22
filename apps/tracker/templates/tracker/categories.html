@@ -1,0 +1,46 @@
+{% extends "tracker/base.html" %}
+{% block title %}Κατηγορίες{% endblock %}
+{% block content %}
+<div class="top-row">
+  <h2>Κατηγορίες προϊόντων</h2>
+</div>
+
+<div class="card">
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <div class="field-body">
+          {{ field }}
+          {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
+        </div>
+      </div>
+    {% endfor %}
+    <div class="field-actions"><button class="btn" type="submit">+ Προσθήκη</button></div>
+  </form>
+</div>
+
+<div class="card">
+  {% if categories %}
+  <table>
+    <thead><tr><th>Όνομα</th><th></th></tr></thead>
+    <tbody>
+      {% for category in categories %}
+      <tr>
+        <td>{{ category.name }}</td>
+        <td class="actions" style="white-space:nowrap">
+          <form method="post" action="{% url 'category_delete' category.pk %}" style="display:inline" onsubmit="return confirm('Διαγραφή κατηγορίας {{ category.name }};');">
+            {% csrf_token %}
+            <button type="submit" style="background:none;border:none;color:var(--expired);cursor:pointer;font-size:13px;padding:0;">Διαγραφή</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+    <p class="empty">Δεν υπάρχουν κατηγορίες ακόμα.</p>
+  {% endif %}
+</div>
+{% endblock %}

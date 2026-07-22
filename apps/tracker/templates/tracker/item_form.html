@@ -1,0 +1,72 @@
+{% extends "tracker/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>{{ title }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        <div class="field-body">
+          {% if field.name == "barcode" %}
+            <div style="display:flex;gap:8px;">
+              {{ field }}
+              <button type="button" class="btn secondary" id="scan-barcode-btn" style="white-space:nowrap;">📷 Σάρωση</button>
+            </div>
+          {% else %}
+            {{ field }}
+          {% endif %}
+          {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
+          {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
+        </div>
+      </div>
+    {% endfor %}
+    <div class="field-actions">
+      <button class="btn" type="submit">Αποθήκευση</button>
+      <a class="btn secondary" href="{% url 'dashboard' %}">Άκυρο</a>
+    </div>
+  </form>
+</div>
+
+{% include "tracker/_scan_modal.html" %}
+<script>
+var isEditMode = {% if form.instance.pk %}true{% else %}false{% endif %};
+
+function applyBarcodeLookupResult(data) {
+  var statusEl = document.getElementById('scan-status');
+  var nameField = document.getElementById('id_product_name');
+  if (data.found) {
+    if (nameField && !nameField.value) nameField.value = data.name;
+    var categoryField = document.getElementById('id_category');
+    if (categoryField && data.category_id) categoryField.value = data.category_id;
+    var unitField = document.getElementById('id_unit');
+    if (unitField && data.unit) unitField.value = data.unit;
+    var costField = document.getElementById('id_unit_cost');
+    if (costField && data.unit_cost) costField.value = data.unit_cost;
+    var minField = document.getElementById('id_min_required_quantity');
+    if (minField && data.min_required_quantity) minField.value = data.min_required_quantity;
+    if (!isEditMode && data.active_batches > 0) {
+      statusEl.textContent = 'Βρέθηκε: ' + data.name + ' — θα προστεθεί νέα παρτίδα ' +
+        '(υπάρχουν ήδη ' + data.active_batches + ').';
+    } else {
+      statusEl.textContent = 'Βρέθηκε: ' + data.name;
+    }
+  } else {
+    statusEl.textContent = 'Νέο barcode — συμπλήρωσε το όνομα προϊόντος.';
+    if (nameField) nameField.focus();
+  }
+}
+
+initBarcodeScanner({
+  buttonId: 'scan-barcode-btn',
+  onScan: function (decodedText) {
+    document.getElementById('id_barcode').value = decodedText;
+    fetch('{% url "barcode_lookup" %}?code=' + encodeURIComponent(decodedText))
+      .then(function (r) { return r.json(); })
+      .then(applyBarcodeLookupResult)
+      .catch(function () {});
+  }
+});
+</script>
+{% endblock %}

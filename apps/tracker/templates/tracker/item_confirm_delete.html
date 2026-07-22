@@ -1,0 +1,15 @@
+{% extends "tracker/base.html" %}
+{% block title %}Διαγραφή προϊόντος{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Διαγραφή "{{ item.product.name }}";</h2>
+  <p>Αυτή η ενέργεια δεν αναιρείται.</p>
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <button class="btn danger" type="submit">Ναι, διαγραφή</button>
+      <a class="btn secondary" href="{% url 'dashboard' %}">Άκυρο</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
