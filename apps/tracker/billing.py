@@ -7,7 +7,7 @@ Setup (once you have a real Paddle account):
    so this handler can map the Paddle subscription back to a Business.
 3. Set PADDLE_WEBHOOK_SECRET in .env (Paddle dashboard -> Developer Tools -> Notifications
    -> your webhook destination -> signing secret).
-4. Point the webhook destination at POST https://<your-domain>/billing/paddle-webhook/
+4. Point the webhook destination at POST https://<your-domain>/expiration-tracker/billing/paddle-webhook/
    for events: subscription.created, subscription.updated, subscription.canceled.
 
 Until PADDLE_WEBHOOK_SECRET is set, signature verification is skipped ONLY when DEBUG=True,
