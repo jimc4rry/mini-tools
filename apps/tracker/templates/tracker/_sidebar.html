@@ -1,0 +1,20 @@
+{% load i18n %}
+<h3>{% trans "Expiration Tracker" %}</h3>
+<ul>
+  {% if user.is_authenticated %}
+    <li><a href="{% url 'dashboard' %}"{% if request.resolver_match.url_name == 'dashboard' %} class="active"{% endif %}>{% trans "Dashboard" %}</a></li>
+    <li><a href="{% url 'category_list' %}"{% if request.resolver_match.url_name == 'category_list' %} class="active"{% endif %}>{% trans "Categories" %}</a></li>
+    <li><a href="{% url 'waste_log' %}"{% if request.resolver_match.url_name == 'waste_log' %} class="active"{% endif %}>{% trans "Waste log" %}</a></li>
+    <li><a href="{% url 'settings' %}"{% if request.resolver_match.url_name == 'settings' %} class="active"{% endif %}>{% trans "Settings" %}</a></li>
+    <li>
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="rail-btn">{% trans "Log out" %}</button>
+      </form>
+    </li>
+  {% else %}
+    <li><a href="{% url 'login' %}"{% if request.resolver_match.url_name == 'login' %} class="active"{% endif %}>{% trans "Log in" %}</a></li>
+    <li><a href="{% url 'signup' %}"{% if request.resolver_match.url_name == 'signup' %} class="active"{% endif %}>{% trans "Sign up" %}</a></li>
+  {% endif %}
+</ul>
+{% include "_language_switcher.html" %}

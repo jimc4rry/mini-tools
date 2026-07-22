@@ -3,20 +3,21 @@ import datetime
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 
 class Business(models.Model):
     class BusinessType(models.TextChoices):
-        PHARMACY = "pharmacy", "Φαρμακείο"
-        MINI_MARKET = "mini_market", "Mini Market"
-        CAFE = "cafe", "Καφετέρια"
-        DELICATESSEN = "delicatessen", "Delicatessen"
-        OTHER = "other", "Άλλο"
+        PHARMACY = "pharmacy", _("Pharmacy")
+        MINI_MARKET = "mini_market", _("Mini Market")
+        CAFE = "cafe", _("Cafe")
+        DELICATESSEN = "delicatessen", _("Delicatessen")
+        OTHER = "other", _("Other")
 
     class PlanStatus(models.TextChoices):
-        TRIAL = "trial", "Trial"
-        ACTIVE = "active", "Active"
-        INACTIVE = "inactive", "Inactive"
+        TRIAL = "trial", _("Trial")
+        ACTIVE = "active", _("Active")
+        INACTIVE = "inactive", _("Inactive")
 
     TRIAL_LENGTH_DAYS = 14
     TRIAL_PRODUCT_LIMIT = 50
@@ -38,7 +39,7 @@ class Business(models.Model):
     notify_email = models.EmailField(blank=True)
     notify_phone = models.CharField(
         max_length=20, blank=True,
-        help_text="Αριθμός WhatsApp σε μορφή E.164, π.χ. +306912345678",
+        help_text=_("WhatsApp number in E.164 format, e.g. +306912345678"),
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -70,8 +71,13 @@ class Business(models.Model):
         return self.products.filter(is_active=True).count() >= self.TRIAL_PRODUCT_LIMIT
 
 
+# Lazy translations: evaluated to text (in the current active language) only
+# when str()'d — forms.SignupForm.save() does that explicitly at signup time,
+# so each business gets its default categories in whichever language was
+# active when they signed up, not whatever language happened to be active
+# when this module was first imported.
 DEFAULT_CATEGORY_NAMES = [
-    "Τρόφιμα", "Ποτά", "Γαλακτοκομικά", "Κατεψυγμένα", "Καθαριστικά", "Φάρμακα", "Άλλο",
+    _("Food"), _("Beverages"), _("Dairy"), _("Frozen"), _("Cleaning supplies"), _("Medicine"), _("Other"),
 ]
 
 
@@ -91,10 +97,10 @@ class Category(models.Model):
 
 class Product(models.Model):
     class Unit(models.TextChoices):
-        PIECE = "piece", "Τεμάχια"
-        KG = "kg", "Κιλά"
-        LITER = "liter", "Λίτρα"
-        BOX = "box", "Κουτιά"
+        PIECE = "piece", _("Pieces")
+        KG = "kg", _("Kg")
+        LITER = "liter", _("Liters")
+        BOX = "box", _("Boxes")
 
     business = models.ForeignKey(Business, on_delete=models.CASCADE, related_name="products")
     name = models.CharField(max_length=200)
@@ -130,9 +136,9 @@ class Product(models.Model):
 
 class InventoryItem(models.Model):
     class Status(models.TextChoices):
-        ACTIVE = "active", "Ενεργό"
-        CONSUMED = "consumed", "Αναλώθηκε"
-        WASTED = "wasted", "Πετάχτηκε"
+        ACTIVE = "active", _("Active")
+        CONSUMED = "consumed", _("Consumed")
+        WASTED = "wasted", _("Wasted")
 
     business = models.ForeignKey(
         Business, on_delete=models.CASCADE, related_name="inventory_items"

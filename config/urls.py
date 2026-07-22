@@ -7,6 +7,7 @@ from apps.tracker.forms import FriendlyAuthenticationForm
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("i18n/", include("django.conf.urls.i18n")),
     path("p/<slug:slug>/", docs_views.project_detail, name="project_detail"),
     path(
         "accounts/login/",

@@ -1,14 +1,16 @@
-{% extends "tracker/base.html" %}
-{% block title %}Διαγραφή προϊόντος{% endblock %}
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Delete product" %}{% endblock %}
+{% block sidebar %}{% include "tracker/_sidebar.html" %}{% endblock %}
 {% block content %}
 <div class="card">
-  <h2>Διαγραφή "{{ item.product.name }}";</h2>
-  <p>Αυτή η ενέργεια δεν αναιρείται.</p>
+  <h2>{% blocktrans with name=item.product.name %}Delete "{{ name }}"?{% endblocktrans %}</h2>
+  <p class="muted">{% trans "This action cannot be undone." %}</p>
   <form method="post">
     {% csrf_token %}
     <div>
-      <button class="btn danger" type="submit">Ναι, διαγραφή</button>
-      <a class="btn secondary" href="{% url 'dashboard' %}">Άκυρο</a>
+      <button class="btn-danger" type="submit">{% trans "Yes, delete" %}</button>
+      <a class="btn-secondary" href="{% url 'dashboard' %}">{% trans "Cancel" %}</a>
     </div>
   </form>
 </div>

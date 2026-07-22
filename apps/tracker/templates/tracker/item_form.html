@@ -1,30 +1,30 @@
-{% extends "tracker/base.html" %}
+{% extends "base.html" %}
+{% load i18n %}
 {% block title %}{{ title }}{% endblock %}
+{% block sidebar %}{% include "tracker/_sidebar.html" %}{% endblock %}
 {% block content %}
 <div class="card">
   <h2>{{ title }}</h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
-      <div class="field">
+      <div class="form-field">
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        <div class="field-body">
-          {% if field.name == "barcode" %}
-            <div style="display:flex;gap:8px;">
-              {{ field }}
-              <button type="button" class="btn secondary" id="scan-barcode-btn" style="white-space:nowrap;">📷 Σάρωση</button>
-            </div>
-          {% else %}
+        {% if field.name == "barcode" %}
+          <div style="display:flex;gap:0.5rem;">
             {{ field }}
-          {% endif %}
-          {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
-          {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
-        </div>
+            <button type="button" class="btn-secondary" id="scan-barcode-btn" style="white-space:nowrap;">📷 {% trans "Scan" %}</button>
+          </div>
+        {% else %}
+          {{ field }}
+        {% endif %}
+        {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
+        {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
       </div>
     {% endfor %}
-    <div class="field-actions">
-      <button class="btn" type="submit">Αποθήκευση</button>
-      <a class="btn secondary" href="{% url 'dashboard' %}">Άκυρο</a>
+    <div>
+      <button class="btn-primary" type="submit">{% trans "Save" %}</button>
+      <a class="btn-secondary" href="{% url 'dashboard' %}">{% trans "Cancel" %}</a>
     </div>
   </form>
 </div>
@@ -32,6 +32,10 @@
 {% include "tracker/_scan_modal.html" %}
 <script>
 var isEditMode = {% if form.instance.pk %}true{% else %}false{% endif %};
+var MSG_FOUND = '{% trans "Found: " %}';
+var MSG_NEW_BATCH = '{% trans " — a new batch will be added " %}';
+var MSG_EXISTING_BATCHES = '{% trans "(there are already " %}';
+var MSG_NEW_BARCODE = '{% trans "New barcode — fill in the product name." %}';
 
 function applyBarcodeLookupResult(data) {
   var statusEl = document.getElementById('scan-status');
@@ -47,19 +51,25 @@ function applyBarcodeLookupResult(data) {
     var minField = document.getElementById('id_min_required_quantity');
     if (minField && data.min_required_quantity) minField.value = data.min_required_quantity;
     if (!isEditMode && data.active_batches > 0) {
-      statusEl.textContent = 'Βρέθηκε: ' + data.name + ' — θα προστεθεί νέα παρτίδα ' +
-        '(υπάρχουν ήδη ' + data.active_batches + ').';
+      statusEl.textContent = MSG_FOUND + data.name + MSG_NEW_BATCH + MSG_EXISTING_BATCHES + data.active_batches + ').';
     } else {
-      statusEl.textContent = 'Βρέθηκε: ' + data.name;
+      statusEl.textContent = MSG_FOUND + data.name;
     }
   } else {
-    statusEl.textContent = 'Νέο barcode — συμπλήρωσε το όνομα προϊόντος.';
+    statusEl.textContent = MSG_NEW_BARCODE;
     if (nameField) nameField.focus();
   }
 }
 
 initBarcodeScanner({
   buttonId: 'scan-barcode-btn',
+  messages: {
+    starting: '{% trans "Starting camera..." %}',
+    libraryMissing: '{% trans "The scanning library did not load (needs an internet connection)." %}',
+    ready: '{% trans "Point the camera at the barcode." %}',
+    cameraError: '{% trans "Could not access the camera: " %}',
+    scanned: '{% trans "Scanned: " %}'
+  },
   onScan: function (decodedText) {
     document.getElementById('id_barcode').value = decodedText;
     fetch('{% url "barcode_lookup" %}?code=' + encodeURIComponent(decodedText))

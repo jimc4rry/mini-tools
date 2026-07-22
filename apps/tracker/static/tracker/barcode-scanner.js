@@ -2,6 +2,16 @@ function initBarcodeScanner(opts) {
   var scanBtn = document.getElementById(opts.buttonId);
   if (!scanBtn) return;
 
+  // Caller passes translated strings (the template knows the active language,
+  // this static file doesn't) — fall back to English if it doesn't.
+  var messages = Object.assign({
+    starting: 'Starting camera...',
+    libraryMissing: 'The scanning library did not load (needs an internet connection).',
+    ready: 'Point the camera at the barcode.',
+    cameraError: 'Could not access the camera: ',
+    scanned: 'Scanned: '
+  }, opts.messages || {});
+
   var modal = document.getElementById('scan-modal');
   var closeBtn = document.getElementById('scan-close-btn');
   var statusEl = document.getElementById('scan-status');
@@ -27,16 +37,16 @@ function initBarcodeScanner(opts) {
   }
 
   function onScanSuccess(decodedText) {
-    statusEl.textContent = 'Σαρώθηκε: ' + decodedText;
+    statusEl.textContent = messages.scanned + decodedText;
     closeModal();
     opts.onScan(decodedText);
   }
 
   scanBtn.addEventListener('click', function () {
     modal.style.display = 'flex';
-    statusEl.textContent = 'Εκκίνηση κάμερας...';
+    statusEl.textContent = messages.starting;
     if (typeof Html5Qrcode === 'undefined') {
-      statusEl.textContent = 'Η βιβλιοθήκη σάρωσης δεν φορτώθηκε (χρειάζεται σύνδεση internet).';
+      statusEl.textContent = messages.libraryMissing;
       return;
     }
     scanner = new Html5Qrcode('qr-reader');
@@ -45,9 +55,9 @@ function initBarcodeScanner(opts) {
       { fps: 10, qrbox: 220 },
       onScanSuccess
     ).then(function () {
-      statusEl.textContent = 'Στόχευσε το barcode με την κάμερα.';
+      statusEl.textContent = messages.ready;
     }).catch(function (err) {
-      statusEl.textContent = 'Δεν ήταν δυνατή η πρόσβαση στην κάμερα: ' + err;
+      statusEl.textContent = messages.cameraError + err;
     });
   });
 

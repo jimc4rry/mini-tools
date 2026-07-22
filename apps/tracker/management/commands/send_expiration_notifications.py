@@ -29,14 +29,14 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.WARNING(f"Skipping {business.name}: no email on file"))
                 continue
 
-            lines = [f"Προϊόντα που λήγουν εντός {business.notify_days_before} ημερών:", ""]
+            lines = [f"Products expiring within {business.notify_days_before} days:", ""]
             for item in items:
                 days_left = (item.expiration_date - today).days
-                status = "ΛΗΓΜΕΝΟ" if days_left < 0 else f"{days_left} μέρες"
-                lines.append(f"- {item.product.name}: {item.expiration_date} ({status}), ποσότητα {item.quantity}")
+                status = "EXPIRED" if days_left < 0 else f"{days_left} days"
+                lines.append(f"- {item.product.name}: {item.expiration_date} ({status}), quantity {item.quantity}")
 
             send_mail(
-                subject=f"[Expiration Tracker] {items.count()} προϊόντα χρειάζονται προσοχή — {business.name}",
+                subject=f"[Expiration Tracker] {items.count()} products need attention — {business.name}",
                 message="\n".join(lines),
                 from_email=None,
                 recipient_list=[to_email],

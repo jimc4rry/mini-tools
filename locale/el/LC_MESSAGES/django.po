@@ -1,0 +1,584 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: minitools 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-22 18:40+0300\n"
+"PO-Revision-Date: 2026-07-22 18:40+0300\n"
+"Last-Translator: \n"
+"Language-Team: Greek\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\apps\tracker\forms.py:31
+msgid "There's no user with that username."
+msgstr "Δεν υπάρχει χρήστης με αυτό το username."
+
+#: .\apps\tracker\forms.py:37
+msgid "Wrong password."
+msgstr "Λάθος κωδικός πρόσβασης."
+
+#: .\apps\tracker\forms.py:46
+msgid "Business name"
+msgstr "Επωνυμία επιχείρησης"
+
+#: .\apps\tracker\forms.py:47
+msgid "Business type"
+msgstr "Τύπος επιχείρησης"
+
+#: .\apps\tracker\forms.py:81
+#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\templates\tracker\waste_log.html:26
+#: .\apps\tracker\views.py:253
+msgid "Product"
+msgstr "Προϊόν"
+
+#: .\apps\tracker\forms.py:83
+msgid "Barcode"
+msgstr "Barcode"
+
+#: .\apps\tracker\forms.py:87
+#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\templates\tracker\waste_log.html:26
+#: .\apps\tracker\views.py:253
+msgid "Category"
+msgstr "Κατηγορία"
+
+#: .\apps\tracker\forms.py:88
+msgid "— No category —"
+msgstr "— Χωρίς κατηγορία —"
+
+#: .\apps\tracker\forms.py:90 .\apps\tracker\views.py:253
+msgid "Unit"
+msgstr "Μονάδα"
+
+#: .\apps\tracker\forms.py:92
+msgid "Cost/unit (€)"
+msgstr "Κόστος/μονάδα (€)"
+
+#: .\apps\tracker\forms.py:95
+msgid "Minimum required stock"
+msgstr "Ελάχιστο απόθεμα"
+
+#: .\apps\tracker\forms.py:102
+#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\templates\tracker\waste_log.html:26
+#: .\apps\tracker\views.py:253
+msgid "Quantity"
+msgstr "Ποσότητα"
+
+#: .\apps\tracker\forms.py:103
+msgid "Batch number"
+msgstr "Αριθμός παρτίδας"
+
+#: .\apps\tracker\forms.py:104 .\apps\tracker\views.py:254
+msgid "Expiration date"
+msgstr "Ημερομηνία λήξης"
+
+#: .\apps\tracker\forms.py:105 .\apps\tracker\views.py:254
+msgid "Notes"
+msgstr "Σημειώσεις"
+
+#: .\apps\tracker\forms.py:136
+#, python-format
+msgid ""
+"You've reached the %(limit)s-product limit of the trial. Upgrade your "
+"subscription for unlimited products."
+msgstr ""
+"Έχεις φτάσει το όριο των %(limit)s προϊόντων του trial. Αναβάθμισε τη "
+"συνδρομή σου για απεριόριστα προϊόντα."
+
+#: .\apps\tracker\forms.py:179
+msgid "New category"
+msgstr "Νέα κατηγορία"
+
+#: .\apps\tracker\forms.py:188
+msgid "A category with that name already exists."
+msgstr "Υπάρχει ήδη κατηγορία με αυτό το όνομα."
+
+#: .\apps\tracker\forms.py:214
+msgid "Notify me this many days before expiration"
+msgstr "Ειδοποίησέ με τόσες μέρες πριν τη λήξη"
+
+#: .\apps\tracker\forms.py:215
+msgid "Notification email"
+msgstr "Email ειδοποιήσεων"
+
+#: .\apps\tracker\forms.py:216
+msgid "WhatsApp number"
+msgstr "Αριθμός WhatsApp"
+
+#: .\apps\tracker\models.py:11
+msgid "Pharmacy"
+msgstr "Φαρμακείο"
+
+#: .\apps\tracker\models.py:12
+msgid "Mini Market"
+msgstr "Mini Market"
+
+#: .\apps\tracker\models.py:13
+msgid "Cafe"
+msgstr "Καφετέρια"
+
+#: .\apps\tracker\models.py:14
+msgid "Delicatessen"
+msgstr "Delicatessen"
+
+#: .\apps\tracker\models.py:15 .\apps\tracker\models.py:80
+msgid "Other"
+msgstr "Άλλο"
+
+#: .\apps\tracker\models.py:18
+msgid "Trial"
+msgstr "Trial"
+
+#: .\apps\tracker\models.py:19 .\apps\tracker\models.py:139
+msgid "Active"
+msgstr "Ενεργό"
+
+#: .\apps\tracker\models.py:20
+msgid "Inactive"
+msgstr "Ανενεργό"
+
+#: .\apps\tracker\models.py:42
+msgid "WhatsApp number in E.164 format, e.g. +306912345678"
+msgstr "Αριθμός WhatsApp σε μορφή E.164, π.χ. +306912345678"
+
+#: .\apps\tracker\models.py:80
+msgid "Food"
+msgstr "Τρόφιμα"
+
+#: .\apps\tracker\models.py:80
+msgid "Beverages"
+msgstr "Ποτά"
+
+#: .\apps\tracker\models.py:80
+msgid "Dairy"
+msgstr "Γαλακτοκομικά"
+
+#: .\apps\tracker\models.py:80
+msgid "Frozen"
+msgstr "Κατεψυγμένα"
+
+#: .\apps\tracker\models.py:80
+msgid "Cleaning supplies"
+msgstr "Καθαριστικά"
+
+#: .\apps\tracker\models.py:80
+msgid "Medicine"
+msgstr "Φάρμακα"
+
+#: .\apps\tracker\models.py:100
+msgid "Pieces"
+msgstr "Τεμάχια"
+
+#: .\apps\tracker\models.py:101
+msgid "Kg"
+msgstr "Κιλά"
+
+#: .\apps\tracker\models.py:102
+msgid "Liters"
+msgstr "Λίτρα"
+
+#: .\apps\tracker\models.py:103
+msgid "Boxes"
+msgstr "Κουτιά"
+
+#: .\apps\tracker\models.py:140
+msgid "Consumed"
+msgstr "Αναλώθηκε"
+
+#: .\apps\tracker\models.py:141
+msgid "Wasted"
+msgstr "Πετάχτηκε"
+
+#: .\apps\tracker\templates\registration\login.html:3
+#: .\apps\tracker\templates\registration\login.html:7
+#: .\apps\tracker\templates\registration\login.html:21
+#: .\apps\tracker\templates\registration\signup.html:20
+#: .\apps\tracker\templates\tracker\_sidebar.html:16
+msgid "Log in"
+msgstr "Σύνδεση"
+
+#: .\apps\tracker\templates\registration\login.html:23
+msgid "Don't have an account?"
+msgstr "Δεν έχεις λογαριασμό;"
+
+#: .\apps\tracker\templates\registration\login.html:23
+#: .\apps\tracker\templates\registration\signup.html:3
+#: .\apps\tracker\templates\registration\signup.html:18
+#: .\apps\tracker\templates\tracker\_sidebar.html:17
+msgid "Sign up"
+msgstr "Εγγραφή"
+
+#: .\apps\tracker\templates\registration\signup.html:7
+msgid "Create your account"
+msgstr "Δημιουργία λογαριασμού"
+
+#: .\apps\tracker\templates\registration\signup.html:20
+msgid "Already have an account?"
+msgstr "Έχεις ήδη λογαριασμό;"
+
+#: .\apps\tracker\templates\tracker\_scan_modal.html:5
+#: .\apps\tracker\templates\tracker\dashboard.html:40
+msgid "Scan barcode"
+msgstr "Σάρωση barcode"
+
+#: .\apps\tracker\templates\tracker\_scan_modal.html:6
+msgid "Close"
+msgstr "Κλείσιμο"
+
+#: .\apps\tracker\templates\tracker\_sidebar.html:2
+msgid "Expiration Tracker"
+msgstr "Expiration Tracker"
+
+#: .\apps\tracker\templates\tracker\_sidebar.html:5
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: .\apps\tracker\templates\tracker\_sidebar.html:6
+#: .\apps\tracker\templates\tracker\categories.html:3
+msgid "Categories"
+msgstr "Κατηγορίες"
+
+#: .\apps\tracker\templates\tracker\_sidebar.html:7
+#: .\apps\tracker\templates\tracker\waste_log.html:3
+#: .\apps\tracker\templates\tracker\waste_log.html:7
+msgid "Waste log"
+msgstr "Φύρα"
+
+#: .\apps\tracker\templates\tracker\_sidebar.html:8
+#: .\apps\tracker\templates\tracker\settings.html:3
+msgid "Settings"
+msgstr "Ρυθμίσεις"
+
+#: .\apps\tracker\templates\tracker\_sidebar.html:12
+msgid "Log out"
+msgstr "Αποσύνδεση"
+
+#: .\apps\tracker\templates\tracker\categories.html:7
+msgid "Product categories"
+msgstr "Κατηγορίες προϊόντων"
+
+#: .\apps\tracker\templates\tracker\categories.html:20
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: .\apps\tracker\templates\tracker\categories.html:27
+msgid "Name"
+msgstr "Όνομα"
+
+#: .\apps\tracker\templates\tracker\categories.html:33
+#, python-format
+msgid "Delete category %(name)s?"
+msgstr "Διαγραφή κατηγορίας %(name)s;"
+
+#: .\apps\tracker\templates\tracker\categories.html:35
+#: .\apps\tracker\templates\tracker\dashboard.html:91
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: .\apps\tracker\templates\tracker\categories.html:43
+msgid "No categories yet."
+msgstr "Δεν υπάρχουν κατηγορίες ακόμα."
+
+#: .\apps\tracker\templates\tracker\dashboard.html:3
+#, python-format
+msgid "Dashboard – %(name)s"
+msgstr "Dashboard – %(name)s"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:12
+msgid "Your trial has ended."
+msgstr "Η δοκιμαστική περίοδος έληξε."
+
+#: .\apps\tracker\templates\tracker\dashboard.html:12
+msgid "Contact us to upgrade your subscription."
+msgstr "Επικοινώνησε μαζί μας για να αναβαθμίσεις τη συνδρομή σου."
+
+#: .\apps\tracker\templates\tracker\dashboard.html:14
+msgid "Trial:"
+msgstr "Δοκιμαστική περίοδος:"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:14
+#, python-format
+msgid "%(days)s day left."
+msgid_plural "%(days)s days left."
+msgstr[0] "Απομένει %(days)s ημέρα."
+msgstr[1] "Απομένουν %(days)s ημέρες."
+
+#: .\apps\tracker\templates\tracker\dashboard.html:16
+#, python-format
+msgid "You've reached the %(limit)s-product trial limit."
+msgstr "Έχεις φτάσει το όριο των %(limit)s προϊόντων του trial."
+
+#: .\apps\tracker\templates\tracker\dashboard.html:24
+msgid "Low stock:"
+msgstr "Χαμηλό απόθεμα:"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:32
+msgid "Export CSV"
+msgstr "Εξαγωγή CSV"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:33
+msgid "New product"
+msgstr "Νέο προϊόν"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:39
+msgid "Search by barcode or product name"
+msgstr "Αναζήτηση με barcode ή όνομα προϊόντος"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:41
+msgid "Search"
+msgstr "Αναζήτηση"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:46
+#: .\apps\tracker\templates\tracker\dashboard.html:76
+msgid "Expired"
+msgstr "Ληγμένα"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:47
+msgid "≤ 7 days"
+msgstr "≤ 7 μέρες"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:48
+msgid "≤ 15 days"
+msgstr "≤ 15 μέρες"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:49
+#: .\apps\tracker\templates\tracker\dashboard.html:79
+msgid "OK"
+msgstr "OK"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:53
+#, python-format
+msgid "Clear filter (%(filter)s)"
+msgstr "Καθαρισμός φίλτρου (%(filter)s)"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:62
+msgid "Expires"
+msgstr "Λήξη"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\views.py:254
+msgid "Status"
+msgstr "Κατάσταση"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:73
+#, python-format
+msgid "%(days)s day"
+msgid_plural "%(days)s days"
+msgstr[0] "%(days)s ημέρα"
+msgstr[1] "%(days)s ημέρες"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:77
+msgid "Critical"
+msgstr "Επείγον"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:78
+msgid "Warning"
+msgstr "Προσοχή"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:82
+msgid "Consume 1"
+msgstr "Ανάλωση κατά 1"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:86
+msgid "Record as waste"
+msgstr "Καταγραφή ως φύρα"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:86
+#, python-format
+msgid "Record %(name)s as waste?"
+msgstr "Να καταγραφεί το %(name)s ως φύρα;"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:88
+msgid "Waste"
+msgstr "Φύρα"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:90
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:100
+#, python-format
+msgid "No products found for \"%(search_query)s\"."
+msgstr "Δεν βρέθηκαν προϊόντα για \"%(search_query)s\"."
+
+#: .\apps\tracker\templates\tracker\dashboard.html:101
+msgid "No products in this category."
+msgstr "Δεν υπάρχουν προϊόντα σε αυτή την κατηγορία."
+
+#: .\apps\tracker\templates\tracker\dashboard.html:102
+msgid "No products yet."
+msgstr "Δεν υπάρχουν προϊόντα."
+
+#: .\apps\tracker\templates\tracker\dashboard.html:102
+msgid "Add your first product"
+msgstr "Πρόσθεσε το πρώτο σου προϊόν"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:113
+#: .\apps\tracker\templates\tracker\item_form.html:67
+msgid "Starting camera..."
+msgstr "Εκκίνηση κάμερας..."
+
+#: .\apps\tracker\templates\tracker\dashboard.html:114
+#: .\apps\tracker\templates\tracker\item_form.html:68
+msgid "The scanning library did not load (needs an internet connection)."
+msgstr "Η βιβλιοθήκη σάρωσης δεν φορτώθηκε (χρειάζεται σύνδεση internet)."
+
+#: .\apps\tracker\templates\tracker\dashboard.html:115
+#: .\apps\tracker\templates\tracker\item_form.html:69
+msgid "Point the camera at the barcode."
+msgstr "Στόχευσε το barcode με την κάμερα."
+
+#: .\apps\tracker\templates\tracker\dashboard.html:116
+#: .\apps\tracker\templates\tracker\item_form.html:70
+msgid "Could not access the camera: "
+msgstr "Δεν ήταν δυνατή η πρόσβαση στην κάμερα: "
+
+#: .\apps\tracker\templates\tracker\dashboard.html:117
+#: .\apps\tracker\templates\tracker\item_form.html:71
+msgid "Scanned: "
+msgstr "Σαρώθηκε: "
+
+#: .\apps\tracker\templates\tracker\item_confirm_delete.html:3
+msgid "Delete product"
+msgstr "Διαγραφή προϊόντος"
+
+#: .\apps\tracker\templates\tracker\item_confirm_delete.html:7
+#, python-format
+msgid "Delete \"%(name)s\"?"
+msgstr "Διαγραφή \"%(name)s\";"
+
+#: .\apps\tracker\templates\tracker\item_confirm_delete.html:8
+msgid "This action cannot be undone."
+msgstr "Αυτή η ενέργεια δεν αναιρείται."
+
+#: .\apps\tracker\templates\tracker\item_confirm_delete.html:12
+msgid "Yes, delete"
+msgstr "Ναι, διαγραφή"
+
+#: .\apps\tracker\templates\tracker\item_confirm_delete.html:13
+#: .\apps\tracker\templates\tracker\item_form.html:27
+msgid "Cancel"
+msgstr "Άκυρο"
+
+#: .\apps\tracker\templates\tracker\item_form.html:16
+msgid "Scan"
+msgstr "Σάρωση"
+
+#: .\apps\tracker\templates\tracker\item_form.html:26
+#: .\apps\tracker\templates\tracker\settings.html:21
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: .\apps\tracker\templates\tracker\item_form.html:35
+msgid "Found: "
+msgstr "Βρέθηκε: "
+
+#: .\apps\tracker\templates\tracker\item_form.html:36
+msgid " — a new batch will be added "
+msgstr " — θα προστεθεί νέα παρτίδα "
+
+#: .\apps\tracker\templates\tracker\item_form.html:37
+msgid "(there are already "
+msgstr "(υπάρχουν ήδη "
+
+#: .\apps\tracker\templates\tracker\item_form.html:38
+msgid "New barcode — fill in the product name."
+msgstr "Νέο barcode — συμπλήρωσε το όνομα προϊόντος."
+
+#: .\apps\tracker\templates\tracker\settings.html:7
+msgid "Notification settings"
+msgstr "Ρυθμίσεις ειδοποιήσεων"
+
+#: .\apps\tracker\templates\tracker\settings.html:9
+#, python-format
+msgid "Business: %(name)s (%(type)s) — Plan: %(plan)s"
+msgstr "Επιχείρηση: %(name)s (%(type)s) — Πλάνο: %(plan)s"
+
+#: .\apps\tracker\templates\tracker\waste_log.html:13
+msgid "Wasted items (month)"
+msgstr "Είδη φύρας (μήνας)"
+
+#: .\apps\tracker\templates\tracker\waste_log.html:17
+msgid "Waste value (month)"
+msgstr "Αξία φύρας (μήνας)"
+
+#: .\apps\tracker\templates\tracker\waste_log.html:26
+msgid "Value"
+msgstr "Αξία"
+
+#: .\apps\tracker\templates\tracker\waste_log.html:26
+msgid "Date"
+msgstr "Ημερομηνία"
+
+#: .\apps\tracker\templates\tracker\waste_log.html:42
+msgid "No waste recorded yet."
+msgstr "Δεν έχει καταγραφεί φύρα ακόμα."
+
+#: .\apps\tracker\views.py:26 .\apps\tracker\views.py:29
+msgid "This account isn't linked to a business."
+msgstr "Αυτός ο λογαριασμός δεν είναι συνδεδεμένος με επιχείρηση."
+
+#: .\apps\tracker\views.py:54
+msgid "Too many signup attempts from this network. Please try again later."
+msgstr "Πάρα πολλές προσπάθειες εγγραφής από αυτό το δίκτυο. Δοκίμασε ξανά αργότερα."
+
+#: .\apps\tracker\views.py:66
+msgid "Welcome! Your account has been created."
+msgstr "Καλωσόρισες! Ο λογαριασμός σου δημιουργήθηκε."
+
+#: .\apps\tracker\views.py:124
+msgid "Product added."
+msgstr "Το προϊόν προστέθηκε."
+
+#: .\apps\tracker\views.py:128
+msgid "Add product"
+msgstr "Προσθήκη προϊόντος"
+
+#: .\apps\tracker\views.py:141
+msgid "Product updated."
+msgstr "Το προϊόν ενημερώθηκε."
+
+#: .\apps\tracker\views.py:145
+msgid "Edit product"
+msgstr "Επεξεργασία προϊόντος"
+
+#: .\apps\tracker\views.py:156
+msgid "Product deleted."
+msgstr "Το προϊόν διαγράφηκε."
+
+#: .\apps\tracker\views.py:176
+msgid "Quantity updated."
+msgstr "Ενημερώθηκε η ποσότητα."
+
+#: .\apps\tracker\views.py:192
+msgid "Recorded as waste."
+msgstr "Καταγράφηκε ως φύρα."
+
+#: .\apps\tracker\views.py:254
+msgid "Days"
+msgstr "Ημέρες"
+
+#: .\apps\tracker\views.py:311
+msgid "Category added."
+msgstr "Η κατηγορία προστέθηκε."
+
+#: .\apps\tracker\views.py:328
+msgid "Category deleted."
+msgstr "Η κατηγορία διαγράφηκε."
+
+#: .\apps\tracker\views.py:341
+msgid "Notification settings updated."
+msgstr "Οι ρυθμίσεις ειδοποιήσεων ενημερώθηκαν."
+
+#: .\templates\admin\base_site.html:4
+msgid "Django site admin"
+msgstr "Ιστότοπος διαχείρισης Django"
+
+#: .\templates\admin\base_site.html:7
+msgid "Django administration"
+msgstr "Διαχείριση Django"

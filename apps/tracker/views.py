@@ -8,6 +8,7 @@ from django.core.cache import cache
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 from .forms import CategoryForm, InventoryItemForm, NotificationSettingsForm, SignupForm
 from .models import Business, Category, InventoryItem, Product
@@ -22,10 +23,10 @@ def _business_or_none(user):
 
 def _redirect_no_business(request):
     if request.user.is_staff:
-        messages.info(request, "Αυτός ο λογαριασμός δεν είναι συνδεδεμένος με επιχείρηση.")
+        messages.info(request, _("This account isn't linked to a business."))
         return redirect("/admin/")
     logout(request)
-    messages.info(request, "Αυτός ο λογαριασμός δεν είναι συνδεδεμένος με επιχείρηση.")
+    messages.info(request, _("This account isn't linked to a business."))
     return redirect("login")
 
 
@@ -50,7 +51,7 @@ def signup(request):
         return redirect("dashboard")
     if request.method == "POST":
         if _is_signup_rate_limited(request):
-            messages.error(request, "Πάρα πολλές προσπάθειες εγγραφής από αυτό το δίκτυο. Δοκίμασε ξανά αργότερα.")
+            messages.error(request, _("Too many signup attempts from this network. Please try again later."))
             return render(request, "registration/signup.html", {"form": SignupForm()})
 
         form = SignupForm(request.POST)
@@ -62,7 +63,7 @@ def signup(request):
                 return redirect("login")
             user = form.save()
             login(request, user)
-            messages.success(request, "Καλωσόρισες! Ο λογαριασμός σου δημιουργήθηκε.")
+            messages.success(request, _("Welcome! Your account has been created."))
             return redirect("dashboard")
     else:
         form = SignupForm()
@@ -120,11 +121,11 @@ def item_create(request):
         form = InventoryItemForm(request.POST, business=business)
         if form.is_valid():
             form.save()
-            messages.success(request, "Το προϊόν προστέθηκε.")
+            messages.success(request, _("Product added."))
             return redirect("dashboard")
     else:
         form = InventoryItemForm(business=business)
-    return render(request, "tracker/item_form.html", {"form": form, "title": "Προσθήκη προϊόντος"})
+    return render(request, "tracker/item_form.html", {"form": form, "title": _("Add product")})
 
 
 @login_required
@@ -137,11 +138,11 @@ def item_edit(request, pk):
         form = InventoryItemForm(request.POST, instance=item, business=business)
         if form.is_valid():
             form.save()
-            messages.success(request, "Το προϊόν ενημερώθηκε.")
+            messages.success(request, _("Product updated."))
             return redirect("dashboard")
     else:
         form = InventoryItemForm(instance=item, business=business)
-    return render(request, "tracker/item_form.html", {"form": form, "title": "Επεξεργασία προϊόντος"})
+    return render(request, "tracker/item_form.html", {"form": form, "title": _("Edit product")})
 
 
 @login_required
@@ -152,7 +153,7 @@ def item_delete(request, pk):
     item = get_object_or_404(InventoryItem, pk=pk, business=business)
     if request.method == "POST":
         item.delete()
-        messages.success(request, "Το προϊόν διαγράφηκε.")
+        messages.success(request, _("Product deleted."))
         return redirect("dashboard")
     return render(request, "tracker/item_confirm_delete.html", {"item": item})
 
@@ -172,7 +173,7 @@ def item_consume(request, pk):
             item.status = InventoryItem.Status.CONSUMED
             item.resolved_at = timezone.now()
         item.save()
-        messages.success(request, "Ενημερώθηκε η ποσότητα.")
+        messages.success(request, _("Quantity updated."))
     return redirect("dashboard")
 
 
@@ -188,7 +189,7 @@ def item_waste(request, pk):
         item.status = InventoryItem.Status.WASTED
         item.resolved_at = timezone.now()
         item.save()
-        messages.success(request, "Καταγράφηκε ως φύρα.")
+        messages.success(request, _("Recorded as waste."))
     return redirect("dashboard")
 
 
@@ -248,7 +249,10 @@ def export_csv(request):
 
     writer = csv.writer(response)
     writer.writerow(
-        ["Προϊόν", "Barcode", "Κατηγορία", "Ποσότητα", "Μονάδα", "Ημ. Λήξης", "Ημέρες", "Κατάσταση", "Batch", "Σημειώσεις"]
+        [
+            _("Product"), "Barcode", _("Category"), _("Quantity"), _("Unit"),
+            _("Expiration date"), _("Days"), _("Status"), "Batch", _("Notes"),
+        ]
     )
     for item in items:
         writer.writerow(
@@ -304,7 +308,7 @@ def category_list(request):
         form = CategoryForm(request.POST, business=business)
         if form.is_valid():
             form.save()
-            messages.success(request, "Η κατηγορία προστέθηκε.")
+            messages.success(request, _("Category added."))
             return redirect("category_list")
     else:
         form = CategoryForm(business=business)
@@ -321,7 +325,7 @@ def category_delete(request, pk):
     if request.method == "POST":
         category.is_active = False
         category.save()
-        messages.success(request, "Η κατηγορία διαγράφηκε.")
+        messages.success(request, _("Category deleted."))
     return redirect("category_list")
 
 
@@ -334,7 +338,7 @@ def settings_view(request):
         form = NotificationSettingsForm(request.POST, instance=business)
         if form.is_valid():
             form.save()
-            messages.success(request, "Οι ρυθμίσεις ειδοποιήσεων ενημερώθηκαν.")
+            messages.success(request, _("Notification settings updated."))
             return redirect("settings")
     else:
         form = NotificationSettingsForm(instance=business)

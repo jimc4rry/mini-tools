@@ -1,25 +1,25 @@
-{% extends "tracker/base.html" %}
-{% block title %}Σύνδεση{% endblock %}
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Log in" %}{% endblock %}
+{% block sidebar %}{% include "tracker/_sidebar.html" %}{% endblock %}
 {% block content %}
 <div class="card">
-  <h2>Σύνδεση</h2>
+  <h2>{% trans "Log in" %}</h2>
   {% if form.non_field_errors %}
-    <div class="field-error" style="margin-bottom:12px">{{ form.non_field_errors|join:", " }}</div>
+    <div class="field-error" style="margin-bottom:0.75rem">{{ form.non_field_errors|join:", " }}</div>
   {% endif %}
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
-      <div class="field">
+      <div class="form-field">
         <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        <div class="field-body">
-          {{ field }}
-          {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
-          {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
-        </div>
+        {{ field }}
+        {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
+        {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
       </div>
     {% endfor %}
-    <div class="field-actions"><button class="btn" type="submit">Σύνδεση</button></div>
+    <button class="btn-primary" type="submit">{% trans "Log in" %}</button>
   </form>
-  <p class="helptext" style="margin-top:12px">Δεν έχεις λογαριασμό; <a href="{% url 'signup' %}">Εγγραφή</a></p>
+  <p class="helptext" style="margin-top:0.75rem">{% trans "Don't have an account?" %} <a href="{% url 'signup' %}">{% trans "Sign up" %}</a></p>
 </div>
 {% endblock %}

@@ -1,27 +1,29 @@
-{% extends "tracker/base.html" %}
-{% block title %}Φύρα{% endblock %}
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Waste log" %}{% endblock %}
+{% block sidebar %}{% include "tracker/_sidebar.html" %}{% endblock %}
 {% block content %}
 <div class="top-row">
-  <h2>Καταγραφή φύρας</h2>
+  <h2>{% trans "Waste log" %}</h2>
 </div>
 
-<div class="stats">
-  <div class="stat">
-    <div class="n" style="color:var(--expired)">{{ month_count }}</div>
-    <div class="l">Είδη φύρας (μήνας)</div>
+<div class="stat-row">
+  <div class="stat-tile">
+    <div class="n" style="color:#dc3545">{{ month_count }}</div>
+    <div class="l">{% trans "Wasted items (month)" %}</div>
   </div>
-  <div class="stat">
-    <div class="n" style="color:var(--expired)">{{ month_value|floatformat:2 }}€</div>
-    <div class="l">Αξία φύρας (μήνας)</div>
+  <div class="stat-tile">
+    <div class="n" style="color:#dc3545">{{ month_value|floatformat:2 }}€</div>
+    <div class="l">{% trans "Waste value (month)" %}</div>
   </div>
 </div>
 
 <div class="card">
   {% if items %}
   <div style="overflow-x:auto">
-  <table>
+  <table class="data-table">
     <thead>
-      <tr><th>Προϊόν</th><th>Κατηγορία</th><th>Ποσότητα</th><th>Αξία</th><th>Ημερομηνία</th></tr>
+      <tr><th>{% trans "Product" %}</th><th>{% trans "Category" %}</th><th>{% trans "Quantity" %}</th><th>{% trans "Value" %}</th><th>{% trans "Date" %}</th></tr>
     </thead>
     <tbody>
       {% for item in items %}
@@ -37,7 +39,7 @@
   </table>
   </div>
   {% else %}
-    <p class="empty">Δεν έχει καταγραφεί φύρα ακόμα.</p>
+    <p class="muted" style="text-align:center;padding:2rem;">{% trans "No waste recorded yet." %}</p>
   {% endif %}
 </div>
 {% endblock %}

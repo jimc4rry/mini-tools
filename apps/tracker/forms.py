@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from .models import Business, Category, DEFAULT_CATEGORY_NAMES, InventoryItem, Product
 
@@ -27,13 +28,13 @@ class FriendlyAuthenticationForm(AuthenticationForm):
         if username and password:
             if not User.objects.filter(username=username).exists():
                 raise forms.ValidationError(
-                    "Δεν υπάρχει χρήστης με αυτό το username.", code="no_such_user"
+                    _("There's no user with that username."), code="no_such_user"
                 )
 
             self.user_cache = authenticate(self.request, username=username, password=password)
             if self.user_cache is None:
                 raise forms.ValidationError(
-                    "Λάθος κωδικός πρόσβασης.", code="wrong_password"
+                    _("Wrong password."), code="wrong_password"
                 )
             self.confirm_login_allowed(self.user_cache)
 
@@ -42,8 +43,8 @@ class FriendlyAuthenticationForm(AuthenticationForm):
 
 class SignupForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    business_name = forms.CharField(max_length=200, label="Επωνυμία επιχείρησης")
-    business_type = forms.ChoiceField(choices=Business.BusinessType.choices)
+    business_name = forms.CharField(max_length=200, label=_("Business name"))
+    business_type = forms.ChoiceField(choices=Business.BusinessType.choices, label=_("Business type"))
     # Honeypot: invisible to real users (off-screen, out of tab order, not read by
     # screen readers), so only a bot that blindly fills every input will populate it.
     # Left blank by humans - checked in the signup view, never saved to the User model.
@@ -71,32 +72,38 @@ class SignupForm(UserCreationForm):
             trial_ends_at=timezone.localdate() + datetime.timedelta(days=Business.TRIAL_LENGTH_DAYS),
         )
         Category.objects.bulk_create(
-            [Category(business=business, name=name) for name in DEFAULT_CATEGORY_NAMES]
+            [Category(business=business, name=str(name)) for name in DEFAULT_CATEGORY_NAMES]
         )
         return user
 
 
 class InventoryItemForm(forms.ModelForm):
-    product_name = forms.CharField(max_length=200, label="Προϊόν")
+    product_name = forms.CharField(max_length=200, label=_("Product"))
     barcode = forms.CharField(
-        max_length=64, required=False, label="Barcode",
+        max_length=64, required=False, label=_("Barcode"),
         widget=forms.TextInput(attrs={"id": "id_barcode"}),
     )
     category = forms.ModelChoiceField(
-        queryset=Category.objects.none(), required=False, label="Κατηγορία",
-        empty_label="— Χωρίς κατηγορία —",
+        queryset=Category.objects.none(), required=False, label=_("Category"),
+        empty_label=_("— No category —"),
     )
-    unit = forms.ChoiceField(choices=Product.Unit.choices, initial=Product.Unit.PIECE)
+    unit = forms.ChoiceField(choices=Product.Unit.choices, initial=Product.Unit.PIECE, label=_("Unit"))
     unit_cost = forms.DecimalField(
-        max_digits=10, decimal_places=2, required=False, label="Κόστος/μονάδα (€)",
+        max_digits=10, decimal_places=2, required=False, label=_("Cost/unit (€)"),
     )
     min_required_quantity = forms.DecimalField(
-        max_digits=10, decimal_places=2, required=False, label="Ελάχιστο απόθεμα",
+        max_digits=10, decimal_places=2, required=False, label=_("Minimum required stock"),
     )
 
     class Meta:
         model = InventoryItem
         fields = ["quantity", "batch_number", "expiration_date", "notes"]
+        labels = {
+            "quantity": _("Quantity"),
+            "batch_number": _("Batch number"),
+            "expiration_date": _("Expiration date"),
+            "notes": _("Notes"),
+        }
         widgets = {
             "expiration_date": forms.DateInput(attrs={"type": "date"}),
         }
@@ -125,13 +132,16 @@ class InventoryItemForm(forms.ModelForm):
             is_new_product = not Product.objects.filter(business=self.business, name=product_name).exists()
             if is_new_product and self.business.product_limit_reached:
                 raise forms.ValidationError(
-                    f"Έχεις φτάσει το όριο των {self.business.TRIAL_PRODUCT_LIMIT} προϊόντων του trial. "
-                    "Αναβάθμισε τη συνδρομή σου για απεριόριστα προϊόντα."
+                    _(
+                        "You've reached the %(limit)s-product limit of the trial. "
+                        "Upgrade your subscription for unlimited products."
+                    )
+                    % {"limit": self.business.TRIAL_PRODUCT_LIMIT}
                 )
         return cleaned
 
     def save(self, commit=True):
-        product, _ = Product.objects.get_or_create(
+        product, created = Product.objects.get_or_create(
             business=self.business,
             name=self.cleaned_data["product_name"],
             defaults={
@@ -166,7 +176,7 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ["name"]
-        labels = {"name": "Νέα κατηγορία"}
+        labels = {"name": _("New category")}
 
     def __init__(self, *args, business=None, **kwargs):
         self.business = business
@@ -175,7 +185,7 @@ class CategoryForm(forms.ModelForm):
     def clean_name(self):
         name = self.cleaned_data["name"]
         if Category.objects.filter(business=self.business, name=name, is_active=True).exists():
-            raise forms.ValidationError("Υπάρχει ήδη κατηγορία με αυτό το όνομα.")
+            raise forms.ValidationError(_("A category with that name already exists."))
         return name
 
     def save(self, commit=True):
@@ -200,3 +210,8 @@ class NotificationSettingsForm(forms.ModelForm):
     class Meta:
         model = Business
         fields = ["notify_days_before", "notify_email", "notify_phone"]
+        labels = {
+            "notify_days_before": _("Notify me this many days before expiration"),
+            "notify_email": _("Notification email"),
+            "notify_phone": _("WhatsApp number"),
+        }

@@ -6,7 +6,7 @@ Setup (needs your own Twilio account — this is scaffolding, not wired to a liv
    or apply for a verified WhatsApp Business sender for production use).
 2. Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_WHATSAPP_FROM in .env
    (TWILIO_WHATSAPP_FROM looks like "whatsapp:+14155238886" for the sandbox number).
-3. Each business fills in its WhatsApp number under Ρυθμίσεις (Business.notify_phone,
+3. Each business fills in its WhatsApp number under Settings (Business.notify_phone,
    E.164 format e.g. +306912345678).
 4. Twilio's Sandbox only delivers to numbers that have joined the sandbox (send the join
    code to the sandbox number from WhatsApp first). Production sending outside a 24h
@@ -36,8 +36,8 @@ class Command(BaseCommand):
 
         if not (account_sid and auth_token and whatsapp_from):
             self.stdout.write(self.style.WARNING(
-                "Twilio δεν έχει ρυθμιστεί (TWILIO_ACCOUNT_SID/TWILIO_AUTH_TOKEN/"
-                "TWILIO_WHATSAPP_FROM) — παραλείπεται."
+                "Twilio isn't configured (TWILIO_ACCOUNT_SID/TWILIO_AUTH_TOKEN/"
+                "TWILIO_WHATSAPP_FROM) — skipping."
             ))
             return
 
@@ -60,13 +60,13 @@ class Command(BaseCommand):
             if not items:
                 continue
 
-            lines = [f"📦 {business.name}: {items.count()} προϊόντα λήγουν σύντομα:"]
+            lines = [f"📦 {business.name}: {items.count()} products expiring soon:"]
             for item in items[:10]:
                 days_left = (item.expiration_date - today).days
-                status = "ΛΗΓΜΕΝΟ" if days_left < 0 else f"{days_left}μ"
+                status = "EXPIRED" if days_left < 0 else f"{days_left}d"
                 lines.append(f"- {item.product.name} ({status})")
             if items.count() > 10:
-                lines.append(f"...και {items.count() - 10} ακόμα.")
+                lines.append(f"...and {items.count() - 10} more.")
 
             try:
                 client.messages.create(
