@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Minitools Hub{% endblock %}
+
+{% block content %}
+  <h1>Minitools Hub</h1>
+  <p class="muted">Support documents, policies and standalone mini-tools in one place.</p>
+
+  <h2>Latest documents</h2>
+  <div class="grid">
+    {% for document in documents %}
+      <div class="card">
+        <a href="{{ document.get_absolute_url }}"><strong>{{ document.title }}</strong></a>
+        <p class="muted">{{ document.summary }}</p>
+      </div>
+    {% empty %}
+      <p class="muted">No documents published yet.</p>
+    {% endfor %}
+  </div>
+
+  <h2>Tools</h2>
+  <div class="grid">
+    {% for tool in tools %}
+      <div class="card">
+        <a href="{{ tool.get_absolute_url }}"><strong>{{ tool.icon }} {{ tool.name }}</strong></a>
+        <p class="muted">{{ tool.description }}</p>
+        {% if not tool.is_free %}<span class="badge">paid</span>{% endif %}
+      </div>
+    {% empty %}
+      <p class="muted">No tools published yet.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

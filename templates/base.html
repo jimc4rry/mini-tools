@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Minitools Hub{% endblock %}</title>
+  <style>
+    :root {
+      --bg: #0f1216;
+      --surface: #171b21;
+      --border: #262c35;
+      --text: #e7eaee;
+      --muted: #9aa4b2;
+      --accent: #4f8cff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header nav a { margin-left: 1.25rem; color: var(--text); font-weight: 500; }
+    header .brand { font-weight: 700; font-size: 1.1rem; }
+    main { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .muted { color: var(--muted); }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 2rem 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="{% url 'core:home' %}">Minitools Hub</a>
+    <nav>
+      <a href="{% url 'docs:list' %}">Documents</a>
+      <a href="{% url 'tools:list' %}">Tools</a>
+    </nav>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer>&copy; {% now "Y" %} Minitools Hub</footer>
+</body>
+</html>

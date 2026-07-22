@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Tools — Minitools Hub{% endblock %}
+
+{% block content %}
+  <h1>Tools</h1>
+  <div class="grid">
+    {% for tool in tools %}
+      <div class="card">
+        <a href="{{ tool.get_absolute_url }}"><strong>{{ tool.icon }} {{ tool.name }}</strong></a>
+        <p class="muted">{{ tool.description }}</p>
+        {% if not tool.is_free %}<span class="badge">paid</span>{% endif %}
+      </div>
+    {% empty %}
+      <p class="muted">No tools published yet.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
