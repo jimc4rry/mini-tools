@@ -15,7 +15,7 @@ Django project that hosts:
 - **Core** (`apps/core`) — landing page + `/healthz` for Railway's health
   check.
 - **Expiration Tracker** (`apps/tracker`) — a full multi-tenant inventory app
-  (mounted at `/inventory/`), ported in from a previously standalone Django
+  (mounted at `/expiration-tracker/`), ported in from a previously standalone Django
   project. Unlike the docs/tools apps it has real user accounts (signup
   creates a `Business` tied to the user) and keeps its own look
   (`apps/tracker/templates/tracker/base.html`) rather than the shared
@@ -78,9 +78,11 @@ Postgres needed for local dev.
      `RAILWAY_PUBLIC_DOMAIN` (auto-detected in `prod.py`), or set explicitly
      if you attach a custom domain.
    - `CSRF_TRUSTED_ORIGINS` — same idea, needed if using a custom domain.
-5. Railway auto-detects the `Procfile`:
-   - `release` runs `migrate` + `collectstatic` before each deploy.
-   - `web` runs `gunicorn` bound to Railway's `$PORT`.
+5. Railway auto-detects the `Procfile`. Railway doesn't run a Heroku-style
+   `release:` process type, so `migrate` + `collectstatic` are chained
+   directly into the `web:` start command instead (before `gunicorn`) —
+   they run once per deploy/restart, which is harmless since both are
+   idempotent.
 6. Deploy. Then run `railway run python manage.py createsuperuser` to get
    into `/admin/` and start adding documents/tools.
 
