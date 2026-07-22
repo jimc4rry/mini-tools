@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load docs_extras %}
 
 {% block title %}{{ project.name }} — Minitools Hub{% endblock %}
 {% block sidebar %}{% include "docs/_sidebar.html" %}{% endblock %}
@@ -6,6 +7,9 @@
 {% block content %}
   <p><a href="{% url 'docs:list' %}">&larr; All documents</a></p>
   <h1>{{ project.name }}</h1>
+  {% if project.description %}
+    <div class="card">{{ project.description|markdownify }}</div>
+  {% endif %}
   <div class="grid">
     {% for document in documents %}
       <div class="card">
