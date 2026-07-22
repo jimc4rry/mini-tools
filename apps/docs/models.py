@@ -41,7 +41,7 @@ class Project(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("docs:project_detail", args=[self.slug])
+        return reverse("project_detail", args=[self.slug])
 
     def get_app_url(self):
         if not self.url_name:

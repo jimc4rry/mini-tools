@@ -2,10 +2,12 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
 
+from apps.docs import views as docs_views
 from apps.tracker.forms import FriendlyAuthenticationForm
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("p/<slug:slug>/", docs_views.project_detail, name="project_detail"),
     path(
         "accounts/login/",
         auth_views.LoginView.as_view(
