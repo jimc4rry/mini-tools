@@ -3,6 +3,9 @@
 {% block content %}
 <div class="card">
   <h2>Σύνδεση</h2>
+  {% if form.non_field_errors %}
+    <div class="field-error" style="margin-bottom:12px">{{ form.non_field_errors|join:", " }}</div>
+  {% endif %}
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
