@@ -2,20 +2,16 @@
 {% load docs_extras %}
 
 {% block title %}{{ document.title }} — Minitools Hub{% endblock %}
+{% block sidebar %}{% include "docs/_sidebar.html" %}{% endblock %}
 
 {% block content %}
-  <div class="docs-layout">
-    {% include "docs/_sidebar.html" %}
-    <div>
-      <p><a href="{% url 'docs:list' %}">&larr; All documents</a></p>
-      <h1>{{ document.title }}</h1>
-      {% if document.project %}
-        <p><a href="{{ document.project.get_absolute_url }}" class="badge">{{ document.project.name }}</a></p>
-      {% endif %}
-      <p class="muted">Last updated {{ document.updated_at|date:"d/m/Y" }}</p>
-      <div class="card">
-        {{ document.body|markdownify }}
-      </div>
-    </div>
+  <p><a href="{% url 'docs:list' %}">&larr; All documents</a></p>
+  <h1>{{ document.title }}</h1>
+  {% if document.project %}
+    <p><a href="{{ document.project.get_absolute_url }}" class="badge">{{ document.project.name }}</a></p>
+  {% endif %}
+  <p class="muted">Last updated {{ document.updated_at|date:"d/m/Y" }}</p>
+  <div class="card">
+    {{ document.body|markdownify }}
   </div>
 {% endblock %}

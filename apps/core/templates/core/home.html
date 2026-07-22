@@ -1,26 +1,22 @@
 {% extends "base.html" %}
 
 {% block title %}Minitools Hub{% endblock %}
+{% block sidebar %}{% include "docs/_sidebar.html" %}{% endblock %}
 
 {% block content %}
-  <div class="docs-layout">
-    {% include "docs/_sidebar.html" %}
-    <div>
-      <h1>Minitools Hub</h1>
-      <p class="muted">Pick a project on the left to see its documents, or browse the tools below.</p>
+  <h1>Minitools Hub</h1>
+  <p class="muted">Pick a project on the left to see its documents, or browse the tools below.</p>
 
-      <h2>Tools</h2>
-      <div class="grid">
-        {% for tool in tools %}
-          <div class="card">
-            <a href="{{ tool.get_absolute_url }}"><strong>{{ tool.icon }} {{ tool.name }}</strong></a>
-            <p class="muted">{{ tool.description }}</p>
-            {% if not tool.is_free %}<span class="badge">paid</span>{% endif %}
-          </div>
-        {% empty %}
-          <p class="muted">No tools published yet.</p>
-        {% endfor %}
+  <h2>Tools</h2>
+  <div class="grid">
+    {% for tool in tools %}
+      <div class="card">
+        <a href="{{ tool.get_absolute_url }}"><strong>{{ tool.icon }} {{ tool.name }}</strong></a>
+        <p class="muted">{{ tool.description }}</p>
+        {% if not tool.is_free %}<span class="badge">paid</span>{% endif %}
       </div>
-    </div>
+    {% empty %}
+      <p class="muted">No tools published yet.</p>
+    {% endfor %}
   </div>
 {% endblock %}

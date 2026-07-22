@@ -1,23 +1,19 @@
 {% extends "base.html" %}
 
 {% block title %}{{ project.name }} — Minitools Hub{% endblock %}
+{% block sidebar %}{% include "docs/_sidebar.html" %}{% endblock %}
 
 {% block content %}
-  <div class="docs-layout">
-    {% include "docs/_sidebar.html" %}
-    <div>
-      <p><a href="{% url 'docs:list' %}">&larr; All documents</a></p>
-      <h1>{{ project.name }}</h1>
-      <div class="grid">
-        {% for document in documents %}
-          <div class="card">
-            <a href="{{ document.get_absolute_url }}"><strong>{{ document.title }}</strong></a>
-            <p class="muted">{{ document.summary }}</p>
-          </div>
-        {% empty %}
-          <p class="muted">No documents in this project yet.</p>
-        {% endfor %}
+  <p><a href="{% url 'docs:list' %}">&larr; All documents</a></p>
+  <h1>{{ project.name }}</h1>
+  <div class="grid">
+    {% for document in documents %}
+      <div class="card">
+        <a href="{{ document.get_absolute_url }}"><strong>{{ document.title }}</strong></a>
+        <p class="muted">{{ document.summary }}</p>
       </div>
-    </div>
+    {% empty %}
+      <p class="muted">No documents in this project yet.</p>
+    {% endfor %}
   </div>
 {% endblock %}

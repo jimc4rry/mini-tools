@@ -1,14 +1,12 @@
-<aside class="docs-sidebar">
-  <h3>Projects</h3>
-  <ul>
-    {% for project in all_projects %}
-      <li>
-        <a href="{{ project.get_absolute_url }}"{% if project == current_project %} class="active"{% endif %}>
-          {{ project.name }}
-        </a>
-      </li>
-    {% empty %}
-      <li class="muted">No projects yet.</li>
-    {% endfor %}
-  </ul>
-</aside>
+<h3>Projects</h3>
+<ul>
+  {% for project in all_projects %}
+    <li>
+      <a href="{{ project.get_absolute_url }}"{% if project == current_project %} class="active"{% endif %}>
+        {{ project.name }}
+      </a>
+    </li>
+  {% empty %}
+    <li class="muted">No projects yet.</li>
+  {% endfor %}
+</ul>
