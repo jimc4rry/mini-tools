@@ -105,7 +105,7 @@ def index(request):
     branch names, Jira smart-commit syntax, and a Gherkin/BDD scenario
     skeleton. Pure text templating - no state, nothing saved.
     """
-    mode = request.POST.get("mode", "branch")
+    mode = request.POST.get("mode") or request.GET.get("mode", "branch")
     if mode not in GENERATORS:
         mode = "branch"
     result = None

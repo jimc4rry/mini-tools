@@ -124,7 +124,9 @@ def index(request):
     UPC-A/EAN-13. Stateless: nothing is saved server-side, the barcode
     image is rendered in-memory and returned as a data URI.
     """
-    mode = request.POST.get("mode", "validate")
+    mode = request.POST.get("mode") or request.GET.get("mode", "validate")
+    if mode not in ("validate", "generate"):
+        mode = "validate"
     result = None
     error = None
     fmt = request.POST.get("format", "ean13")
