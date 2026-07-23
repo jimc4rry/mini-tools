@@ -1,5 +1,4 @@
 from django import forms
-from django.utils.translation import gettext_lazy as _
 
 from .models import Feedback
 
@@ -23,14 +22,14 @@ class FeedbackForm(forms.ModelForm):
         model = Feedback
         fields = ("category", "name", "email", "message")
         labels = {
-            "category": _("Category"),
-            "name": _("Name (optional)"),
-            "email": _("Email (optional)"),
-            "message": _("Message"),
+            "category": "Category",
+            "name": "Name (optional)",
+            "email": "Email (optional)",
+            "message": "Message",
         }
 
     def clean_message(self):
         message = self.cleaned_data["message"].strip()
         if not message:
-            raise forms.ValidationError(_("Please enter a message."))
+            raise forms.ValidationError("Please enter a message.")
         return message

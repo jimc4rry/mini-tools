@@ -680,10 +680,10 @@
     <nav>
       <a href="{% url 'docs:list' %}">Documents</a>
       <a href="{% url 'tools:list' %}">Tools</a>
-      <button type="button" id="header-search-btn" class="header-search-btn" aria-label="{% trans 'Search' %}">
+      <button type="button" id="header-search-btn" class="header-search-btn" aria-label="Search">
         🔍 <span class="search-kbd">Ctrl K</span>
       </button>
-      <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" aria-label="{% trans 'Toggle dark / light theme' %}">
+      <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle dark / light theme">
         <span class="theme-toggle-icon">🌙</span>
       </button>
     </nav>
@@ -702,7 +702,7 @@
     </main>
   </div>
   <div class="newsletter-bar">
-    <span>{% trans "Get notified when new free tools launch" %}</span>
+    <span>Get notified when new free tools launch</span>
     <form method="post" action="{% url 'newsletter:subscribe' %}" class="newsletter-form">
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ request.path }}">
@@ -710,16 +710,16 @@
         <label for="id_nl_website"></label>
         <input type="text" id="id_nl_website" name="website" tabindex="-1" autocomplete="off">
       </div>
-      <input type="email" name="email" placeholder="{% trans 'you@example.com' %}" required>
-      <button type="submit" class="btn-secondary">{% trans "Subscribe" %}</button>
+      <input type="email" name="email" placeholder="you@example.com" required>
+      <button type="submit" class="btn-secondary">Subscribe</button>
     </form>
   </div>
-  <footer>&copy; {% now "Y" %} Minitools Hub &middot; <a href="{% url 'core:feed' %}">{% trans "RSS feed" %}</a></footer>
+  <footer>&copy; {% now "Y" %} Minitools Hub &middot; <a href="{% url 'core:feed' %}">RSS feed</a></footer>
   {% include "feedback/_modal.html" %}
 
   <div id="search-modal" class="search-modal">
     <div class="card search-modal-card">
-      <input type="text" id="search-input" class="search-input" placeholder="{% trans 'Search tools, docs, applications…' %}" autocomplete="off">
+      <input type="text" id="search-input" class="search-input" placeholder="Search tools, docs, applications…" autocomplete="off">
       <div id="search-results" class="search-results"></div>
     </div>
   </div>
@@ -749,7 +749,7 @@
         if (input.value.trim().length >= 2 && !results.length) {
           var empty = document.createElement("div");
           empty.className = "search-empty";
-          empty.textContent = "{% trans 'No matches.' %}";
+          empty.textContent = "No matches.";
           resultsEl.appendChild(empty);
           return;
         }

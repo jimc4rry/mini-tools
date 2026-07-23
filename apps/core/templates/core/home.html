@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load i18n %}
 
 {% block title %}Minitools Hub{% endblock %}
 {% block sidebar %}{% include "docs/_sidebar.html" %}{% endblock %}
@@ -18,15 +17,15 @@
   <div class="stat-row build-in-public">
     <div class="stat-tile">
       <strong>{{ stats.tools }}</strong>
-      <span class="muted">{% trans "Free tools" %}</span>
+      <span class="muted">Free tools</span>
     </div>
     <div class="stat-tile">
       <strong>{{ stats.documents }}</strong>
-      <span class="muted">{% trans "Support documents" %}</span>
+      <span class="muted">Support documents</span>
     </div>
     <div class="stat-tile">
       <strong>{{ stats.applications }}</strong>
-      <span class="muted">{% trans "Applications" %}</span>
+      <span class="muted">Applications</span>
     </div>
   </div>
 

@@ -1,12 +1,11 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class Feedback(models.Model):
     class Category(models.TextChoices):
-        BUG = "bug", _("Bug report")
-        FEATURE = "feature", _("Feature request")
-        GENERAL = "general", _("General feedback")
+        BUG = "bug", "Bug report"
+        FEATURE = "feature", "Feature request"
+        GENERAL = "general", "General feedback"
 
     name = models.CharField(max_length=150, blank=True)
     email = models.EmailField(blank=True)

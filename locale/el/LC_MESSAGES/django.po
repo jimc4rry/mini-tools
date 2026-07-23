@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 12:24+0300\n"
+"POT-Creation-Date: 2026-07-23 13:50+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -11,85 +11,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: .\apps\core\templates\core\home.html:21
-msgid "Free tools"
-msgstr "Δωρεάν εργαλεία"
-
-#: .\apps\core\templates\core\home.html:25
-msgid "Support documents"
-msgstr "Έγγραφα υποστήριξης"
-
-#: .\apps\core\templates\core\home.html:29
-msgid "Applications"
-msgstr "Εφαρμογές"
-
-#: .\apps\feedback\forms.py:26 .\apps\tracker\forms.py:87
-#: .\apps\tracker\templates\tracker\dashboard.html:62
-#: .\apps\tracker\templates\tracker\waste_log.html:26
-#: .\apps\tracker\views.py:243 .\templates\feedback\_modal.html:21
-msgid "Category"
-msgstr "Κατηγορία"
-
-#: .\apps\feedback\forms.py:27
-msgid "Name (optional)"
-msgstr "Όνομα (προαιρετικό)"
-
-#: .\apps\feedback\forms.py:28
-msgid "Email (optional)"
-msgstr "Email (προαιρετικό)"
-
-#: .\apps\feedback\forms.py:29 .\templates\feedback\_modal.html:29
-msgid "Message"
-msgstr "Μήνυμα"
-
-#: .\apps\feedback\forms.py:35
-msgid "Please enter a message."
-msgstr "Παρακαλώ γράψε ένα μήνυμα."
-
-#: .\apps\feedback\models.py:7 .\templates\feedback\_modal.html:24
-msgid "Bug report"
-msgstr "Αναφορά σφάλματος"
-
-#: .\apps\feedback\models.py:8 .\templates\feedback\_modal.html:25
-msgid "Feature request"
-msgstr "Αίτημα λειτουργίας"
-
-#: .\apps\feedback\models.py:9 .\templates\feedback\_modal.html:23
-msgid "General feedback"
-msgstr "Γενικό σχόλιο"
-
-#: .\apps\feedback\views.py:27
-msgid ""
-"Too many submissions from this network. Please try again in a few minutes."
-msgstr "Πάρα πολλές υποβολές από αυτό το δίκτυο. Δοκίμασε ξανά σε λίγα λεπτά."
-
-#: .\apps\feedback\views.py:37
-msgid "Couldn't send your feedback - please check the message field."
-msgstr "Δεν στάλθηκε το σχόλιό σου - έλεγξε το πεδίο μηνύματος."
-
-#: .\apps\feedback\views.py:57
-msgid "Thanks for the feedback!"
-msgstr "Ευχαριστούμε για το σχόλιο!"
-
-#: .\apps\newsletter\views.py:26
-msgid "Too many attempts from this network. Please try again in a few minutes."
-msgstr ""
-"Πάρα πολλές προσπάθειες από αυτό το δίκτυο. Δοκίμασε ξανά σε λίγα λεπτά."
-
-#: .\apps\newsletter\views.py:36
-msgid "Enter a valid email address."
-msgstr "Γράψε μια έγκυρη διεύθυνση email."
-
-#: .\apps\newsletter\views.py:44
-msgid "Subscribed! We'll email you when new free tools launch."
-msgstr ""
-"Εγγραφή επιτυχής! Θα σου στείλουμε email όταν κυκλοφορήσουν νέα δωρεάν "
-"εργαλεία."
-
-#: .\apps\tools\templates\tools\list.html:31
-msgid "Recently used"
-msgstr "Πρόσφατα χρησιμοποιημένα"
 
 #: .\apps\tracker\forms.py:31
 msgid "There's no user with that username."
@@ -117,6 +38,13 @@ msgstr "Προϊόν"
 #: .\apps\tracker\forms.py:83
 msgid "Barcode"
 msgstr "Barcode"
+
+#: .\apps\tracker\forms.py:87
+#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\templates\tracker\waste_log.html:26
+#: .\apps\tracker\views.py:243
+msgid "Category"
+msgstr "Κατηγορία"
 
 #: .\apps\tracker\forms.py:88
 msgid "— No category —"
@@ -299,7 +227,6 @@ msgid "Scan barcode"
 msgstr "Σάρωση barcode"
 
 #: .\apps\tracker\templates\tracker\_scan_modal.html:6
-#: .\templates\feedback\_modal.html:10
 msgid "Close"
 msgstr "Κλείσιμο"
 
@@ -402,7 +329,7 @@ msgstr "Νέο προϊόν"
 msgid "Search by barcode or product name"
 msgstr "Αναζήτηση με barcode ή όνομα προϊόντος"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:41 .\templates\base.html:683
+#: .\apps\tracker\templates\tracker\dashboard.html:41
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -657,50 +584,95 @@ msgstr "Ιστότοπος διαχείρισης Django"
 msgid "Django administration"
 msgstr "Διαχείριση Django"
 
-#: .\templates\base.html:686
-msgid "Toggle dark / light theme"
-msgstr "Εναλλαγή σκούρου / ανοιχτού θέματος"
+#~ msgid "Free tools"
+#~ msgstr "Δωρεάν εργαλεία"
 
-#: .\templates\base.html:705
-msgid "Get notified when new free tools launch"
-msgstr "Μάθε πρώτος για νέα δωρεάν εργαλεία"
+#~ msgid "Support documents"
+#~ msgstr "Έγγραφα υποστήριξης"
 
-#: .\templates\base.html:713
-msgid "you@example.com"
-msgstr "you@example.com"
+#~ msgid "Applications"
+#~ msgstr "Εφαρμογές"
 
-#: .\templates\base.html:714
-msgid "Subscribe"
-msgstr "Εγγραφή"
+#~ msgid "Name (optional)"
+#~ msgstr "Όνομα (προαιρετικό)"
 
-#: .\templates\base.html:717
-msgid "RSS feed"
-msgstr "Ροή RSS"
+#~ msgid "Email (optional)"
+#~ msgstr "Email (προαιρετικό)"
 
-#: .\templates\base.html:722
-msgid "Search tools, docs, applications…"
-msgstr "Αναζήτηση εργαλείων, εγγράφων, εφαρμογών…"
+#~ msgid "Message"
+#~ msgstr "Μήνυμα"
 
-#: .\templates\base.html:752
-msgid "No matches."
-msgstr "Δεν βρέθηκαν αποτελέσματα."
+#~ msgid "Please enter a message."
+#~ msgstr "Παρακαλώ γράψε ένα μήνυμα."
 
-#: .\templates\feedback\_modal.html:3
-msgid "Feedback"
-msgstr "Feedback"
+#~ msgid "Bug report"
+#~ msgstr "Αναφορά σφάλματος"
 
-#: .\templates\feedback\_modal.html:9
-msgid "Send feedback"
-msgstr "Στείλε σχόλιο"
+#~ msgid "Feature request"
+#~ msgstr "Αίτημα λειτουργίας"
 
-#: .\templates\feedback\_modal.html:12
-msgid "Found a bug, or want a new mini-tool? Let us know."
-msgstr "Βρήκες σφάλμα ή θέλεις ένα νέο εργαλείο; Πες μας."
+#~ msgid "General feedback"
+#~ msgstr "Γενικό σχόλιο"
 
-#: .\templates\feedback\_modal.html:33
-msgid "Email (optional, if you want a reply)"
-msgstr "Email (προαιρετικό, αν θέλεις απάντηση)"
+#~ msgid ""
+#~ "Too many submissions from this network. Please try again in a few minutes."
+#~ msgstr ""
+#~ "Πάρα πολλές υποβολές από αυτό το δίκτυο. Δοκίμασε ξανά σε λίγα λεπτά."
 
-#: .\templates\feedback\_modal.html:36
-msgid "Send"
-msgstr "Αποστολή"
+#~ msgid "Couldn't send your feedback - please check the message field."
+#~ msgstr "Δεν στάλθηκε το σχόλιό σου - έλεγξε το πεδίο μηνύματος."
+
+#~ msgid "Thanks for the feedback!"
+#~ msgstr "Ευχαριστούμε για το σχόλιο!"
+
+#~ msgid ""
+#~ "Too many attempts from this network. Please try again in a few minutes."
+#~ msgstr ""
+#~ "Πάρα πολλές προσπάθειες από αυτό το δίκτυο. Δοκίμασε ξανά σε λίγα λεπτά."
+
+#~ msgid "Enter a valid email address."
+#~ msgstr "Γράψε μια έγκυρη διεύθυνση email."
+
+#~ msgid "Subscribed! We'll email you when new free tools launch."
+#~ msgstr ""
+#~ "Εγγραφή επιτυχής! Θα σου στείλουμε email όταν κυκλοφορήσουν νέα δωρεάν "
+#~ "εργαλεία."
+
+#~ msgid "Recently used"
+#~ msgstr "Πρόσφατα χρησιμοποιημένα"
+
+#~ msgid "Toggle dark / light theme"
+#~ msgstr "Εναλλαγή σκούρου / ανοιχτού θέματος"
+
+#~ msgid "Get notified when new free tools launch"
+#~ msgstr "Μάθε πρώτος για νέα δωρεάν εργαλεία"
+
+#~ msgid "you@example.com"
+#~ msgstr "you@example.com"
+
+#~ msgid "Subscribe"
+#~ msgstr "Εγγραφή"
+
+#~ msgid "RSS feed"
+#~ msgstr "Ροή RSS"
+
+#~ msgid "Search tools, docs, applications…"
+#~ msgstr "Αναζήτηση εργαλείων, εγγράφων, εφαρμογών…"
+
+#~ msgid "No matches."
+#~ msgstr "Δεν βρέθηκαν αποτελέσματα."
+
+#~ msgid "Feedback"
+#~ msgstr "Feedback"
+
+#~ msgid "Send feedback"
+#~ msgstr "Στείλε σχόλιο"
+
+#~ msgid "Found a bug, or want a new mini-tool? Let us know."
+#~ msgstr "Βρήκες σφάλμα ή θέλεις ένα νέο εργαλείο; Πες μας."
+
+#~ msgid "Email (optional, if you want a reply)"
+#~ msgstr "Email (προαιρετικό, αν θέλεις απάντηση)"
+
+#~ msgid "Send"
+#~ msgstr "Αποστολή"

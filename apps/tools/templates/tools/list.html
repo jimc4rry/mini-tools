@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load i18n %}
 
 {% block title %}Tools — Minitools Hub{% endblock %}
 {% block og_image_title %}Tools{% endblock %}
@@ -28,7 +27,7 @@
   <p class="muted">Browse mini-tools by category.</p>
 
   <div id="recent-tools-section" style="display:none; margin-bottom:2rem;">
-    <h2 style="font-size:1.1rem;">{% trans "Recently used" %}</h2>
+    <h2 style="font-size:1.1rem;">Recently used</h2>
     <div class="tool-grid" id="recent-tools-grid"></div>
   </div>
   <script>
