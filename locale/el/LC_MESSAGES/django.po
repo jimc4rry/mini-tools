@@ -628,7 +628,7 @@ msgstr "Διαχείριση Django"
 
 #: .\templates\feedback\_modal.html:3
 msgid "Feedback"
-msgstr "Σχόλια"
+msgstr "Feedback"
 
 #: .\templates\feedback\_modal.html:9
 msgid "Send feedback"
