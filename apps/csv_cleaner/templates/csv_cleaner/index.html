@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Bulk Inventory CSV Cleaner — Minitools Hub{% endblock %}
+
+{% block content %}
+<style>
+  .csv-tool { max-width: 720px; margin: 0 auto; }
+  .csv-tool h1 { text-align: center; margin-bottom: 0.25rem; }
+  .csv-tool .lede { text-align: center; margin-bottom: 1.5rem; }
+  .csv-stat-row { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.25rem 0; }
+  .csv-stat { flex: 1; min-width: 120px; text-align: center; padding: 0.9rem; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+  .csv-stat .n { font-size: 1.4rem; font-weight: 800; font-family: "Sora", sans-serif; }
+  .csv-stat .l { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .csv-preview-wrap { overflow-x: auto; margin-top: 1rem; }
+</style>
+
+<div class="csv-tool">
+  <h1>Bulk Inventory CSV Cleaner</h1>
+  <p class="lede muted">Upload a CSV — trims stray whitespace, normalizes dates to YYYY-MM-DD, and drops exact-duplicate rows. Nothing is saved; the file is processed in memory and handed straight back.</p>
+
+  <div class="card">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-field">
+        <label for="id_file">CSV file</label>
+        <input type="file" id="id_file" name="file" accept=".csv,text/csv">
+        <div class="helptext">Max 5 MB, up to 20,000 rows. Date columns are assumed day-first (e.g. 05/01/2024 = 5 January) unless that's impossible for a given cell.</div>
+      </div>
+      {% if error %}<div class="field-error" style="margin-bottom:0.75rem">{{ error }}</div>{% endif %}
+      <button type="submit" class="btn-primary">Clean CSV</button>
+    </form>
+
+    {% if result %}
+      <div class="csv-stat-row">
+        <div class="csv-stat"><div class="n">{{ result.original_rows }}</div><div class="l">Original rows</div></div>
+        <div class="csv-stat"><div class="n">{{ result.cleaned_rows }}</div><div class="l">Cleaned rows</div></div>
+        <div class="csv-stat"><div class="n">{{ result.duplicates_removed }}</div><div class="l">Duplicates removed</div></div>
+      </div>
+
+      <a href="{{ result.download_uri }}" download="cleaned.csv" class="btn-primary" style="display:block;text-align:center;">Download cleaned.csv</a>
+
+      {% if result.preview_rows %}
+        <p class="muted" style="margin-top:1.25rem;font-size:0.85rem;">Preview (first 10 rows):</p>
+        <div class="csv-preview-wrap">
+          <table class="data-table">
+            <thead><tr>{% for col in result.header %}<th>{{ col }}</th>{% endfor %}</tr></thead>
+            <tbody>
+              {% for row in result.preview_rows %}
+                <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <div class="card" style="margin-top:1.5rem;text-align:center;">
+    <p style="margin:0;">📦 Cleaning up a product list before it goes somewhere else?</p>
+    <p class="muted" style="margin:0.4rem 0 0.9rem;">Expiration Tracker takes it from there — batches, expiration dates, barcode scanning, low-stock alerts.</p>
+    <a href="/p/expiration-tracker/" class="btn-secondary">Check out Expiration Tracker →</a>
+  </div>
+</div>
+{% endblock %}

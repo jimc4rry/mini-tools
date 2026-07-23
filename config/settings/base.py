@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     "apps.tools",
     "apps.tracker",
     "apps.qr_generator",
+    "apps.barcode_tool",
+    "apps.csv_cleaner",
+    "apps.jira_helpers",
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Barcode / EAN-13 Validator &amp; Generator — Minitools Hub{% endblock %}
+
+{% block content %}
+<style>
+  .bc-tool { max-width: 640px; margin: 0 auto; }
+  .bc-tool h1 { text-align: center; margin-bottom: 0.25rem; }
+  .bc-tool .lede { text-align: center; margin-bottom: 1.5rem; }
+
+  .bc-mode-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; }
+  .bc-mode-tabs a {
+    flex: 1;
+    text-align: center;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .bc-mode-tabs a.active { background: var(--accent-gradient); border-color: transparent; color: #fff; }
+  .bc-mode-tabs a:hover { text-decoration: none; }
+
+  .bc-result { margin-top: 1.5rem; text-align: center; }
+  .bc-result img { max-width: 100%; border-radius: 8px; background: #fff; padding: 12px; }
+  .bc-valid { color: #2ecc71; font-weight: 700; }
+  .bc-invalid { color: #ff6b6b; font-weight: 700; }
+</style>
+
+<div class="bc-tool">
+  <h1>Barcode / EAN-13 Validator &amp; Generator</h1>
+  <p class="lede muted">Check whether a barcode's check digit is correct, or generate a valid one — EAN-8, UPC-A, and EAN-13.</p>
+
+  <div class="bc-mode-tabs">
+    <a href="?mode=validate" class="{% if mode == 'validate' %}active{% endif %}">Validate</a>
+    <a href="?mode=generate" class="{% if mode == 'generate' %}active{% endif %}">Generate</a>
+  </div>
+
+  <div class="card">
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="mode" value="{{ mode }}">
+      <div class="form-field">
+        <label for="id_code">{% if mode == 'generate' %}Payload (without check digit){% else %}Barcode number{% endif %}</label>
+        <input type="text" id="id_code" name="code" value="{{ code }}" placeholder="{% if mode == 'generate' %}e.g. 590123412345{% else %}e.g. 5901234123457{% endif %}" inputmode="numeric">
+        <div class="helptext">
+          {% if mode == 'generate' %}Enter the 7, 11, or 12-digit payload for EAN-8 / UPC-A / EAN-13 — the check digit is computed for you.{% else %}Enter a full 8, 12, or 13-digit code including its check digit.{% endif %}
+        </div>
+      </div>
+      {% if mode == "generate" %}
+        <div class="form-field">
+          <label for="id_format">Format</label>
+          <select id="id_format" name="format">
+            <option value="ean13" {% if format == "ean13" %}selected{% endif %}>EAN-13</option>
+            <option value="upca" {% if format == "upca" %}selected{% endif %}>UPC-A</option>
+            <option value="ean8" {% if format == "ean8" %}selected{% endif %}>EAN-8</option>
+          </select>
+        </div>
+      {% endif %}
+      {% if error %}<div class="field-error" style="margin-bottom:0.75rem">{{ error }}</div>{% endif %}
+      <button type="submit" class="btn-primary">{% if mode == "generate" %}Generate barcode{% else %}Validate{% endif %}</button>
+    </form>
+
+    {% if result %}
+      <div class="bc-result">
+        {% if mode == "generate" %}
+          <img src="{{ result.image_data_uri }}" alt="Generated barcode">
+          <p class="muted" style="margin-top:0.75rem">Full code: <strong>{{ result.full_code }}</strong></p>
+          <a href="{{ result.image_data_uri }}" download="barcode.png" class="btn-secondary">Download PNG</a>
+        {% else %}
+          <p style="font-size:1.1rem;">
+            {{ result.format_label }} —
+            {% if result.is_valid %}
+              <span class="bc-valid">✓ Valid</span>
+            {% else %}
+              <span class="bc-invalid">✕ Invalid</span>
+            {% endif %}
+          </p>
+          {% if not result.is_valid %}
+            <p class="muted">Expected check digit <strong>{{ result.expected_check_digit }}</strong> — the correct code would be <strong>{{ result.corrected_code }}</strong>.</p>
+          {% endif %}
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="card" style="margin-top:1.5rem;text-align:center;">
+    <p style="margin:0;">📦 Managing product batches and expiration dates with barcodes at your business?</p>
+    <p class="muted" style="margin:0.4rem 0 0.9rem;">Expiration Tracker adds barcode scanning, low-stock alerts, and a waste log on top.</p>
+    <a href="/p/expiration-tracker/" class="btn-secondary">Check out Expiration Tracker →</a>
+  </div>
+</div>
+{% endblock %}

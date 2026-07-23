@@ -4,12 +4,12 @@ from decimal import Decimal
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.core.cache import cache
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
+from apps.core.ratelimit import is_rate_limited
 from .forms import CategoryForm, InventoryItemForm, NotificationSettingsForm, SignupForm
 from .models import Business, Category, InventoryItem, Product
 
@@ -34,23 +34,13 @@ SIGNUP_RATE_LIMIT_WINDOW_SECONDS = 3600
 SIGNUP_RATE_LIMIT_MAX_ATTEMPTS = 5
 
 
-def _is_signup_rate_limited(request):
-    """Per-IP throttle on signup POSTs - the account gets a 14-day free trial with no
-    email verification, which is exactly what a bot farming free accounts wants."""
-    client_ip = request.META.get("REMOTE_ADDR", "unknown")
-    cache_key = f"signup_rate_limit:{client_ip}"
-    count = cache.get(cache_key, 0)
-    if count >= SIGNUP_RATE_LIMIT_MAX_ATTEMPTS:
-        return True
-    cache.set(cache_key, count + 1, SIGNUP_RATE_LIMIT_WINDOW_SECONDS)
-    return False
-
-
 def signup(request):
     if request.user.is_authenticated:
         return redirect("dashboard")
     if request.method == "POST":
-        if _is_signup_rate_limited(request):
+        # Per-IP throttle - the account gets a 14-day free trial with no email
+        # verification, which is exactly what a bot farming free accounts wants.
+        if is_rate_limited(request, "tracker_signup", SIGNUP_RATE_LIMIT_MAX_ATTEMPTS, SIGNUP_RATE_LIMIT_WINDOW_SECONDS):
             messages.error(request, _("Too many signup attempts from this network. Please try again later."))
             return render(request, "registration/signup.html", {"form": SignupForm()})
 

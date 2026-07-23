@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Jira Smart Commit &amp; Branch Name Generator — Minitools Hub{% endblock %}
+
+{% block content %}
+<style>
+  .jh-tool { max-width: 640px; margin: 0 auto; }
+  .jh-tool h1 { text-align: center; margin-bottom: 0.25rem; }
+  .jh-tool .lede { text-align: center; margin-bottom: 1.5rem; }
+
+  .jh-mode-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .jh-mode-tabs a {
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+  .jh-mode-tabs a.active { background: var(--accent-gradient); border-color: transparent; color: #fff; }
+  .jh-mode-tabs a:hover { text-decoration: none; }
+
+  .jh-output {
+    margin-top: 1.25rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", Consolas, monospace;
+    font-size: 0.88rem;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .jh-copy-btn { margin-top: 0.75rem; }
+</style>
+
+<div class="jh-tool">
+  <h1>Jira Smart Commit &amp; Branch Name Generator</h1>
+  <p class="lede muted">Git branch names, Jira smart-commit syntax, and Gherkin/BDD scenario skeletons — no typing the format from memory.</p>
+
+  <div class="jh-mode-tabs">
+    <a href="?mode=branch" class="{% if mode == 'branch' %}active{% endif %}">Branch name</a>
+    <a href="?mode=smart_commit" class="{% if mode == 'smart_commit' %}active{% endif %}">Smart commit</a>
+    <a href="?mode=gherkin" class="{% if mode == 'gherkin' %}active{% endif %}">Gherkin scenario</a>
+  </div>
+
+  <div class="card">
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="mode" value="{{ mode }}">
+
+      {% if mode == "branch" %}
+        <div class="form-field">
+          <label for="id_jira_key">Jira issue key</label>
+          <input type="text" id="id_jira_key" name="jira_key" value="{{ form.jira_key }}" placeholder="PROJ-123">
+        </div>
+        <div class="form-field">
+          <label for="id_branch_type">Branch type</label>
+          <select id="id_branch_type" name="branch_type">
+            <option value="feature" {% if form.branch_type == "feature" or not form.branch_type %}selected{% endif %}>feature</option>
+            <option value="bugfix" {% if form.branch_type == "bugfix" %}selected{% endif %}>bugfix</option>
+            <option value="hotfix" {% if form.branch_type == "hotfix" %}selected{% endif %}>hotfix</option>
+            <option value="chore" {% if form.branch_type == "chore" %}selected{% endif %}>chore</option>
+            <option value="release" {% if form.branch_type == "release" %}selected{% endif %}>release</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="id_summary">Short summary</label>
+          <input type="text" id="id_summary" name="summary" value="{{ form.summary }}" placeholder="Fix login redirect loop">
+        </div>
+      {% elif mode == "smart_commit" %}
+        <div class="form-field">
+          <label for="id_jira_key">Jira issue key</label>
+          <input type="text" id="id_jira_key" name="jira_key" value="{{ form.jira_key }}" placeholder="PROJ-123">
+        </div>
+        <div class="form-field">
+          <label for="id_comment">Comment (optional)</label>
+          <input type="text" id="id_comment" name="comment" value="{{ form.comment }}" placeholder="Fixed the redirect loop">
+        </div>
+        <div class="form-field">
+          <label for="id_time_spent">Time spent (optional)</label>
+          <input type="text" id="id_time_spent" name="time_spent" value="{{ form.time_spent }}" placeholder="2h 30m">
+        </div>
+        <div class="form-field">
+          <label for="id_transition">Transition (optional)</label>
+          <input type="text" id="id_transition" name="transition" value="{{ form.transition }}" placeholder="close, resolve, in progress">
+        </div>
+      {% else %}
+        <div class="form-field">
+          <label for="id_feature">Feature name</label>
+          <input type="text" id="id_feature" name="feature" value="{{ form.feature }}" placeholder="User login">
+        </div>
+        <div class="form-field">
+          <label for="id_role">As a (optional)</label>
+          <input type="text" id="id_role" name="role" value="{{ form.role }}" placeholder="registered user">
+        </div>
+        <div class="form-field">
+          <label for="id_goal">I want (optional)</label>
+          <input type="text" id="id_goal" name="goal" value="{{ form.goal }}" placeholder="to log in with my email and password">
+        </div>
+        <div class="form-field">
+          <label for="id_benefit">So that (optional)</label>
+          <input type="text" id="id_benefit" name="benefit" value="{{ form.benefit }}" placeholder="I can access my account">
+        </div>
+        <div class="form-field">
+          <label for="id_scenario">Scenario name</label>
+          <input type="text" id="id_scenario" name="scenario" value="{{ form.scenario }}" placeholder="Successful login">
+        </div>
+        <div class="form-field">
+          <label for="id_given">Given (one step per line)</label>
+          <textarea id="id_given" name="given" rows="2" placeholder="I am on the login page">{{ form.given }}</textarea>
+        </div>
+        <div class="form-field">
+          <label for="id_when">When (one step per line)</label>
+          <textarea id="id_when" name="when" rows="2" placeholder="I enter valid credentials and submit">{{ form.when }}</textarea>
+        </div>
+        <div class="form-field">
+          <label for="id_then">Then (one step per line)</label>
+          <textarea id="id_then" name="then" rows="2" placeholder="I am redirected to my dashboard">{{ form.then }}</textarea>
+        </div>
+      {% endif %}
+
+      {% if error %}<div class="field-error" style="margin-bottom:0.75rem">{{ error }}</div>{% endif %}
+      <button type="submit" class="btn-primary">Generate</button>
+    </form>
+
+    {% if result %}
+      <div class="jh-output" id="jh-output">{{ result.branch_name }}{{ result.smart_commit }}{{ result.gherkin }}</div>
+      <button type="button" class="btn-secondary jh-copy-btn" onclick="navigator.clipboard.writeText(document.getElementById('jh-output').textContent)">Copy to clipboard</button>
+    {% endif %}
+  </div>
+
+  <div class="card" style="margin-top:1.5rem;text-align:center;">
+    <p style="margin:0;">🧪 Managing test cases and plans for this Jira project?</p>
+    <p class="muted" style="margin:0.4rem 0 0.9rem;">LiteQA adds lightweight test case management, execution tracking, and traceability right inside Jira.</p>
+    <a href="/p/liteqa/" class="btn-secondary">Check out LiteQA →</a>
+  </div>
+</div>
+{% endblock %}

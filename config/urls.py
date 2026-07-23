@@ -23,4 +23,7 @@ urlpatterns = [
     path("tools/", include("apps.tools.urls")),
     path("expiration-tracker/", include("apps.tracker.urls")),
     path("qr-code-generator/", include("apps.qr_generator.urls")),
+    path("barcode-validator/", include("apps.barcode_tool.urls")),
+    path("csv-cleaner/", include("apps.csv_cleaner.urls")),
+    path("jira-helpers/", include("apps.jira_helpers.urls")),
 ]
