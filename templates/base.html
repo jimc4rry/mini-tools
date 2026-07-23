@@ -538,5 +538,23 @@
   </div>
   <footer>&copy; {% now "Y" %} Minitools Hub &middot; <a href="{% url 'core:feed' %}">{% trans "RSS feed" %}</a></footer>
   {% include "feedback/_modal.html" %}
+  {% if current_tool %}
+  <script>
+    (function () {
+      var KEY = "recentTools";
+      var entry = {
+        slug: "{{ current_tool.slug|escapejs }}",
+        name: "{{ current_tool.name|escapejs }}",
+        icon: "{{ current_tool.icon|default:"🧰"|escapejs }}",
+        url: "{{ current_tool.get_absolute_url|escapejs }}"
+      };
+      var recent = [];
+      try { recent = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) {}
+      recent = recent.filter(function (t) { return t.slug !== entry.slug; });
+      recent.unshift(entry);
+      localStorage.setItem(KEY, JSON.stringify(recent.slice(0, 6)));
+    })();
+  </script>
+  {% endif %}
 </body>
 </html>

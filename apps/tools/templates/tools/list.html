@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}Tools — Minitools Hub{% endblock %}
 {% block og_image_title %}Tools{% endblock %}
@@ -25,6 +26,40 @@
 {% block content %}
   <h1>Tools</h1>
   <p class="muted">Browse mini-tools by category.</p>
+
+  <div id="recent-tools-section" style="display:none; margin-bottom:2rem;">
+    <h2 style="font-size:1.1rem;">{% trans "Recently used" %}</h2>
+    <div class="tool-grid" id="recent-tools-grid"></div>
+  </div>
+  <script>
+    (function () {
+      var recent = [];
+      try { recent = JSON.parse(localStorage.getItem("recentTools")) || []; } catch (e) {}
+      if (!recent.length) return;
+      var grid = document.getElementById("recent-tools-grid");
+      recent.forEach(function (tool) {
+        var link = document.createElement("a");
+        link.className = "tool-card-link";
+        link.href = tool.url;
+        var thumb = document.createElement("div");
+        thumb.className = "tool-thumb";
+        thumb.textContent = tool.icon || "🧰";
+        var body = document.createElement("div");
+        body.className = "tool-card-body";
+        var title = document.createElement("span");
+        title.className = "tool-card-title";
+        title.textContent = tool.name;
+        body.appendChild(title);
+        link.appendChild(thumb);
+        link.appendChild(body);
+        var card = document.createElement("div");
+        card.className = "tool-card";
+        card.appendChild(link);
+        grid.appendChild(card);
+      });
+      document.getElementById("recent-tools-section").style.display = "";
+    })();
+  </script>
 
   <div class="tool-grid">
     {% for tool in tools %}
