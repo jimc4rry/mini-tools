@@ -108,6 +108,27 @@
       transition: width 0.2s var(--ease);
     }
     header nav a:hover::after { width: 100%; }
+    .header-search-btn {
+      margin-left: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 0.35rem 0.8rem;
+      cursor: pointer;
+    }
+    .header-search-btn:hover { color: var(--text); border-color: var(--border-strong); }
+    .search-kbd {
+      font-size: 0.72rem;
+      border: 1px solid var(--border-strong);
+      border-radius: 4px;
+      padding: 0.05rem 0.35rem;
+      color: var(--muted);
+    }
 
     .shell { flex: 1; display: flex; align-items: stretch; }
     .site-rail {
@@ -259,7 +280,51 @@
     .feedback-close:hover { color: var(--text); }
     @media (max-width: 640px) {
       .feedback-fab { right: 1rem; bottom: 1rem; padding: 0.6rem 0.9rem; font-size: 0.8rem; }
+      .header-search-btn .search-kbd { display: none; }
     }
+
+    /* Search modal */
+    .search-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 110;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 10vh 1rem 1rem;
+    }
+    .search-modal-card { width: 100%; max-width: 560px; padding: 0; overflow: hidden; }
+    .search-input {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.05rem;
+      font-family: inherit;
+    }
+    .search-input:focus { outline: none; }
+    .search-results { max-height: 50vh; overflow-y: auto; }
+    .search-result-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.8rem 1.2rem;
+      color: var(--text);
+    }
+    .search-result-item:hover, .search-result-item.active { background: var(--surface); text-decoration: none; }
+    .search-result-type {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: var(--accent-2);
+      flex-shrink: 0;
+      width: 4.5rem;
+    }
+    .search-empty { padding: 1.2rem; color: var(--muted); font-size: 0.9rem; }
 
     /* Buttons */
     .btn-cta {
@@ -521,6 +586,9 @@
     <nav>
       <a href="{% url 'docs:list' %}">Documents</a>
       <a href="{% url 'tools:list' %}">Tools</a>
+      <button type="button" id="header-search-btn" class="header-search-btn" aria-label="{% trans 'Search' %}">
+        🔍 <span class="search-kbd">Ctrl K</span>
+      </button>
     </nav>
   </header>
   <div class="shell">
@@ -538,6 +606,103 @@
   </div>
   <footer>&copy; {% now "Y" %} Minitools Hub &middot; <a href="{% url 'core:feed' %}">{% trans "RSS feed" %}</a></footer>
   {% include "feedback/_modal.html" %}
+
+  <div id="search-modal" class="search-modal">
+    <div class="card search-modal-card">
+      <input type="text" id="search-input" class="search-input" placeholder="{% trans 'Search tools, docs, applications…' %}" autocomplete="off">
+      <div id="search-results" class="search-results"></div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var modal = document.getElementById("search-modal");
+      var input = document.getElementById("search-input");
+      var resultsEl = document.getElementById("search-results");
+      var results = [];
+      var activeIndex = -1;
+      var debounceTimer = null;
+
+      function openModal() {
+        modal.style.display = "flex";
+        input.value = "";
+        resultsEl.innerHTML = "";
+        results = [];
+        activeIndex = -1;
+        input.focus();
+      }
+      function closeModal() {
+        modal.style.display = "none";
+      }
+
+      function render() {
+        resultsEl.innerHTML = "";
+        if (input.value.trim().length >= 2 && !results.length) {
+          var empty = document.createElement("div");
+          empty.className = "search-empty";
+          empty.textContent = "{% trans 'No matches.' %}";
+          resultsEl.appendChild(empty);
+          return;
+        }
+        results.forEach(function (r, i) {
+          var item = document.createElement("a");
+          item.className = "search-result-item" + (i === activeIndex ? " active" : "");
+          item.href = r.url;
+          var type = document.createElement("span");
+          type.className = "search-result-type";
+          type.textContent = r.type;
+          var title = document.createElement("span");
+          title.textContent = r.title;
+          item.appendChild(type);
+          item.appendChild(title);
+          resultsEl.appendChild(item);
+        });
+      }
+
+      document.getElementById("header-search-btn").addEventListener("click", openModal);
+      modal.addEventListener("click", function (e) {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener("keydown", function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+          e.preventDefault();
+          openModal();
+        } else if (e.key === "Escape" && modal.style.display !== "none") {
+          closeModal();
+        }
+      });
+      input.addEventListener("input", function () {
+        clearTimeout(debounceTimer);
+        var q = input.value.trim();
+        if (q.length < 2) {
+          results = [];
+          activeIndex = -1;
+          render();
+          return;
+        }
+        debounceTimer = setTimeout(function () {
+          fetch("{% url 'core:search_json' %}?q=" + encodeURIComponent(q))
+            .then(function (res) { return res.json(); })
+            .then(function (data) {
+              results = data.results || [];
+              activeIndex = results.length ? 0 : -1;
+              render();
+            });
+        }, 200);
+      });
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          if (results.length) { activeIndex = (activeIndex + 1) % results.length; render(); }
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          if (results.length) { activeIndex = (activeIndex - 1 + results.length) % results.length; render(); }
+        } else if (e.key === "Enter" && activeIndex >= 0 && results[activeIndex]) {
+          window.location.href = results[activeIndex].url;
+        }
+      });
+    })();
+  </script>
+
   {% if current_tool %}
   <script>
     (function () {

@@ -11,4 +11,5 @@ urlpatterns = [
     path("robots.txt", views.robots_txt, name="robots_txt"),
     path("sitemap.xml", views.sitemap_xml, name="sitemap_xml"),
     path("feed/", ChangelogFeed(), name="feed"),
+    path("search.json", views.search_json, name="search_json"),
 ]

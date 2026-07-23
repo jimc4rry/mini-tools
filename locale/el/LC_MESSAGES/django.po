@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 11:56+0300\n"
+"POT-Creation-Date: 2026-07-23 12:01+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -375,7 +375,7 @@ msgstr "Νέο προϊόν"
 msgid "Search by barcode or product name"
 msgstr "Αναζήτηση με barcode ή όνομα προϊόντος"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:41
+#: .\apps\tracker\templates\tracker\dashboard.html:41 .\templates\base.html:589
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -630,9 +630,17 @@ msgstr "Ιστότοπος διαχείρισης Django"
 msgid "Django administration"
 msgstr "Διαχείριση Django"
 
-#: .\templates\base.html:539
+#: .\templates\base.html:607
 msgid "RSS feed"
 msgstr "Ροή RSS"
+
+#: .\templates\base.html:612
+msgid "Search tools, docs, applications…"
+msgstr "Αναζήτηση εργαλείων, εγγράφων, εφαρμογών…"
+
+#: .\templates\base.html:642
+msgid "No matches."
+msgstr "Δεν βρέθηκαν αποτελέσματα."
 
 #: .\templates\feedback\_modal.html:3
 msgid "Feedback"
