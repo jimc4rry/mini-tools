@@ -15,7 +15,10 @@
   <meta property="og:title" content="{% block og_title %}Minitools Hub{% endblock %}">
   <meta property="og:description" content="{% block og_description %}Support documents, policies, and free mini-tools in one place.{% endblock %}">
   <meta property="og:url" content="{% block og_url %}{{ site_url }}{{ request.path }}{% endblock %}">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="{{ site_url }}{% url 'og_image:generate' %}?title={% filter urlencode %}{% block og_image_title %}Minitools Hub{% endblock %}{% endfilter %}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236d5efc'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='url(%23g)'/%3E%3Crect x='22' y='22' width='56' height='56' rx='10' fill='white'/%3E%3Crect x='34' y='34' width='32' height='32' rx='6' fill='%236d5efc'/%3E%3C/svg%3E">
 

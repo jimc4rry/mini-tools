@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "apps.csv_cleaner",
     "apps.jira_helpers",
     "apps.feedback",
+    "apps.og_image",
 ]
 
 MIDDLEWARE = [

@@ -27,4 +27,5 @@ urlpatterns = [
     path("csv-cleaner/", include("apps.csv_cleaner.urls")),
     path("jira-helpers/", include("apps.jira_helpers.urls")),
     path("feedback/", include("apps.feedback.urls")),
+    path("og-image/", include("apps.og_image.urls")),
 ]
