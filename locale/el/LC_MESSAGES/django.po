@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 11:12+0300\n"
+"POT-Creation-Date: 2026-07-23 11:52+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -625,6 +625,10 @@ msgstr "Ιστότοπος διαχείρισης Django"
 #: .\templates\admin\base_site.html:7
 msgid "Django administration"
 msgstr "Διαχείριση Django"
+
+#: .\templates\base.html:539
+msgid "RSS feed"
+msgstr "Ροή RSS"
 
 #: .\templates\feedback\_modal.html:3
 msgid "Feedback"

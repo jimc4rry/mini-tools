@@ -8,6 +8,7 @@
   <title>{% block title %}Minitools Hub{% endblock %}</title>
   <meta name="description" content="{% block meta_description %}Support documents, policies, and free mini-tools in one place.{% endblock %}">
   <link rel="canonical" href="{% block canonical_url %}{{ site_url }}{{ request.path }}{% endblock %}">
+  <link rel="alternate" type="application/rss+xml" title="Minitools Hub Changelog" href="{% url 'core:feed' %}">
   <meta name="robots" content="index, follow">
 
   <meta property="og:type" content="website">
@@ -535,7 +536,7 @@
       </div>
     </main>
   </div>
-  <footer>&copy; {% now "Y" %} Minitools Hub</footer>
+  <footer>&copy; {% now "Y" %} Minitools Hub &middot; <a href="{% url 'core:feed' %}">{% trans "RSS feed" %}</a></footer>
   {% include "feedback/_modal.html" %}
 </body>
 </html>

@@ -49,6 +49,7 @@ class Tool(models.Model):
         default=0, help_text="Price in cents if not free. Billing integration pending."
     )
     order = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ["order", "name"]
