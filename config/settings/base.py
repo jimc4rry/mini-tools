@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "apps.feedback",
     "apps.og_image",
     "apps.newsletter",
+    "apps.billing",
 ]
 
 MIDDLEWARE = [
@@ -136,7 +137,7 @@ DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="noreply@minitools.local"
 # regardless - see apps/feedback/views.py).
 FEEDBACK_NOTIFY_EMAIL = env("FEEDBACK_NOTIFY_EMAIL", default="")
 
-# Paddle billing for the Expiration Tracker app (see apps/tracker/billing.py).
+# Paddle billing, shared across every paid app on the Hub (see apps/billing/webhooks.py).
 # Signature verification is skipped in dev until this is set.
 PADDLE_WEBHOOK_SECRET = env("PADDLE_WEBHOOK_SECRET", default="")
 

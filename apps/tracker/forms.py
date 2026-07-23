@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from apps.billing.models import Subscription
+
 from .models import Business, Category, DEFAULT_CATEGORY_NAMES, InventoryItem, Product
 
 
@@ -65,15 +67,20 @@ class SignupForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=commit)
+        trial_ends_at = timezone.localdate() + datetime.timedelta(days=Business.TRIAL_LENGTH_DAYS)
         business = Business.objects.create(
             owner=user,
             name=self.cleaned_data["business_name"],
             business_type=self.cleaned_data["business_type"],
-            trial_ends_at=timezone.localdate() + datetime.timedelta(days=Business.TRIAL_LENGTH_DAYS),
+            trial_ends_at=trial_ends_at,
         )
         Category.objects.bulk_create(
             [Category(business=business, name=str(name)) for name in DEFAULT_CATEGORY_NAMES]
         )
+        # Shared, cross-app subscription record (see apps/billing) - Business's own
+        # trial_ends_at above stays the source of truth for this app's own UI, this
+        # just keeps the generic record in sync from day one.
+        Subscription.objects.create(user=user, product="tracker", trial_ends_at=trial_ends_at)
         return user
 
 

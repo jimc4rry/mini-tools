@@ -37,6 +37,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 
+  <!-- Paddle.js: inert until a page calls Paddle.Initialize({token: ...}) and opens
+       a checkout - included site-wide so any future paid tool can trigger one
+       without adding its own script tag. See apps/billing for the webhook side. -->
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js" defer></script>
+
   <style>
     :root {
       --bg: #090b12;

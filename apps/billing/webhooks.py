@@ -1,13 +1,15 @@
 """
-Paddle Billing webhook handler.
+Shared Paddle Billing webhook handler for every paid app on the Hub - one
+endpoint (/billing/webhook/) instead of each app inventing its own.
 
 Setup (once you have a real Paddle account):
-1. Create a Product + Price in the Paddle dashboard for the monthly subscription.
-2. When you build the checkout flow, pass `custom_data: {"business_id": business.id}`
-   so this handler can map the Paddle subscription back to a Business.
+1. Create a Product + Price in the Paddle dashboard per paid app.
+2. When building a checkout flow, pass `custom_data: {"user_id": request.user.id,
+   "product": "<slug>"}` (e.g. "tracker") so this handler can map the Paddle
+   subscription back to a Subscription row - creating one if it doesn't exist yet.
 3. Set PADDLE_WEBHOOK_SECRET in .env (Paddle dashboard -> Developer Tools -> Notifications
    -> your webhook destination -> signing secret).
-4. Point the webhook destination at POST https://<your-domain>/expiration-tracker/billing/paddle-webhook/
+4. Point the webhook destination at POST https://<your-domain>/billing/webhook/
    for events: subscription.created, subscription.updated, subscription.canceled.
 
 Until PADDLE_WEBHOOK_SECRET is set, signature verification is skipped ONLY when DEBUG=True,
@@ -27,7 +29,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
-from .models import Business
+from .models import Subscription
 
 logger = logging.getLogger(__name__)
 
@@ -77,8 +79,8 @@ def is_known_paddle_webhook_ip(remote_addr):
 def _verify_signature(request):
     secret = getattr(settings, "PADDLE_WEBHOOK_SECRET", "")
     if not secret:
-        # Unsigned requests would let anyone flip any business's plan_status by guessing
-        # a business_id. Only tolerate that in local dev; refuse outright once DEBUG=False.
+        # Unsigned requests would let anyone flip any subscription's status by guessing
+        # a user_id/product pair. Only tolerate that in local dev; refuse once DEBUG=False.
         return settings.DEBUG
 
     header = request.headers.get("Paddle-Signature", "")
@@ -92,20 +94,38 @@ def _verify_signature(request):
     return hmac.compare_digest(expected, signature)
 
 
-def _find_business(data):
+def _find_subscription(data):
     custom_data = data.get("custom_data") or {}
-    business_id = custom_data.get("business_id")
-    if business_id:
-        business = Business.objects.filter(pk=business_id).first()
-        if business:
-            return business
+    user_id = custom_data.get("user_id")
+    product = custom_data.get("product")
+    if user_id and product:
+        subscription, _created = Subscription.objects.get_or_create(user_id=user_id, product=product)
+        return subscription
 
     customer_id = data.get("customer_id", "")
     subscription_id = data.get("id", "")
     return (
-        Business.objects.filter(paddle_customer_id=customer_id).first()
-        or Business.objects.filter(paddle_subscription_id=subscription_id).first()
+        Subscription.objects.filter(paddle_customer_id=customer_id).first()
+        or Subscription.objects.filter(paddle_subscription_id=subscription_id).first()
     )
+
+
+def _sync_tracker_business(subscription):
+    """apps/tracker.Business keeps its own denormalized copies of these fields
+    for its existing UI/admin/management commands - mirror any change here so
+    that code keeps working unchanged. No-op for every other product."""
+    if subscription.product != "tracker":
+        return
+    from apps.tracker.models import Business
+
+    business = Business.objects.filter(owner_id=subscription.user_id).first()
+    if business is None:
+        return
+    business.plan_status = subscription.status
+    business.trial_ends_at = subscription.trial_ends_at
+    business.paddle_subscription_id = subscription.paddle_subscription_id
+    business.paddle_customer_id = subscription.paddle_customer_id
+    business.save()
 
 
 @csrf_exempt
@@ -127,22 +147,24 @@ def paddle_webhook(request):
     event_type = payload.get("event_type", "")
     data = payload.get("data", {})
 
-    business = _find_business(data)
-    if business is None:
+    subscription = _find_subscription(data)
+    if subscription is None:
         # Acknowledge anyway so Paddle doesn't keep retrying an event we can't map.
         return HttpResponse(status=200)
 
     if event_type in ("subscription.created", "subscription.updated"):
-        business.paddle_subscription_id = data.get("id", business.paddle_subscription_id)
-        business.paddle_customer_id = data.get("customer_id", business.paddle_customer_id)
+        subscription.paddle_subscription_id = data.get("id", subscription.paddle_subscription_id)
+        subscription.paddle_customer_id = data.get("customer_id", subscription.paddle_customer_id)
         status = data.get("status")
         if status in ACTIVE_SUBSCRIPTION_STATUSES:
-            business.plan_status = Business.PlanStatus.ACTIVE
+            subscription.status = Subscription.Status.ACTIVE
         elif status in INACTIVE_SUBSCRIPTION_STATUSES:
-            business.plan_status = Business.PlanStatus.INACTIVE
-        business.save()
+            subscription.status = Subscription.Status.INACTIVE
+        subscription.save()
+        _sync_tracker_business(subscription)
     elif event_type == "subscription.canceled":
-        business.plan_status = Business.PlanStatus.INACTIVE
-        business.save()
+        subscription.status = Subscription.Status.INACTIVE
+        subscription.save()
+        _sync_tracker_business(subscription)
 
     return HttpResponse(status=200)

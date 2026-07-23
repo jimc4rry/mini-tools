@@ -1,7 +1,6 @@
 from django.urls import path
 
 from . import views
-from .billing import paddle_webhook
 
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
@@ -17,5 +16,4 @@ urlpatterns = [
     path('categories/', views.category_list, name='category_list'),
     path('categories/<int:pk>/delete/', views.category_delete, name='category_delete'),
     path('settings/', views.settings_view, name='settings'),
-    path('billing/paddle-webhook/', paddle_webhook, name='paddle_webhook'),
 ]

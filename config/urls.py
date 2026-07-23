@@ -29,4 +29,5 @@ urlpatterns = [
     path("feedback/", include("apps.feedback.urls")),
     path("og-image/", include("apps.og_image.urls")),
     path("newsletter/", include("apps.newsletter.urls")),
+    path("billing/", include("apps.billing.urls")),
 ]
