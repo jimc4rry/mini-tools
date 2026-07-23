@@ -7,6 +7,7 @@ import qrcode
 from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator, URLValidator
 from django.shortcuts import render
+from django.views.decorators.clickjacking import xframe_options_exempt
 
 from apps.core.ratelimit import is_rate_limited
 
@@ -139,10 +140,30 @@ _ENCODERS = {
     "contact": _encode_contact,
 }
 
+def _render_qr_png_data_uri(payload):
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(payload)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+
+    buffer = BytesIO()
+    img.save(buffer, "PNG")
+    encoded = base64.b64encode(buffer.getvalue()).decode("ascii")
+    return f"data:image/png;base64,{encoded}"
+
+
 # Generous limit since it's a legitimate free tool doing cheap work, not a
 # target for tight abuse prevention - just a backstop against scripted hammering.
 GENERATE_RATE_LIMIT_WINDOW_SECONDS = 300
 GENERATE_RATE_LIMIT_MAX_REQUESTS = 30
+
+EMBED_RATE_LIMIT_WINDOW_SECONDS = 300
+EMBED_RATE_LIMIT_MAX_REQUESTS = 20
 
 
 def index(request):
@@ -170,20 +191,7 @@ def index(request):
         except QRInputError as e:
             error = str(e)
         else:
-            qr = qrcode.QRCode(
-                version=1,
-                error_correction=qrcode.constants.ERROR_CORRECT_L,
-                box_size=10,
-                border=4,
-            )
-            qr.add_data(payload)
-            qr.make(fit=True)
-            img = qr.make_image(fill_color="black", back_color="white")
-
-            buffer = BytesIO()
-            img.save(buffer, "PNG")
-            encoded = base64.b64encode(buffer.getvalue()).decode("ascii")
-            qr_image_data_uri = f"data:image/png;base64,{encoded}"
+            qr_image_data_uri = _render_qr_png_data_uri(payload)
 
     context = {
         "qr_image_data_uri": qr_image_data_uri,
@@ -192,3 +200,35 @@ def index(request):
         "form": post,
     }
     return render(request, "qr_generator/index.html", context)
+
+
+@xframe_options_exempt
+def embed(request):
+    """
+    Embeddable version of the tool for third-party sites (see
+    static/qr_generator/widget.js) - URL-to-QR only, to keep a framed
+    iframe small and simple rather than replicating every payload type.
+    `xframe_options_exempt` is scoped to just this one view: every other
+    page on the site keeps the default clickjacking protection.
+    """
+    qr_image_data_uri = None
+    error = None
+    post = request.POST if request.method == "POST" else {}
+
+    if request.method == "POST":
+        if is_rate_limited(request, "qr_generate_embed", EMBED_RATE_LIMIT_MAX_REQUESTS, EMBED_RATE_LIMIT_WINDOW_SECONDS):
+            error = "Too many requests from this network. Please try again in a few minutes."
+        else:
+            try:
+                payload = _encode_url(post)
+            except QRInputError as e:
+                error = str(e)
+            else:
+                qr_image_data_uri = _render_qr_png_data_uri(payload)
+
+    context = {
+        "qr_image_data_uri": qr_image_data_uri,
+        "error": error,
+        "form": post,
+    }
+    return render(request, "qr_generator/embed.html", context)

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Free QR Code Generator — Minitools Hub{% endblock %}
 {% block og_image_title %}Free QR Code Generator{% endblock %}
@@ -239,6 +240,13 @@
       <h3>What types of QR codes can I create?</h3>
       <p>A website link, plain text, a phone number, an email address, an SMS message, a Wi-Fi network login, or a contact card (vCard) that saves straight into someone's phone contacts when scanned.</p>
     </div>
+  </div>
+
+  <div class="card" style="margin-top:1.5rem;">
+    <h2 style="font-size:1rem; margin-top:0;">Embed this tool on your site</h2>
+    <p class="muted" style="margin-top:0;">Drop this snippet in anywhere - it renders a small URL-to-QR widget, free, with a "Powered by Minitools Hub" credit.</p>
+    <div id="embed-snippet" style="background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:8px; padding:1rem; font-family:ui-monospace, monospace; font-size:0.85rem; word-break:break-all;">&lt;script src="{{ site_url }}{% static 'qr_generator/widget.js' %}"&gt;&lt;/script&gt;</div>
+    <button type="button" class="btn-secondary" style="margin-top:0.75rem;" onclick="navigator.clipboard.writeText(document.getElementById('embed-snippet').textContent)">Copy to clipboard</button>
   </div>
 </div>
 

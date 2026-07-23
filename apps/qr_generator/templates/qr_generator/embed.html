@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>QR Code Generator — Minitools Hub</title>
+  <style>
+    :root {
+      --bg: #090b12;
+      --border: rgba(255, 255, 255, 0.09);
+      --text: #f2f4f9;
+      --muted: #9aa3b8;
+      --accent: #6d5efc;
+      --accent-2: #22d3ee;
+      --accent-gradient: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 1rem;
+      font-family: -apple-system, "Segoe UI", Inter, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    form { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    input[type="text"] {
+      flex: 1;
+      min-width: 160px;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    input[type="text"]:focus { outline: none; border-color: var(--accent-2); }
+    button {
+      background: var(--accent-gradient);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.1rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .error { color: #ff6b6b; font-size: 0.82rem; margin-top: 0.5rem; }
+    .result { text-align: center; margin-top: 1rem; }
+    .result img {
+      width: 160px;
+      height: 160px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 8px;
+      background: #fff;
+    }
+    .powered { text-align: center; margin-top: 1rem; font-size: 0.72rem; }
+    .powered a { color: var(--muted); text-decoration: none; }
+    .powered a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+  <form method="post">
+    {% csrf_token %}
+    <input type="text" name="url" placeholder="https://example.com" value="{{ form.url }}" required>
+    <button type="submit">Generate</button>
+  </form>
+  {% if error %}<div class="error">{{ error }}</div>{% endif %}
+  {% if qr_image_data_uri %}
+    <div class="result"><img src="{{ qr_image_data_uri }}" alt="QR code"></div>
+  {% endif %}
+  <div class="powered"><a href="{{ site_url }}/qr-code-generator/" target="_blank" rel="noopener">Powered by Minitools Hub</a></div>
+</body>
+</html>
