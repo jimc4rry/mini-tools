@@ -19,6 +19,11 @@ def home(request):
         "tools": Tool.objects.filter(is_active=True)[:6],
         "all_projects": Project.objects.filter(is_public=True),
         "current_project": None,
+        "stats": {
+            "tools": Tool.objects.filter(is_active=True).count(),
+            "documents": Document.objects.filter(is_published=True).count(),
+            "applications": Project.objects.filter(is_public=True).count(),
+        },
     }
     return render(request, "core/home.html", context)
 

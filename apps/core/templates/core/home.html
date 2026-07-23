@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}Minitools Hub{% endblock %}
 {% block sidebar %}{% include "docs/_sidebar.html" %}{% endblock %}
@@ -13,6 +14,21 @@
       <a class="btn-ghost" href="{% url 'docs:list' %}">View all documents</a>
     </div>
   </section>
+
+  <div class="stat-row build-in-public">
+    <div class="stat-tile">
+      <strong>{{ stats.tools }}</strong>
+      <span class="muted">{% trans "Free tools" %}</span>
+    </div>
+    <div class="stat-tile">
+      <strong>{{ stats.documents }}</strong>
+      <span class="muted">{% trans "Support documents" %}</span>
+    </div>
+    <div class="stat-tile">
+      <strong>{{ stats.applications }}</strong>
+      <span class="muted">{% trans "Applications" %}</span>
+    </div>
+  </div>
 
   <div class="section-heading">
     <h2>Tools</h2>

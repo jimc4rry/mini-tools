@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 12:04+0300\n"
+"POT-Creation-Date: 2026-07-23 12:07+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -11,6 +11,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\apps\core\templates\core\home.html:21
+msgid "Free tools"
+msgstr "Δωρεάν εργαλεία"
+
+#: .\apps\core\templates\core\home.html:25
+msgid "Support documents"
+msgstr "Έγγραφα υποστήριξης"
+
+#: .\apps\core\templates\core\home.html:29
+msgid "Applications"
+msgstr "Εφαρμογές"
 
 #: .\apps\feedback\forms.py:26 .\apps\tracker\forms.py:87
 #: .\apps\tracker\templates\tracker\dashboard.html:62
@@ -62,7 +74,8 @@ msgstr "Ευχαριστούμε για το σχόλιο!"
 
 #: .\apps\newsletter\views.py:26
 msgid "Too many attempts from this network. Please try again in a few minutes."
-msgstr "Πάρα πολλές προσπάθειες από αυτό το δίκτυο. Δοκίμασε ξανά σε λίγα λεπτά."
+msgstr ""
+"Πάρα πολλές προσπάθειες από αυτό το δίκτυο. Δοκίμασε ξανά σε λίγα λεπτά."
 
 #: .\apps\newsletter\views.py:36
 msgid "Enter a valid email address."
@@ -70,7 +83,9 @@ msgstr "Γράψε μια έγκυρη διεύθυνση email."
 
 #: .\apps\newsletter\views.py:44
 msgid "Subscribed! We'll email you when new free tools launch."
-msgstr "Εγγραφή επιτυχής! Θα σου στείλουμε email όταν κυκλοφορήσουν νέα δωρεάν εργαλεία."
+msgstr ""
+"Εγγραφή επιτυχής! Θα σου στείλουμε email όταν κυκλοφορήσουν νέα δωρεάν "
+"εργαλεία."
 
 #: .\apps\tools\templates\tools\list.html:31
 msgid "Recently used"
@@ -387,7 +402,7 @@ msgstr "Νέο προϊόν"
 msgid "Search by barcode or product name"
 msgstr "Αναζήτηση με barcode ή όνομα προϊόντος"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:41 .\templates\base.html:611
+#: .\apps\tracker\templates\tracker\dashboard.html:41 .\templates\base.html:623
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -642,27 +657,27 @@ msgstr "Ιστότοπος διαχείρισης Django"
 msgid "Django administration"
 msgstr "Διαχείριση Django"
 
-#: .\templates\base.html:630
+#: .\templates\base.html:642
 msgid "Get notified when new free tools launch"
 msgstr "Μάθε πρώτος για νέα δωρεάν εργαλεία"
 
-#: .\templates\base.html:638
+#: .\templates\base.html:650
 msgid "you@example.com"
 msgstr "you@example.com"
 
-#: .\templates\base.html:639
+#: .\templates\base.html:651
 msgid "Subscribe"
 msgstr "Εγγραφή"
 
-#: .\templates\base.html:642
+#: .\templates\base.html:654
 msgid "RSS feed"
 msgstr "Ροή RSS"
 
-#: .\templates\base.html:647
+#: .\templates\base.html:659
 msgid "Search tools, docs, applications…"
 msgstr "Αναζήτηση εργαλείων, εγγράφων, εφαρμογών…"
 
-#: .\templates\base.html:677
+#: .\templates\base.html:689
 msgid "No matches."
 msgstr "Δεν βρέθηκαν αποτελέσματα."
 
