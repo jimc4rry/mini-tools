@@ -418,6 +418,13 @@
       outline: none;
       border-color: var(--accent-2);
     }
+    /* Chromium renders <option> against its own default (light) background
+       unless the option itself is given an explicit color - without this the
+       dropdown list is unreadable against the site's dark theme. */
+    .form-field select option {
+      background: var(--surface-solid);
+      color: var(--text);
+    }
 
     .btn-primary, .btn-secondary, .btn-danger {
       display: inline-flex;
