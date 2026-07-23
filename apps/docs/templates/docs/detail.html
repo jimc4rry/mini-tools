@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% load docs_extras %}
+{% load docs_extras i18n %}
 
 {% block title %}{{ document.title }} — Minitools Hub{% endblock %}
 {% block og_image_title %}{{ document.title }}{% endblock %}
 {% block sidebar %}{% include "docs/_sidebar.html" %}{% endblock %}
 
 {% block content %}
-  <p><a href="{% url 'docs:list' %}">&larr; All documents</a></p>
+  <p><a href="{% url 'docs:list' %}">&larr; {% trans "All documents" %}</a></p>
   <h1>{{ document.title }}</h1>
   {% if document.project %}
     <p><a href="{{ document.project.get_absolute_url }}" class="badge">{{ document.project.name }}</a></p>
   {% endif %}
-  <p class="muted">Last updated {{ document.updated_at|date:"d/m/Y" }}</p>
+  <p class="muted">{% blocktrans with date=document.updated_at|date:"d/m/Y" %}Last updated {{ date }}{% endblocktrans %}</p>
   <div class="card prose">
     {{ document.body|markdownify }}
   </div>

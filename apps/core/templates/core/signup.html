@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}Sign up — Minitools Hub{% endblock %}
 
 {% block content %}
 <div class="card" style="max-width:420px; margin:0 auto;">
-  <h2>Create your account</h2>
-  <p class="muted" style="margin-top:0;">One account for the whole Hub - pick a tool or app to start using afterward.</p>
+  <h2>{% trans "Create your account" %}</h2>
+  <p class="muted" style="margin-top:0;">{% trans "One account for the whole Hub - pick a tool or app to start using afterward." %}</p>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -16,8 +17,8 @@
         {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
       </div>
     {% endfor %}
-    <button class="btn-primary" type="submit">Sign up</button>
+    <button class="btn-primary" type="submit">{% trans "Sign up" %}</button>
   </form>
-  <p class="helptext" style="margin-top:0.75rem">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+  <p class="helptext" style="margin-top:0.75rem">{% trans "Already have an account?" %} <a href="{% url 'login' %}">{% trans "Log in" %}</a></p>
 </div>
 {% endblock %}

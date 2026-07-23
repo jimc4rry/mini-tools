@@ -1,11 +1,12 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}Documents — Minitools Hub{% endblock %}
 {% block og_image_title %}Documents{% endblock %}
 {% block sidebar %}{% include "docs/_sidebar.html" %}{% endblock %}
 
 {% block content %}
-  <h1>Documents</h1>
+  <h1>{% trans "Documents" %}</h1>
   <div class="grid">
     {% for document in documents %}
       <div class="card">
@@ -14,7 +15,7 @@
         {% if document.project %}<span class="badge">{{ document.project.name }}</span>{% endif %}
       </div>
     {% empty %}
-      <p class="muted">No documents published yet.</p>
+      <p class="muted">{% trans "No documents published yet." %}</p>
     {% endfor %}
   </div>
 {% endblock %}

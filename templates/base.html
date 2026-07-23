@@ -551,6 +551,8 @@
     .prose code { background: var(--code-bg); padding: 0.15rem 0.4rem; border-radius: 5px; font-size: 0.9em; }
 
     /* Language switcher */
+    .header-left { display: flex; align-items: center; gap: 1rem; }
+    .header-left .lang-switcher { margin-top: 0; padding-top: 0; border-top: none; }
     .lang-switcher { display: flex; gap: 0.4rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
     .lang-switcher form { margin: 0; }
     .lang-btn {
@@ -699,26 +701,29 @@
 </head>
 <body>
   <header>
-    <a class="brand" href="{% url 'core:home' %}">Minitools Hub</a>
+    <div class="header-left">
+      <a class="brand" href="{% url 'core:home' %}">Minitools Hub</a>
+      {% include "_language_switcher.html" %}
+    </div>
     <nav>
-      <a href="{% url 'docs:list' %}">Documents</a>
-      <a href="{% url 'tools:list' %}">Tools</a>
-      <button type="button" id="header-search-btn" class="header-search-btn" aria-label="Search">
+      <a href="{% url 'docs:list' %}">{% trans "Documents" %}</a>
+      <a href="{% url 'tools:list' %}">{% trans "Tools" %}</a>
+      <button type="button" id="header-search-btn" class="header-search-btn" aria-label="{% trans 'Search' %}">
         🔍 <span class="search-kbd">Ctrl K</span>
       </button>
-      <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle dark / light theme">
+      <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" aria-label="{% trans 'Toggle dark / light theme' %}">
         <span class="theme-toggle-icon">🌙</span>
       </button>
       {% if user.is_superuser %}
-        <a href="{% url 'platform_admin:dashboard' %}" class="header-account-btn">Platform Admin</a>
+        <a href="{% url 'platform_admin:dashboard' %}" class="header-account-btn">{% trans "Platform Admin" %}</a>
       {% endif %}
       {% if user.is_authenticated %}
         <form method="post" action="{% url 'logout' %}" class="header-account">
           {% csrf_token %}
-          <button type="submit" class="header-account-btn">{{ user.username }} · Log out</button>
+          <button type="submit" class="header-account-btn">{{ user.username }} · {% trans "Log out" %}</button>
         </form>
       {% else %}
-        <a href="{% url 'login' %}" class="header-account-btn">Log in</a>
+        <a href="{% url 'login' %}" class="header-account-btn">{% trans "Log in" %}</a>
       {% endif %}
     </nav>
   </header>
@@ -736,7 +741,7 @@
     </main>
   </div>
   <div class="newsletter-bar">
-    <span>Get notified when new free tools launch</span>
+    <span>{% trans "Get notified when new free tools launch" %}</span>
     <form method="post" action="{% url 'newsletter:subscribe' %}" class="newsletter-form">
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ request.path }}">
@@ -744,16 +749,16 @@
         <label for="id_nl_website"></label>
         <input type="text" id="id_nl_website" name="website" tabindex="-1" autocomplete="off">
       </div>
-      <input type="email" name="email" placeholder="you@example.com" required>
-      <button type="submit" class="btn-secondary">Subscribe</button>
+      <input type="email" name="email" placeholder="{% trans 'you@example.com' %}" required>
+      <button type="submit" class="btn-secondary">{% trans "Subscribe" %}</button>
     </form>
   </div>
-  <footer>&copy; {% now "Y" %} Minitools Hub &middot; <a href="{% url 'core:feed' %}">RSS feed</a></footer>
+  <footer>&copy; {% now "Y" %} Minitools Hub &middot; <a href="{% url 'core:feed' %}">{% trans "RSS feed" %}</a></footer>
   {% include "feedback/_modal.html" %}
 
   <div id="search-modal" class="search-modal">
     <div class="card search-modal-card">
-      <input type="text" id="search-input" class="search-input" placeholder="Search tools, docs, applications…" autocomplete="off">
+      <input type="text" id="search-input" class="search-input" placeholder="{% trans 'Search tools, docs, applications…' %}" autocomplete="off">
       <div id="search-results" class="search-results"></div>
     </div>
   </div>
@@ -783,7 +788,7 @@
         if (input.value.trim().length >= 2 && !results.length) {
           var empty = document.createElement("div");
           empty.className = "search-empty";
-          empty.textContent = "No matches.";
+          empty.textContent = "{% trans 'No matches.' %}";
           resultsEl.appendChild(empty);
           return;
         }

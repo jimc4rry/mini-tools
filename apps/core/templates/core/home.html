@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}Minitools Hub{% endblock %}
 {% block sidebar %}{% include "docs/_sidebar.html" %}{% endblock %}
@@ -6,42 +7,42 @@
 {% block content %}
   <section class="hero">
     <span class="kicker">Minitools Hub</span>
-    <h1>One home for your <span class="gradient-text">apps, docs &amp; tools</span></h1>
-    <p class="lede">Pick an application on the left to see its documents and policies, or browse the free mini-tools below — no clutter, no login required to look around.</p>
+    <h1>{% blocktrans %}One home for your <span class="gradient-text">apps, docs &amp; tools</span>{% endblocktrans %}</h1>
+    <p class="lede">{% trans "Pick an application on the left to see its documents and policies, or browse the free mini-tools below — no clutter, no login required to look around." %}</p>
     <div class="actions">
-      <a class="btn-cta" href="{% url 'tools:list' %}">Browse tools &rarr;</a>
-      <a class="btn-ghost" href="{% url 'docs:list' %}">View all documents</a>
+      <a class="btn-cta" href="{% url 'tools:list' %}">{% trans "Browse tools" %} &rarr;</a>
+      <a class="btn-ghost" href="{% url 'docs:list' %}">{% trans "View all documents" %}</a>
     </div>
   </section>
 
   <div class="stat-row build-in-public">
     <div class="stat-tile">
       <strong>{{ stats.tools }}</strong>
-      <span class="muted">Free tools</span>
+      <span class="muted">{% trans "Free tools" %}</span>
     </div>
     <div class="stat-tile">
       <strong>{{ stats.documents }}</strong>
-      <span class="muted">Support documents</span>
+      <span class="muted">{% trans "Support documents" %}</span>
     </div>
     <div class="stat-tile">
       <strong>{{ stats.applications }}</strong>
-      <span class="muted">Applications</span>
+      <span class="muted">{% trans "Applications" %}</span>
     </div>
   </div>
 
   <div class="section-heading">
-    <h2>Tools</h2>
-    <a href="{% url 'tools:list' %}" class="muted">See all &rarr;</a>
+    <h2>{% trans "Tools" %}</h2>
+    <a href="{% url 'tools:list' %}" class="muted">{% trans "See all" %} &rarr;</a>
   </div>
   <div class="grid">
     {% for tool in tools %}
       <div class="card">
         <a href="{{ tool.get_absolute_url }}"><strong>{{ tool.icon }} {{ tool.name }}</strong></a>
         <p class="muted">{{ tool.description }}</p>
-        {% if not tool.is_free %}<span class="badge">paid</span>{% endif %}
+        {% if not tool.is_free %}<span class="badge">{% trans "paid" %}</span>{% endif %}
       </div>
     {% empty %}
-      <p class="muted">No tools published yet.</p>
+      <p class="muted">{% trans "No tools published yet." %}</p>
     {% endfor %}
   </div>
 {% endblock %}

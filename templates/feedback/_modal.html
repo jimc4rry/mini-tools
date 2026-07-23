@@ -1,3 +1,4 @@
+{% load i18n %}
 <button type="button" class="feedback-fab" onclick="document.getElementById('feedback-modal').style.display='flex'">
   💬 Feedback
 </button>
@@ -5,10 +6,10 @@
 <div id="feedback-modal" class="feedback-modal" style="display:none;" onclick="if(event.target===this)this.style.display='none'">
   <div class="card feedback-modal-card">
     <div class="feedback-modal-head">
-      <h3 style="margin:0;">Send feedback</h3>
-      <button type="button" class="feedback-close" onclick="document.getElementById('feedback-modal').style.display='none'" aria-label="Close">&times;</button>
+      <h3 style="margin:0;">{% trans "Send feedback" %}</h3>
+      <button type="button" class="feedback-close" onclick="document.getElementById('feedback-modal').style.display='none'" aria-label="{% trans 'Close' %}">&times;</button>
     </div>
-    <p class="muted" style="margin-top:0.25rem;">Found a bug, or want a new mini-tool? Let us know.</p>
+    <p class="muted" style="margin-top:0.25rem;">{% trans "Found a bug, or want a new mini-tool? Let us know." %}</p>
     <form method="post" action="{% url 'feedback:submit' %}">
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ request.path }}">
@@ -17,22 +18,22 @@
         <input type="text" id="id_fb_website" name="website" tabindex="-1" autocomplete="off">
       </div>
       <div class="form-field">
-        <label for="id_fb_category">Category</label>
+        <label for="id_fb_category">{% trans "Category" %}</label>
         <select id="id_fb_category" name="category">
-          <option value="general">General feedback</option>
-          <option value="bug">Bug report</option>
-          <option value="feature">Feature request</option>
+          <option value="general">{% trans "General feedback" %}</option>
+          <option value="bug">{% trans "Bug report" %}</option>
+          <option value="feature">{% trans "Feature request" %}</option>
         </select>
       </div>
       <div class="form-field">
-        <label for="id_fb_message">Message</label>
+        <label for="id_fb_message">{% trans "Message" %}</label>
         <textarea id="id_fb_message" name="message" rows="4" required></textarea>
       </div>
       <div class="form-field">
-        <label for="id_fb_email">Email (optional, if you want a reply)</label>
+        <label for="id_fb_email">{% trans "Email (optional, if you want a reply)" %}</label>
         <input type="email" id="id_fb_email" name="email">
       </div>
-      <button type="submit" class="btn-primary">Send</button>
+      <button type="submit" class="btn-primary">{% trans "Send" %}</button>
     </form>
   </div>
 </div>

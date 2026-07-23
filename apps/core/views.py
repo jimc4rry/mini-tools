@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from apps.core.forms import PlatformSignupForm
 from apps.core.ratelimit import is_rate_limited
@@ -45,7 +46,7 @@ def signup(request):
         # Per-IP throttle - a free account with no email verification is
         # exactly what a bot farming accounts wants.
         if is_rate_limited(request, "platform_signup", SIGNUP_RATE_LIMIT_MAX_ATTEMPTS, SIGNUP_RATE_LIMIT_WINDOW_SECONDS):
-            messages.error(request, "Too many signup attempts from this network. Please try again later.")
+            messages.error(request, _("Too many signup attempts from this network. Please try again later."))
             return render(request, "core/signup.html", {"form": PlatformSignupForm()})
 
         form = PlatformSignupForm(request.POST)
@@ -56,7 +57,7 @@ def signup(request):
                 return redirect("login")
             user = form.save()
             login(request, user)
-            messages.success(request, "Welcome! Pick a tool or application below to get started.")
+            messages.success(request, _("Welcome! Pick a tool or application below to get started."))
             return redirect("tools:list")
     else:
         form = PlatformSignupForm()

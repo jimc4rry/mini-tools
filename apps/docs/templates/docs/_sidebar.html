@@ -1,4 +1,5 @@
-<h3>Applications</h3>
+{% load i18n %}
+<h3>{% trans "Applications" %}</h3>
 <ul>
   {% for project in all_projects %}
     <li>
@@ -7,6 +8,6 @@
       </a>
     </li>
   {% empty %}
-    <li class="muted">No applications yet.</li>
+    <li class="muted">{% trans "No applications yet." %}</li>
   {% endfor %}
 </ul>

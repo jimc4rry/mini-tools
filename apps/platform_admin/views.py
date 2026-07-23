@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.translation import gettext as _
 
 from apps.billing.forms import PlatformSubscriptionForm
 from apps.billing.models import Subscription
@@ -78,7 +79,7 @@ def subscription_detail(request, pk):
         if form.is_valid():
             form.save()
             sync_tracker_business(subscription)
-            messages.success(request, "Subscription updated.")
+            messages.success(request, _("Subscription updated."))
             return redirect("platform_admin:subscription_detail", pk=subscription.pk)
     else:
         form = PlatformSubscriptionForm(instance=subscription)

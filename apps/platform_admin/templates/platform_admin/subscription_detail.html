@@ -1,51 +1,52 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}{{ subscription.user.username }} — Platform Admin{% endblock %}
 
 {% block content %}
 <div class="top-row">
   <h1>{{ subscription.user.username }}</h1>
-  <a href="{% url 'platform_admin:dashboard' %}" class="btn-secondary">← Back</a>
+  <a href="{% url 'platform_admin:dashboard' %}" class="btn-secondary">← {% trans "Back" %}</a>
 </div>
 
 <div class="grid" style="grid-template-columns: 1fr 1.4fr; align-items:start;">
   <div class="card">
-    <h2 style="font-size:1rem; margin-top:0;">Account</h2>
-    <p><strong>Username:</strong> {{ subscription.user.username }}</p>
+    <h2 style="font-size:1rem; margin-top:0;">{% trans "Account" %}</h2>
+    <p><strong>{% trans "Username" %}:</strong> {{ subscription.user.username }}</p>
     <p><strong>Email:</strong> {{ subscription.user.email|default:"—" }}</p>
-    <p><strong>Product:</strong> {{ subscription.product }}</p>
-    <p><strong>Signed up:</strong> {{ subscription.user.date_joined|date:"d/m/Y H:i" }}</p>
+    <p><strong>{% trans "Product" %}:</strong> {{ subscription.product }}</p>
+    <p><strong>{% trans "Signed up" %}:</strong> {{ subscription.user.date_joined|date:"d/m/Y H:i" }}</p>
 
     {% if business %}
-      <h2 style="font-size:1rem;">Tracker business</h2>
-      <p><strong>Name:</strong> {{ business.name }}</p>
-      <p><strong>Type:</strong> {{ business.get_business_type_display }}</p>
-      <p><strong>Products:</strong> {{ business.products.count }}</p>
-      <p><strong>Active items:</strong> {{ business.inventory_items.count }}</p>
+      <h2 style="font-size:1rem;">{% trans "Tracker business" %}</h2>
+      <p><strong>{% trans "Name" %}:</strong> {{ business.name }}</p>
+      <p><strong>{% trans "Type" %}:</strong> {{ business.get_business_type_display }}</p>
+      <p><strong>{% trans "Products" %}:</strong> {{ business.products.count }}</p>
+      <p><strong>{% trans "Active items" %}:</strong> {{ business.inventory_items.count }}</p>
     {% endif %}
   </div>
 
   <div class="card">
-    <h2 style="font-size:1rem; margin-top:0;">Manage subscription</h2>
+    <h2 style="font-size:1rem; margin-top:0;">{% trans "Manage subscription" %}</h2>
     <form method="post">
       {% csrf_token %}
       <div class="form-field">
-        <label for="id_status">Status</label>
+        <label for="id_status">{% trans "Status" %}</label>
         {{ form.status }}
       </div>
       <div class="form-field">
-        <label for="id_trial_ends_at">Trial ends</label>
+        <label for="id_trial_ends_at">{% trans "Trial ends" %}</label>
         {{ form.trial_ends_at }}
       </div>
       <div class="form-field">
-        <label for="id_paddle_subscription_id">Paddle subscription ID</label>
+        <label for="id_paddle_subscription_id">{% trans "Paddle subscription ID" %}</label>
         {{ form.paddle_subscription_id }}
       </div>
       <div class="form-field">
-        <label for="id_paddle_customer_id">Paddle customer ID</label>
+        <label for="id_paddle_customer_id">{% trans "Paddle customer ID" %}</label>
         {{ form.paddle_customer_id }}
       </div>
-      <button type="submit" class="btn-primary">Save</button>
+      <button type="submit" class="btn-primary">{% trans "Save" %}</button>
     </form>
   </div>
 </div>

@@ -1,15 +1,16 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %}Tools — Minitools Hub{% endblock %}
 {% block og_image_title %}Tools{% endblock %}
 {% block main_class %}wide{% endblock %}
 
 {% block sidebar %}
-  <h3>Categories</h3>
+  <h3>{% trans "Categories" %}</h3>
   <ul>
     <li>
       <a href="{% url 'tools:list' %}"{% if not current_category %} class="active"{% endif %}>
-        <span class="cat-icon">&#9638;</span> All
+        <span class="cat-icon">&#9638;</span> {% trans "All" %}
       </a>
     </li>
     {% for category in categories %}
@@ -23,11 +24,11 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Tools</h1>
-  <p class="muted">Browse mini-tools by category.</p>
+  <h1>{% trans "Tools" %}</h1>
+  <p class="muted">{% trans "Browse mini-tools by category." %}</p>
 
   <div id="recent-tools-section" style="display:none; margin-bottom:2rem;">
-    <h2 style="font-size:1.1rem;">Recently used</h2>
+    <h2 style="font-size:1.1rem;">{% trans "Recently used" %}</h2>
     <div class="tool-grid" id="recent-tools-grid"></div>
   </div>
   <script>
@@ -68,13 +69,13 @@
           <div class="tool-card-body">
             <span class="tool-card-title">{{ tool.name }}</span>
             <p class="tool-card-desc">{{ tool.description }}</p>
-            {% if not tool.is_free %}<span class="badge">paid</span>{% endif %}
+            {% if not tool.is_free %}<span class="badge">{% trans "paid" %}</span>{% endif %}
           </div>
         </a>
       </div>
     {% empty %}
       <p class="muted">
-        {% if current_category %}No tools in "{{ current_category.name }}" yet.{% else %}No tools published yet.{% endif %}
+        {% if current_category %}{% blocktrans with name=current_category.name %}No tools in "{{ name }}" yet.{% endblocktrans %}{% else %}{% trans "No tools published yet." %}{% endif %}
       </p>
     {% endfor %}
   </div>

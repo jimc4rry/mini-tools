@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from apps.core.ratelimit import is_rate_limited
@@ -23,7 +24,7 @@ def submit(request):
     next_path = _safe_next(request, request.POST.get("next"))
 
     if is_rate_limited(request, "feedback_submit", RATE_LIMIT_MAX_REQUESTS, RATE_LIMIT_WINDOW_SECONDS):
-        messages.error(request, "Too many submissions from this network. Please try again in a few minutes.")
+        messages.error(request, _("Too many submissions from this network. Please try again in a few minutes."))
         return redirect(next_path)
 
     form = FeedbackForm(request.POST)
@@ -33,7 +34,7 @@ def submit(request):
         return redirect(next_path)
 
     if not form.is_valid():
-        messages.error(request, "Couldn't send your feedback - please check the message field.")
+        messages.error(request, _("Couldn't send your feedback - please check the message field."))
         return redirect(next_path)
 
     feedback = form.save(commit=False)
@@ -53,5 +54,5 @@ def submit(request):
             fail_silently=True,
         )
 
-    messages.success(request, "Thanks for the feedback!")
+    messages.success(request, _("Thanks for the feedback!"))
     return redirect(next_path)

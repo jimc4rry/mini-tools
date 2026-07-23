@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 from django.shortcuts import redirect
 
@@ -22,7 +23,7 @@ def subscribe(request):
     next_path = _safe_next(request, request.POST.get("next"))
 
     if is_rate_limited(request, "newsletter_subscribe", RATE_LIMIT_MAX_REQUESTS, RATE_LIMIT_WINDOW_SECONDS):
-        messages.error(request, "Too many attempts from this network. Please try again in a few minutes.")
+        messages.error(request, _("Too many attempts from this network. Please try again in a few minutes."))
         return redirect(next_path)
 
     form = SubscribeForm(request.POST)
@@ -32,7 +33,7 @@ def subscribe(request):
         return redirect(next_path)
 
     if not form.is_valid():
-        messages.error(request, "Enter a valid email address.")
+        messages.error(request, _("Enter a valid email address."))
         return redirect(next_path)
 
     # get_or_create rather than surfacing "already subscribed" - no reason to
@@ -40,5 +41,5 @@ def subscribe(request):
     email = form.cleaned_data["email"]
     Subscriber.objects.get_or_create(email=email)
 
-    messages.success(request, "Subscribed! We'll email you when new free tools launch.")
+    messages.success(request, _("Subscribed! We'll email you when new free tools launch."))
     return redirect(next_path)

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load docs_extras %}
+{% load docs_extras i18n %}
 
 {% block title %}{{ project.name }} — Minitools Hub{% endblock %}
 {% block og_image_title %}{{ project.name }}{% endblock %}
 {% block sidebar %}{% include "docs/_sidebar.html" %}{% endblock %}
 
 {% block content %}
-  <p><a href="{% url 'core:home' %}">&larr; All applications</a></p>
+  <p><a href="{% url 'core:home' %}">&larr; {% trans "All applications" %}</a></p>
   <h1>{{ project.name }}</h1>
   {% if project.description %}
     <div class="card prose">
@@ -15,7 +15,7 @@
         {% if app_url %}
           <p>
             <a href="{{ app_url }}" class="badge"{% if project.external_url %} target="_blank" rel="noopener"{% endif %}>
-              Open the app &rarr;
+              {% trans "Open the app" %} &rarr;
             </a>
           </p>
         {% endif %}
@@ -29,7 +29,7 @@
         <p class="muted">{{ document.summary }}</p>
       </div>
     {% empty %}
-      <p class="muted">No documents in this project yet.</p>
+      <p class="muted">{% trans "No documents in this project yet." %}</p>
     {% endfor %}
   </div>
 {% endblock %}

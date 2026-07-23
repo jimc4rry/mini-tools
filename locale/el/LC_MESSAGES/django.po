@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 13:50+0300\n"
+"POT-Creation-Date: 2026-07-23 17:30+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -12,76 +12,447 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\apps\tracker\forms.py:31
-msgid "There's no user with that username."
-msgstr "Δεν υπάρχει χρήστης με αυτό το username."
+#: .\apps\core\forms.py:15
+msgid "Email"
+msgstr "Email"
 
-#: .\apps\tracker\forms.py:37
-msgid "Wrong password."
-msgstr "Λάθος κωδικός πρόσβασης."
+#: .\apps\core\templates\core\home.html:10
+msgid ""
+"One home for your <span class=\"gradient-text\">apps, docs &amp; tools</span>"
+msgstr ""
+"Ένα σπίτι για τα <span class=\"gradient-text\">apps, docs & εργαλεία</span> "
+"σου"
 
-#: .\apps\tracker\forms.py:46
-msgid "Business name"
-msgstr "Επωνυμία επιχείρησης"
+#: .\apps\core\templates\core\home.html:11
+msgid ""
+"Pick an application on the left to see its documents and policies, or browse "
+"the free mini-tools below — no clutter, no login required to look around."
+msgstr ""
+"Διάλεξε μια εφαρμογή αριστερά για να δεις τα έγγραφα και τις πολιτικές της, "
+"ή δες τα δωρεάν mini-tools παρακάτω — χωρίς φασαρία, χωρίς login για να "
+"ρίξεις μια ματιά."
 
-#: .\apps\tracker\forms.py:47
-msgid "Business type"
-msgstr "Τύπος επιχείρησης"
+#: .\apps\core\templates\core\home.html:13
+msgid "Browse tools"
+msgstr "Περιήγηση εργαλείων"
 
-#: .\apps\tracker\forms.py:81
+#: .\apps\core\templates\core\home.html:14
+msgid "View all documents"
+msgstr "Όλα τα έγγραφα"
+
+#: .\apps\core\templates\core\home.html:21
+msgid "Free tools"
+msgstr "Δωρεάν εργαλεία"
+
+#: .\apps\core\templates\core\home.html:25
+msgid "Support documents"
+msgstr "Έγγραφα υποστήριξης"
+
+#: .\apps\core\templates\core\home.html:29
+#: .\apps\docs\templates\docs\_sidebar.html:2
+msgid "Applications"
+msgstr "Εφαρμογές"
+
+#: .\apps\core\templates\core\home.html:34
+#: .\apps\tools\templates\tools\list.html:27 .\templates\base.html:710
+msgid "Tools"
+msgstr "Εργαλεία"
+
+#: .\apps\core\templates\core\home.html:35
+msgid "See all"
+msgstr "Δες όλα"
+
+#: .\apps\core\templates\core\home.html:42
+#: .\apps\tools\templates\tools\list.html:72
+msgid "paid"
+msgstr "επί πληρωμή"
+
+#: .\apps\core\templates\core\home.html:45
+#: .\apps\tools\templates\tools\list.html:78
+msgid "No tools published yet."
+msgstr "Δεν υπάρχουν ακόμα δημοσιευμένα εργαλεία."
+
+#: .\apps\core\templates\core\signup.html:8
+msgid "Create your account"
+msgstr "Δημιουργία λογαριασμού"
+
+#: .\apps\core\templates\core\signup.html:9
+msgid ""
+"One account for the whole Hub - pick a tool or app to start using afterward."
+msgstr ""
+"Ένας λογαριασμός για όλο το Hub - διάλεξε εργαλείο ή εφαρμογή για να "
+"ξεκινήσεις μετά."
+
+#: .\apps\core\templates\core\signup.html:20
+#: .\apps\tracker\templates\registration\login.html:22
+#: .\apps\tracker\templates\tracker\_sidebar.html:17
+msgid "Sign up"
+msgstr "Εγγραφή"
+
+#: .\apps\core\templates\core\signup.html:22
+msgid "Already have an account?"
+msgstr "Έχεις ήδη λογαριασμό;"
+
+#: .\apps\core\templates\core\signup.html:22
+#: .\apps\tracker\templates\registration\login.html:3
+#: .\apps\tracker\templates\registration\login.html:6
+#: .\apps\tracker\templates\registration\login.html:20
+#: .\apps\tracker\templates\tracker\_sidebar.html:16 .\templates\base.html:726
+msgid "Log in"
+msgstr "Σύνδεση"
+
+#: .\apps\core\views.py:49
+msgid "Too many signup attempts from this network. Please try again later."
+msgstr ""
+"Πάρα πολλές προσπάθειες εγγραφής από αυτό το δίκτυο. Δοκίμασε ξανά αργότερα."
+
+#: .\apps\core\views.py:60
+msgid "Welcome! Pick a tool or application below to get started."
+msgstr ""
+"Καλωσήρθες! Διάλεξε ένα εργαλείο ή εφαρμογή παρακάτω για να ξεκινήσεις."
+
+#: .\apps\docs\templates\docs\_sidebar.html:11
+msgid "No applications yet."
+msgstr "Δεν υπάρχουν ακόμα εφαρμογές."
+
+#: .\apps\docs\templates\docs\detail.html:9
+msgid "All documents"
+msgstr "Όλα τα έγγραφα"
+
+#: .\apps\docs\templates\docs\detail.html:14
+#, python-format
+msgid "Last updated %(date)s"
+msgstr "Τελευταία ενημέρωση %(date)s"
+
+#: .\apps\docs\templates\docs\list.html:9 .\templates\base.html:709
+msgid "Documents"
+msgstr "Έγγραφα"
+
+#: .\apps\docs\templates\docs\list.html:18
+msgid "No documents published yet."
+msgstr "Δεν υπάρχουν ακόμα δημοσιευμένα έγγραφα."
+
+#: .\apps\docs\templates\docs\project_detail.html:9
+msgid "All applications"
+msgstr "Όλες οι εφαρμογές"
+
+#: .\apps\docs\templates\docs\project_detail.html:18
+msgid "Open the app"
+msgstr "Άνοιγμα εφαρμογής"
+
+#: .\apps\docs\templates\docs\project_detail.html:32
+msgid "No documents in this project yet."
+msgstr "Δεν υπάρχουν ακόμα έγγραφα σε αυτή την εφαρμογή."
+
+#: .\apps\feedback\forms.py:26 .\apps\tracker\forms.py:81
 #: .\apps\tracker\templates\tracker\dashboard.html:62
 #: .\apps\tracker\templates\tracker\waste_log.html:26
-#: .\apps\tracker\views.py:243
-msgid "Product"
-msgstr "Προϊόν"
-
-#: .\apps\tracker\forms.py:83
-msgid "Barcode"
-msgstr "Barcode"
-
-#: .\apps\tracker\forms.py:87
-#: .\apps\tracker\templates\tracker\dashboard.html:62
-#: .\apps\tracker\templates\tracker\waste_log.html:26
-#: .\apps\tracker\views.py:243
+#: .\apps\tracker\views.py:233 .\templates\feedback\_modal.html:21
 msgid "Category"
 msgstr "Κατηγορία"
 
-#: .\apps\tracker\forms.py:88
+#: .\apps\feedback\forms.py:27
+msgid "Name (optional)"
+msgstr "Όνομα (προαιρετικό)"
+
+#: .\apps\feedback\forms.py:28
+msgid "Email (optional)"
+msgstr "Email (προαιρετικό)"
+
+#: .\apps\feedback\forms.py:29 .\templates\feedback\_modal.html:29
+msgid "Message"
+msgstr "Μήνυμα"
+
+#: .\apps\feedback\forms.py:35
+msgid "Please enter a message."
+msgstr "Παρακαλώ γράψε ένα μήνυμα."
+
+#: .\apps\feedback\models.py:7 .\templates\feedback\_modal.html:24
+msgid "Bug report"
+msgstr "Αναφορά σφάλματος"
+
+#: .\apps\feedback\models.py:8 .\templates\feedback\_modal.html:25
+msgid "Feature request"
+msgstr "Αίτημα λειτουργίας"
+
+#: .\apps\feedback\models.py:9 .\templates\feedback\_modal.html:23
+msgid "General feedback"
+msgstr "Γενικό σχόλιο"
+
+#: .\apps\feedback\views.py:27
+msgid ""
+"Too many submissions from this network. Please try again in a few minutes."
+msgstr "Πάρα πολλές υποβολές από αυτό το δίκτυο. Δοκίμασε ξανά σε λίγα λεπτά."
+
+#: .\apps\feedback\views.py:37
+msgid "Couldn't send your feedback - please check the message field."
+msgstr "Δεν στάλθηκε το σχόλιό σου - έλεγξε το πεδίο μηνύματος."
+
+#: .\apps\feedback\views.py:57
+msgid "Thanks for the feedback!"
+msgstr "Ευχαριστούμε για το σχόλιο!"
+
+#: .\apps\newsletter\views.py:26
+msgid "Too many attempts from this network. Please try again in a few minutes."
+msgstr ""
+"Πάρα πολλές προσπάθειες από αυτό το δίκτυο. Δοκίμασε ξανά σε λίγα λεπτά."
+
+#: .\apps\newsletter\views.py:36
+msgid "Enter a valid email address."
+msgstr "Γράψε μια έγκυρη διεύθυνση email."
+
+#: .\apps\newsletter\views.py:44
+msgid "Subscribed! We'll email you when new free tools launch."
+msgstr ""
+"Εγγραφή επιτυχής! Θα σου στείλουμε email όταν κυκλοφορήσουν νέα δωρεάν "
+"εργαλεία."
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:9
+#: .\templates\base.html:718
+msgid "Platform Admin"
+msgstr "Διαχείριση Πλατφόρμας"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:10
+msgid "Django Admin"
+msgstr "Django Admin"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:12
+msgid ""
+"Every subscription on the Hub, across every app - plans, trials, and manual "
+"overrides."
+msgstr ""
+"Κάθε συνδρομή στο Hub, σε κάθε εφαρμογή - πλάνα, δοκιμές και χειροκίνητες "
+"αλλαγές."
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:15
+msgid "Total"
+msgstr "Σύνολο"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:16
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:67
+#: .\apps\tracker\models.py:19 .\apps\tracker\models.py:139
+msgid "Active"
+msgstr "Ενεργό"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:17
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:69
+#: .\apps\tracker\models.py:18
+msgid "Trial"
+msgstr "Trial"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:22
+msgid "Username or email…"
+msgstr "Username ή email…"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:26
+msgid "All products"
+msgstr "Όλα τα προϊόντα"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:34
+msgid "All statuses"
+msgstr "Όλες οι καταστάσεις"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:40
+msgid "Filter"
+msgstr "Φίλτρο"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:42
+msgid "Clear"
+msgstr "Καθαρισμός"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:50
+msgid "User"
+msgstr "Χρήστης"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:52
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:17
+#: .\apps\tracker\forms.py:75
+#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\templates\tracker\waste_log.html:26
+#: .\apps\tracker\views.py:233
+msgid "Product"
+msgstr "Προϊόν"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:53
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:34
+#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\views.py:234
+msgid "Status"
+msgstr "Κατάσταση"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:54
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:38
+msgid "Trial ends"
+msgstr "Λήξη trial"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:55
+msgid "Updated"
+msgstr "Ενημερώθηκε"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:71
+#: .\apps\tracker\models.py:20
+msgid "Inactive"
+msgstr "Ανενεργό"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:76
+msgid "Manage"
+msgstr "Διαχείριση"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:79
+msgid "No subscriptions found."
+msgstr "Δεν βρέθηκαν συνδρομές."
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:87
+msgid "Prev"
+msgstr "Πίσω"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:89
+#, python-format
+msgid "Page %(current)s of %(total)s"
+msgstr "Σελίδα %(current)s από %(total)s"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:91
+msgid "Next"
+msgstr "Επόμενο"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:9
+msgid "Back"
+msgstr "Πίσω"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:14
+msgid "Account"
+msgstr "Λογαριασμός"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:15
+msgid "Username"
+msgstr "Username"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:18
+msgid "Signed up"
+msgstr "Εγγράφηκε"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:21
+msgid "Tracker business"
+msgstr "Επιχείρηση Tracker"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:22
+#: .\apps\tracker\templates\tracker\categories.html:27
+msgid "Name"
+msgstr "Όνομα"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:23
+msgid "Type"
+msgstr "Τύπος"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:24
+msgid "Products"
+msgstr "Προϊόντα"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:25
+msgid "Active items"
+msgstr "Ενεργά είδη"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:30
+msgid "Manage subscription"
+msgstr "Διαχείριση συνδρομής"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:42
+msgid "Paddle subscription ID"
+msgstr "Paddle subscription ID"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:46
+msgid "Paddle customer ID"
+msgstr "Paddle customer ID"
+
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:49
+#: .\apps\tracker\templates\tracker\item_form.html:26
+#: .\apps\tracker\templates\tracker\settings.html:21
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: .\apps\platform_admin\views.py:82
+msgid "Subscription updated."
+msgstr "Η συνδρομή ενημερώθηκε."
+
+#: .\apps\tools\templates\tools\list.html:9
+#: .\apps\tracker\templates\tracker\_sidebar.html:6
+#: .\apps\tracker\templates\tracker\categories.html:3
+msgid "Categories"
+msgstr "Κατηγορίες"
+
+#: .\apps\tools\templates\tools\list.html:13
+msgid "All"
+msgstr "Όλα"
+
+#: .\apps\tools\templates\tools\list.html:28
+msgid "Browse mini-tools by category."
+msgstr "Περιήγηση mini-tools ανά κατηγορία."
+
+#: .\apps\tools\templates\tools\list.html:31
+msgid "Recently used"
+msgstr "Πρόσφατα χρησιμοποιημένα"
+
+#: .\apps\tools\templates\tools\list.html:78
+#, python-format
+msgid "No tools in \"%(name)s\" yet."
+msgstr "Δεν υπάρχουν ακόμα εργαλεία στην κατηγορία \"%(name)s\"."
+
+#: .\apps\tracker\forms.py:33
+msgid "There's no user with that username."
+msgstr "Δεν υπάρχει χρήστης με αυτό το username."
+
+#: .\apps\tracker\forms.py:39
+msgid "Wrong password."
+msgstr "Λάθος κωδικός πρόσβασης."
+
+#: .\apps\tracker\forms.py:53
+msgid "Business name"
+msgstr "Επωνυμία επιχείρησης"
+
+#: .\apps\tracker\forms.py:54
+msgid "Business type"
+msgstr "Τύπος επιχείρησης"
+
+#: .\apps\tracker\forms.py:77
+msgid "Barcode"
+msgstr "Barcode"
+
+#: .\apps\tracker\forms.py:82
 msgid "— No category —"
 msgstr "— Χωρίς κατηγορία —"
 
-#: .\apps\tracker\forms.py:90 .\apps\tracker\views.py:243
+#: .\apps\tracker\forms.py:84 .\apps\tracker\views.py:233
 msgid "Unit"
 msgstr "Μονάδα"
 
-#: .\apps\tracker\forms.py:92
+#: .\apps\tracker\forms.py:86
 msgid "Cost/unit (€)"
 msgstr "Κόστος/μονάδα (€)"
 
-#: .\apps\tracker\forms.py:95
+#: .\apps\tracker\forms.py:89
 msgid "Minimum required stock"
 msgstr "Ελάχιστο απόθεμα"
 
-#: .\apps\tracker\forms.py:102
+#: .\apps\tracker\forms.py:96
 #: .\apps\tracker\templates\tracker\dashboard.html:62
 #: .\apps\tracker\templates\tracker\waste_log.html:26
-#: .\apps\tracker\views.py:243
+#: .\apps\tracker\views.py:233
 msgid "Quantity"
 msgstr "Ποσότητα"
 
-#: .\apps\tracker\forms.py:103
+#: .\apps\tracker\forms.py:97
 msgid "Batch number"
 msgstr "Αριθμός παρτίδας"
 
-#: .\apps\tracker\forms.py:104 .\apps\tracker\views.py:244
+#: .\apps\tracker\forms.py:98 .\apps\tracker\views.py:234
 msgid "Expiration date"
 msgstr "Ημερομηνία λήξης"
 
-#: .\apps\tracker\forms.py:105 .\apps\tracker\views.py:244
+#: .\apps\tracker\forms.py:99 .\apps\tracker\views.py:234
 msgid "Notes"
 msgstr "Σημειώσεις"
 
-#: .\apps\tracker\forms.py:136
+#: .\apps\tracker\forms.py:130
 #, python-format
 msgid ""
 "You've reached the %(limit)s-product limit of the trial. Upgrade your "
@@ -90,23 +461,23 @@ msgstr ""
 "Έχεις φτάσει το όριο των %(limit)s προϊόντων του trial. Αναβάθμισε τη "
 "συνδρομή σου για απεριόριστα προϊόντα."
 
-#: .\apps\tracker\forms.py:179
+#: .\apps\tracker\forms.py:173
 msgid "New category"
 msgstr "Νέα κατηγορία"
 
-#: .\apps\tracker\forms.py:188
+#: .\apps\tracker\forms.py:182
 msgid "A category with that name already exists."
 msgstr "Υπάρχει ήδη κατηγορία με αυτό το όνομα."
 
-#: .\apps\tracker\forms.py:214
+#: .\apps\tracker\forms.py:208
 msgid "Notify me this many days before expiration"
 msgstr "Ειδοποίησέ με τόσες μέρες πριν τη λήξη"
 
-#: .\apps\tracker\forms.py:215
+#: .\apps\tracker\forms.py:209
 msgid "Notification email"
 msgstr "Email ειδοποιήσεων"
 
-#: .\apps\tracker\forms.py:216
+#: .\apps\tracker\forms.py:210
 msgid "WhatsApp number"
 msgstr "Αριθμός WhatsApp"
 
@@ -129,18 +500,6 @@ msgstr "Delicatessen"
 #: .\apps\tracker\models.py:15 .\apps\tracker\models.py:80
 msgid "Other"
 msgstr "Άλλο"
-
-#: .\apps\tracker\models.py:18
-msgid "Trial"
-msgstr "Trial"
-
-#: .\apps\tracker\models.py:19 .\apps\tracker\models.py:139
-msgid "Active"
-msgstr "Ενεργό"
-
-#: .\apps\tracker\models.py:20
-msgid "Inactive"
-msgstr "Ανενεργό"
 
 #: .\apps\tracker\models.py:42
 msgid "WhatsApp number in E.164 format, e.g. +306912345678"
@@ -194,32 +553,9 @@ msgstr "Αναλώθηκε"
 msgid "Wasted"
 msgstr "Πετάχτηκε"
 
-#: .\apps\tracker\templates\registration\login.html:3
-#: .\apps\tracker\templates\registration\login.html:7
-#: .\apps\tracker\templates\registration\login.html:21
-#: .\apps\tracker\templates\registration\signup.html:20
-#: .\apps\tracker\templates\tracker\_sidebar.html:16
-msgid "Log in"
-msgstr "Σύνδεση"
-
-#: .\apps\tracker\templates\registration\login.html:23
+#: .\apps\tracker\templates\registration\login.html:22
 msgid "Don't have an account?"
 msgstr "Δεν έχεις λογαριασμό;"
-
-#: .\apps\tracker\templates\registration\login.html:23
-#: .\apps\tracker\templates\registration\signup.html:3
-#: .\apps\tracker\templates\registration\signup.html:18
-#: .\apps\tracker\templates\tracker\_sidebar.html:17
-msgid "Sign up"
-msgstr "Εγγραφή"
-
-#: .\apps\tracker\templates\registration\signup.html:7
-msgid "Create your account"
-msgstr "Δημιουργία λογαριασμού"
-
-#: .\apps\tracker\templates\registration\signup.html:20
-msgid "Already have an account?"
-msgstr "Έχεις ήδη λογαριασμό;"
 
 #: .\apps\tracker\templates\tracker\_scan_modal.html:5
 #: .\apps\tracker\templates\tracker\dashboard.html:40
@@ -227,6 +563,7 @@ msgid "Scan barcode"
 msgstr "Σάρωση barcode"
 
 #: .\apps\tracker\templates\tracker\_scan_modal.html:6
+#: .\templates\feedback\_modal.html:10
 msgid "Close"
 msgstr "Κλείσιμο"
 
@@ -237,11 +574,6 @@ msgstr "Expiration Tracker"
 #: .\apps\tracker\templates\tracker\_sidebar.html:5
 msgid "Dashboard"
 msgstr "Dashboard"
-
-#: .\apps\tracker\templates\tracker\_sidebar.html:6
-#: .\apps\tracker\templates\tracker\categories.html:3
-msgid "Categories"
-msgstr "Κατηγορίες"
 
 #: .\apps\tracker\templates\tracker\_sidebar.html:7
 #: .\apps\tracker\templates\tracker\waste_log.html:3
@@ -254,7 +586,7 @@ msgstr "Φύρα"
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: .\apps\tracker\templates\tracker\_sidebar.html:12
+#: .\apps\tracker\templates\tracker\_sidebar.html:12 .\templates\base.html:723
 msgid "Log out"
 msgstr "Αποσύνδεση"
 
@@ -265,10 +597,6 @@ msgstr "Κατηγορίες προϊόντων"
 #: .\apps\tracker\templates\tracker\categories.html:20
 msgid "Add"
 msgstr "Προσθήκη"
-
-#: .\apps\tracker\templates\tracker\categories.html:27
-msgid "Name"
-msgstr "Όνομα"
 
 #: .\apps\tracker\templates\tracker\categories.html:33
 #, python-format
@@ -329,7 +657,7 @@ msgstr "Νέο προϊόν"
 msgid "Search by barcode or product name"
 msgstr "Αναζήτηση με barcode ή όνομα προϊόντος"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:41
+#: .\apps\tracker\templates\tracker\dashboard.html:41 .\templates\base.html:711
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -359,11 +687,6 @@ msgstr "Καθαρισμός φίλτρου (%(filter)s)"
 #: .\apps\tracker\templates\tracker\dashboard.html:62
 msgid "Expires"
 msgstr "Λήξη"
-
-#: .\apps\tracker\templates\tracker\dashboard.html:62
-#: .\apps\tracker\views.py:244
-msgid "Status"
-msgstr "Κατάσταση"
 
 #: .\apps\tracker\templates\tracker\dashboard.html:73
 #, python-format
@@ -469,11 +792,6 @@ msgstr "Άκυρο"
 msgid "Scan"
 msgstr "Σάρωση"
 
-#: .\apps\tracker\templates\tracker\item_form.html:26
-#: .\apps\tracker\templates\tracker\settings.html:21
-msgid "Save"
-msgstr "Αποθήκευση"
-
 #: .\apps\tracker\templates\tracker\item_form.html:35
 msgid "Found: "
 msgstr "Βρέθηκε: "
@@ -499,6 +817,22 @@ msgstr "Ρυθμίσεις ειδοποιήσεων"
 msgid "Business: %(name)s (%(type)s) — Plan: %(plan)s"
 msgstr "Επιχείρηση: %(name)s (%(type)s) — Πλάνο: %(plan)s"
 
+#: .\apps\tracker\templates\tracker\start_trial.html:3
+msgid "Start your free trial"
+msgstr "Ξεκίνα τη δωρεάν δοκιμή σου"
+
+#: .\apps\tracker\templates\tracker\start_trial.html:6
+msgid "Start your Expiration Tracker free trial"
+msgstr "Ξεκίνα τη δωρεάν δοκιμή του Expiration Tracker"
+
+#: .\apps\tracker\templates\tracker\start_trial.html:7
+msgid "A couple of details about your business, then you're in."
+msgstr "Λίγα στοιχεία για την επιχείρησή σου, και μπαίνεις μέσα."
+
+#: .\apps\tracker\templates\tracker\start_trial.html:18
+msgid "Start free trial"
+msgstr "Ξεκίνα δωρεάν δοκιμή"
+
 #: .\apps\tracker\templates\tracker\waste_log.html:13
 msgid "Wasted items (month)"
 msgstr "Είδη φύρας (μήνας)"
@@ -519,60 +853,55 @@ msgstr "Ημερομηνία"
 msgid "No waste recorded yet."
 msgstr "Δεν έχει καταγραφεί φύρα ακόμα."
 
-#: .\apps\tracker\views.py:26 .\apps\tracker\views.py:29
+#: .\apps\tracker\views.py:24 .\apps\tracker\views.py:27
 msgid "This account isn't linked to a business."
 msgstr "Αυτός ο λογαριασμός δεν είναι συνδεδεμένος με επιχείρηση."
 
-#: .\apps\tracker\views.py:44
-msgid "Too many signup attempts from this network. Please try again later."
-msgstr ""
-"Πάρα πολλές προσπάθειες εγγραφής από αυτό το δίκτυο. Δοκίμασε ξανά αργότερα."
+#: .\apps\tracker\views.py:46
+msgid "Welcome! Your free trial has started."
+msgstr "Καλωσόρισες! Η δωρεάν δοκιμή σου ξεκίνησε."
 
-#: .\apps\tracker\views.py:56
-msgid "Welcome! Your account has been created."
-msgstr "Καλωσόρισες! Ο λογαριασμός σου δημιουργήθηκε."
-
-#: .\apps\tracker\views.py:114
+#: .\apps\tracker\views.py:104
 msgid "Product added."
 msgstr "Το προϊόν προστέθηκε."
 
-#: .\apps\tracker\views.py:118
+#: .\apps\tracker\views.py:108
 msgid "Add product"
 msgstr "Προσθήκη προϊόντος"
 
-#: .\apps\tracker\views.py:131
+#: .\apps\tracker\views.py:121
 msgid "Product updated."
 msgstr "Το προϊόν ενημερώθηκε."
 
-#: .\apps\tracker\views.py:135
+#: .\apps\tracker\views.py:125
 msgid "Edit product"
 msgstr "Επεξεργασία προϊόντος"
 
-#: .\apps\tracker\views.py:146
+#: .\apps\tracker\views.py:136
 msgid "Product deleted."
 msgstr "Το προϊόν διαγράφηκε."
 
-#: .\apps\tracker\views.py:166
+#: .\apps\tracker\views.py:156
 msgid "Quantity updated."
 msgstr "Ενημερώθηκε η ποσότητα."
 
-#: .\apps\tracker\views.py:182
+#: .\apps\tracker\views.py:172
 msgid "Recorded as waste."
 msgstr "Καταγράφηκε ως φύρα."
 
-#: .\apps\tracker\views.py:244
+#: .\apps\tracker\views.py:234
 msgid "Days"
 msgstr "Ημέρες"
 
-#: .\apps\tracker\views.py:301
+#: .\apps\tracker\views.py:291
 msgid "Category added."
 msgstr "Η κατηγορία προστέθηκε."
 
-#: .\apps\tracker\views.py:318
+#: .\apps\tracker\views.py:308
 msgid "Category deleted."
 msgstr "Η κατηγορία διαγράφηκε."
 
-#: .\apps\tracker\views.py:331
+#: .\apps\tracker\views.py:321
 msgid "Notification settings updated."
 msgstr "Οι ρυθμίσεις ειδοποιήσεων ενημερώθηκαν."
 
@@ -584,95 +913,49 @@ msgstr "Ιστότοπος διαχείρισης Django"
 msgid "Django administration"
 msgstr "Διαχείριση Django"
 
-#~ msgid "Free tools"
-#~ msgstr "Δωρεάν εργαλεία"
+#: .\templates\base.html:714
+msgid "Toggle dark / light theme"
+msgstr "Εναλλαγή σκούρου / ανοιχτού θέματος"
 
-#~ msgid "Support documents"
-#~ msgstr "Έγγραφα υποστήριξης"
+#: .\templates\base.html:744
+msgid "Get notified when new free tools launch"
+msgstr "Μάθε πρώτος για νέα δωρεάν εργαλεία"
 
-#~ msgid "Applications"
-#~ msgstr "Εφαρμογές"
+#: .\templates\base.html:752
+msgid "you@example.com"
+msgstr "you@example.com"
 
-#~ msgid "Name (optional)"
-#~ msgstr "Όνομα (προαιρετικό)"
+#: .\templates\base.html:753
+msgid "Subscribe"
+msgstr "Εγγραφή"
 
-#~ msgid "Email (optional)"
-#~ msgstr "Email (προαιρετικό)"
+#: .\templates\base.html:756
+msgid "RSS feed"
+msgstr "Ροή RSS"
 
-#~ msgid "Message"
-#~ msgstr "Μήνυμα"
+#: .\templates\base.html:761
+msgid "Search tools, docs, applications…"
+msgstr "Αναζήτηση εργαλείων, εγγράφων, εφαρμογών…"
 
-#~ msgid "Please enter a message."
-#~ msgstr "Παρακαλώ γράψε ένα μήνυμα."
+#: .\templates\base.html:791
+msgid "No matches."
+msgstr "Δεν βρέθηκαν αποτελέσματα."
 
-#~ msgid "Bug report"
-#~ msgstr "Αναφορά σφάλματος"
+#: .\templates\feedback\_modal.html:9
+msgid "Send feedback"
+msgstr "Στείλε σχόλιο"
 
-#~ msgid "Feature request"
-#~ msgstr "Αίτημα λειτουργίας"
+#: .\templates\feedback\_modal.html:12
+msgid "Found a bug, or want a new mini-tool? Let us know."
+msgstr "Βρήκες σφάλμα ή θέλεις ένα νέο εργαλείο; Πες μας."
 
-#~ msgid "General feedback"
-#~ msgstr "Γενικό σχόλιο"
+#: .\templates\feedback\_modal.html:33
+msgid "Email (optional, if you want a reply)"
+msgstr "Email (προαιρετικό, αν θέλεις απάντηση)"
 
-#~ msgid ""
-#~ "Too many submissions from this network. Please try again in a few minutes."
-#~ msgstr ""
-#~ "Πάρα πολλές υποβολές από αυτό το δίκτυο. Δοκίμασε ξανά σε λίγα λεπτά."
-
-#~ msgid "Couldn't send your feedback - please check the message field."
-#~ msgstr "Δεν στάλθηκε το σχόλιό σου - έλεγξε το πεδίο μηνύματος."
-
-#~ msgid "Thanks for the feedback!"
-#~ msgstr "Ευχαριστούμε για το σχόλιο!"
-
-#~ msgid ""
-#~ "Too many attempts from this network. Please try again in a few minutes."
-#~ msgstr ""
-#~ "Πάρα πολλές προσπάθειες από αυτό το δίκτυο. Δοκίμασε ξανά σε λίγα λεπτά."
-
-#~ msgid "Enter a valid email address."
-#~ msgstr "Γράψε μια έγκυρη διεύθυνση email."
-
-#~ msgid "Subscribed! We'll email you when new free tools launch."
-#~ msgstr ""
-#~ "Εγγραφή επιτυχής! Θα σου στείλουμε email όταν κυκλοφορήσουν νέα δωρεάν "
-#~ "εργαλεία."
-
-#~ msgid "Recently used"
-#~ msgstr "Πρόσφατα χρησιμοποιημένα"
-
-#~ msgid "Toggle dark / light theme"
-#~ msgstr "Εναλλαγή σκούρου / ανοιχτού θέματος"
-
-#~ msgid "Get notified when new free tools launch"
-#~ msgstr "Μάθε πρώτος για νέα δωρεάν εργαλεία"
-
-#~ msgid "you@example.com"
-#~ msgstr "you@example.com"
-
-#~ msgid "Subscribe"
-#~ msgstr "Εγγραφή"
-
-#~ msgid "RSS feed"
-#~ msgstr "Ροή RSS"
-
-#~ msgid "Search tools, docs, applications…"
-#~ msgstr "Αναζήτηση εργαλείων, εγγράφων, εφαρμογών…"
-
-#~ msgid "No matches."
-#~ msgstr "Δεν βρέθηκαν αποτελέσματα."
+#: .\templates\feedback\_modal.html:36
+msgid "Send"
+msgstr "Αποστολή"
 
 #~ msgid "Feedback"
 #~ msgstr "Feedback"
-
-#~ msgid "Send feedback"
-#~ msgstr "Στείλε σχόλιο"
-
-#~ msgid "Found a bug, or want a new mini-tool? Let us know."
-#~ msgstr "Βρήκες σφάλμα ή θέλεις ένα νέο εργαλείο; Πες μας."
-
-#~ msgid "Email (optional, if you want a reply)"
-#~ msgstr "Email (προαιρετικό, αν θέλεις απάντηση)"
-
-#~ msgid "Send"
-#~ msgstr "Αποστολή"
