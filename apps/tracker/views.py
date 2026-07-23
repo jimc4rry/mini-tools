@@ -22,6 +22,9 @@ def _business_or_none(user):
 
 
 def _redirect_no_business(request):
+    if request.user.is_superuser:
+        messages.info(request, _("This account isn't linked to a business."))
+        return redirect("platform_admin:dashboard")
     if request.user.is_staff:
         messages.info(request, _("This account isn't linked to a business."))
         return redirect("/admin/")
