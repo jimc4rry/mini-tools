@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Sign up — Minitools Hub{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width:420px; margin:0 auto;">
+  <h2>Create your account</h2>
+  <p class="muted" style="margin-top:0;">One account for the whole Hub - pick a tool or app to start using afterward.</p>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
+        {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
+      </div>
+    {% endfor %}
+    <button class="btn-primary" type="submit">Sign up</button>
+  </form>
+  <p class="helptext" style="margin-top:0.75rem">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+</div>
+{% endblock %}

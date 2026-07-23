@@ -72,10 +72,10 @@ class Business(models.Model):
 
 
 # Lazy translations: evaluated to text (in the current active language) only
-# when str()'d — forms.SignupForm.save() does that explicitly at signup time,
-# so each business gets its default categories in whichever language was
-# active when they signed up, not whatever language happened to be active
-# when this module was first imported.
+# when str()'d — forms.BusinessOnboardingForm.save() does that explicitly when
+# the trial starts, so each business gets its default categories in whichever
+# language was active at that moment, not whatever language happened to be
+# active when this module was first imported.
 DEFAULT_CATEGORY_NAMES = [
     _("Food"), _("Beverages"), _("Dairy"), _("Frozen"), _("Cleaning supplies"), _("Medicine"), _("Other"),
 ]

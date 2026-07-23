@@ -2,15 +2,13 @@ import csv
 from decimal import Decimal
 
 from django.contrib import messages
-from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
-from apps.core.ratelimit import is_rate_limited
-from .forms import CategoryForm, InventoryItemForm, NotificationSettingsForm, SignupForm
+from .forms import BusinessOnboardingForm, CategoryForm, InventoryItemForm, NotificationSettingsForm
 from .models import Business, Category, InventoryItem, Product
 
 
@@ -28,39 +26,28 @@ def _redirect_no_business(request):
     if request.user.is_staff:
         messages.info(request, _("This account isn't linked to a business."))
         return redirect("/admin/")
-    logout(request)
-    messages.info(request, _("This account isn't linked to a business."))
-    return redirect("login")
+    return redirect("start_trial")
 
 
-SIGNUP_RATE_LIMIT_WINDOW_SECONDS = 3600
-SIGNUP_RATE_LIMIT_MAX_ATTEMPTS = 5
-
-
-def signup(request):
-    if request.user.is_authenticated:
+@login_required
+def start_trial(request):
+    """
+    Starts the Expiration Tracker free trial for a platform account that
+    doesn't have one yet - reached either directly, or bounced here from
+    dashboard() via _redirect_no_business().
+    """
+    if _business_or_none(request.user):
         return redirect("dashboard")
-    if request.method == "POST":
-        # Per-IP throttle - the account gets a 14-day free trial with no email
-        # verification, which is exactly what a bot farming free accounts wants.
-        if is_rate_limited(request, "tracker_signup", SIGNUP_RATE_LIMIT_MAX_ATTEMPTS, SIGNUP_RATE_LIMIT_WINDOW_SECONDS):
-            messages.error(request, _("Too many signup attempts from this network. Please try again later."))
-            return render(request, "registration/signup.html", {"form": SignupForm()})
 
-        form = SignupForm(request.POST)
+    if request.method == "POST":
+        form = BusinessOnboardingForm(request.POST)
         if form.is_valid():
-            if form.cleaned_data.get("website"):
-                # Honeypot field was filled in - only a bot does this. Pretend
-                # success without creating an account, so the bot gets no signal
-                # that it was caught.
-                return redirect("login")
-            user = form.save()
-            login(request, user)
-            messages.success(request, _("Welcome! Your account has been created."))
+            form.save(request.user)
+            messages.success(request, _("Welcome! Your free trial has started."))
             return redirect("dashboard")
     else:
-        form = SignupForm()
-    return render(request, "registration/signup.html", {"form": form})
+        form = BusinessOnboardingForm()
+    return render(request, "tracker/start_trial.html", {"form": form})
 
 
 @login_required

@@ -2,7 +2,7 @@ import datetime
 
 from django import forms
 from django.contrib.auth import authenticate
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -43,30 +43,17 @@ class FriendlyAuthenticationForm(AuthenticationForm):
         return self.cleaned_data
 
 
-class SignupForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+class BusinessOnboardingForm(forms.Form):
+    """
+    Starts the Expiration Tracker free trial for an *already logged-in*
+    platform account (see apps/core.forms.PlatformSignupForm for account
+    creation itself, which has no app-specific fields at all).
+    """
+
     business_name = forms.CharField(max_length=200, label=_("Business name"))
     business_type = forms.ChoiceField(choices=Business.BusinessType.choices, label=_("Business type"))
-    # Honeypot: invisible to real users (off-screen, out of tab order, not read by
-    # screen readers), so only a bot that blindly fills every input will populate it.
-    # Left blank by humans - checked in the signup view, never saved to the User model.
-    website = forms.CharField(
-        required=False,
-        label="",
-        widget=forms.TextInput(attrs={
-            "autocomplete": "off",
-            "tabindex": "-1",
-            "aria-hidden": "true",
-            "style": "position:absolute; left:-9999px; width:1px; height:1px;",
-        }),
-    )
 
-    class Meta:
-        model = User
-        fields = ("username", "email", "password1", "password2")
-
-    def save(self, commit=True):
-        user = super().save(commit=commit)
+    def save(self, user):
         trial_ends_at = timezone.localdate() + datetime.timedelta(days=Business.TRIAL_LENGTH_DAYS)
         business = Business.objects.create(
             owner=user,
@@ -81,7 +68,7 @@ class SignupForm(UserCreationForm):
         # trial_ends_at above stays the source of truth for this app's own UI, this
         # just keeps the generic record in sync from day one.
         Subscription.objects.create(user=user, product="tracker", trial_ends_at=trial_ends_at)
-        return user
+        return business
 
 
 class InventoryItemForm(forms.ModelForm):
