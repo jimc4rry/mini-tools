@@ -110,7 +110,7 @@ def _find_subscription(data):
     )
 
 
-def _sync_tracker_business(subscription):
+def sync_tracker_business(subscription):
     """apps/tracker.Business keeps its own denormalized copies of these fields
     for its existing UI/admin/management commands - mirror any change here so
     that code keeps working unchanged. No-op for every other product."""
@@ -161,10 +161,10 @@ def paddle_webhook(request):
         elif status in INACTIVE_SUBSCRIPTION_STATUSES:
             subscription.status = Subscription.Status.INACTIVE
         subscription.save()
-        _sync_tracker_business(subscription)
+        sync_tracker_business(subscription)
     elif event_type == "subscription.canceled":
         subscription.status = Subscription.Status.INACTIVE
         subscription.save()
-        _sync_tracker_business(subscription)
+        sync_tracker_business(subscription)
 
     return HttpResponse(status=200)

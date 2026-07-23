@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "apps.og_image",
     "apps.newsletter",
     "apps.billing",
+    "apps.platform_admin",
 ]
 
 MIDDLEWARE = [

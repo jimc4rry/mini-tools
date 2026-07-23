@@ -709,6 +709,9 @@
       <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle dark / light theme">
         <span class="theme-toggle-icon">🌙</span>
       </button>
+      {% if user.is_superuser %}
+        <a href="{% url 'platform_admin:dashboard' %}" class="header-account-btn">Platform Admin</a>
+      {% endif %}
       {% if user.is_authenticated %}
         <form method="post" action="{% url 'logout' %}" class="header-account">
           {% csrf_token %}

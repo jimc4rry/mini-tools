@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Platform Admin — Minitools Hub{% endblock %}
+{% block main_class %}wide{% endblock %}
+
+{% block content %}
+<div class="top-row">
+  <h1>Platform Admin</h1>
+  <a href="/admin/" class="btn-secondary">Django Admin →</a>
+</div>
+<p class="muted">Every subscription on the Hub, across every app - plans, trials, and manual overrides.</p>
+
+<div class="stat-row">
+  <div class="stat-tile"><span class="n">{{ total_count }}</span><div class="l">Total</div></div>
+  <div class="stat-tile"><span class="n">{{ active_count }}</span><div class="l">Active</div></div>
+  <div class="stat-tile"><span class="n">{{ trial_count }}</span><div class="l">Trial</div></div>
+</div>
+
+<form method="get" class="top-row" style="gap:0.75rem; flex-wrap:wrap;">
+  <div class="form-field" style="margin-bottom:0;">
+    <input type="text" name="q" placeholder="Username or email…" value="{{ search_query }}">
+  </div>
+  <div class="form-field" style="margin-bottom:0;">
+    <select name="product">
+      <option value="">All products</option>
+      {% for product in products %}
+        <option value="{{ product }}" {% if product == product_filter %}selected{% endif %}>{{ product }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-field" style="margin-bottom:0;">
+    <select name="status">
+      <option value="">All statuses</option>
+      {% for value, label in status_choices %}
+        <option value="{{ value }}" {% if value == status_filter %}selected{% endif %}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <button type="submit" class="btn-primary">Filter</button>
+  {% if search_query or product_filter or status_filter %}
+    <a href="{% url 'platform_admin:dashboard' %}" class="btn-secondary">Clear</a>
+  {% endif %}
+</form>
+
+<div class="card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Email</th>
+        <th>Product</th>
+        <th>Status</th>
+        <th>Trial ends</th>
+        <th>Updated</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for subscription in subscriptions %}
+        <tr>
+          <td>{{ subscription.user.username }}</td>
+          <td>{{ subscription.user.email|default:"—" }}</td>
+          <td>{{ subscription.product }}</td>
+          <td>
+            {% if subscription.status == "active" %}
+              <span class="chip chip-ok">Active</span>
+            {% elif subscription.status == "trial" %}
+              <span class="chip chip-warning">Trial</span>
+            {% else %}
+              <span class="chip chip-expired">Inactive</span>
+            {% endif %}
+          </td>
+          <td>{{ subscription.trial_ends_at|default:"—" }}</td>
+          <td>{{ subscription.updated_at|date:"d/m/Y H:i" }}</td>
+          <td><a href="{% url 'platform_admin:subscription_detail' subscription.pk %}" class="btn-secondary">Manage</a></td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="7" class="muted" style="text-align:center;">No subscriptions found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if page_obj.paginator.num_pages > 1 %}
+    <div class="top-row" style="justify-content:center; margin-top:1rem;">
+      {% if page_obj.has_previous %}
+        <a class="btn-secondary" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if product_filter %}&product={{ product_filter }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}">&laquo; Prev</a>
+      {% endif %}
+      <span class="muted">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+        <a class="btn-secondary" href="?page={{ page_obj.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if product_filter %}&product={{ product_filter }}{% endif %}{% if status_filter %}&status={{ status_filter }}{% endif %}">Next &raquo;</a>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
