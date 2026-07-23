@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "apps.barcode_tool",
     "apps.csv_cleaner",
     "apps.jira_helpers",
+    "apps.feedback",
 ]
 
 MIDDLEWARE = [
@@ -126,6 +127,11 @@ EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
 EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", default="noreply@minitools.local")
+
+# Where apps.feedback emails a notification for each new submission.
+# Left blank to skip sending (submissions are always saved to the Django admin
+# regardless - see apps/feedback/views.py).
+FEEDBACK_NOTIFY_EMAIL = env("FEEDBACK_NOTIFY_EMAIL", default="")
 
 # Paddle billing for the Expiration Tracker app (see apps/tracker/billing.py).
 # Signature verification is skipped in dev until this is set.

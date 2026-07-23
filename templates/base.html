@@ -209,6 +209,54 @@
       border-top: 1px solid var(--border);
     }
 
+    /* Feedback modal */
+    .feedback-fab {
+      position: fixed;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      z-index: 90;
+      background: var(--accent-gradient);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 0.7rem 1.1rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      cursor: pointer;
+    }
+    .feedback-fab:hover { filter: brightness(1.08); }
+    .feedback-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .feedback-modal-card { width: 100%; max-width: 420px; }
+    .feedback-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .feedback-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+    }
+    .feedback-close:hover { color: var(--text); }
+    @media (max-width: 640px) {
+      .feedback-fab { right: 1rem; bottom: 1rem; padding: 0.6rem 0.9rem; font-size: 0.8rem; }
+    }
+
     /* Buttons */
     .btn-cta {
       display: inline-flex;
@@ -478,5 +526,6 @@
     </main>
   </div>
   <footer>&copy; {% now "Y" %} Minitools Hub</footer>
+  {% include "feedback/_modal.html" %}
 </body>
 </html>

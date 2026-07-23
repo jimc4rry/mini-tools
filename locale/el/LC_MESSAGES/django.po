@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-22 18:40+0300\n"
+"POT-Creation-Date: 2026-07-23 11:12+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -11,6 +11,54 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\apps\feedback\forms.py:26 .\apps\tracker\forms.py:87
+#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\templates\tracker\waste_log.html:26
+#: .\apps\tracker\views.py:243 .\templates\feedback\_modal.html:21
+msgid "Category"
+msgstr "Κατηγορία"
+
+#: .\apps\feedback\forms.py:27
+msgid "Name (optional)"
+msgstr "Όνομα (προαιρετικό)"
+
+#: .\apps\feedback\forms.py:28
+msgid "Email (optional)"
+msgstr "Email (προαιρετικό)"
+
+#: .\apps\feedback\forms.py:29 .\templates\feedback\_modal.html:29
+msgid "Message"
+msgstr "Μήνυμα"
+
+#: .\apps\feedback\forms.py:35
+msgid "Please enter a message."
+msgstr "Παρακαλώ γράψε ένα μήνυμα."
+
+#: .\apps\feedback\models.py:7 .\templates\feedback\_modal.html:24
+msgid "Bug report"
+msgstr "Αναφορά σφάλματος"
+
+#: .\apps\feedback\models.py:8 .\templates\feedback\_modal.html:25
+msgid "Feature request"
+msgstr "Αίτημα λειτουργίας"
+
+#: .\apps\feedback\models.py:9 .\templates\feedback\_modal.html:23
+msgid "General feedback"
+msgstr "Γενικό σχόλιο"
+
+#: .\apps\feedback\views.py:27
+msgid ""
+"Too many submissions from this network. Please try again in a few minutes."
+msgstr "Πάρα πολλές υποβολές από αυτό το δίκτυο. Δοκίμασε ξανά σε λίγα λεπτά."
+
+#: .\apps\feedback\views.py:37
+msgid "Couldn't send your feedback - please check the message field."
+msgstr "Δεν στάλθηκε το σχόλιό σου - έλεγξε το πεδίο μηνύματος."
+
+#: .\apps\feedback\views.py:57
+msgid "Thanks for the feedback!"
+msgstr "Ευχαριστούμε για το σχόλιο!"
 
 #: .\apps\tracker\forms.py:31
 msgid "There's no user with that username."
@@ -31,7 +79,7 @@ msgstr "Τύπος επιχείρησης"
 #: .\apps\tracker\forms.py:81
 #: .\apps\tracker\templates\tracker\dashboard.html:62
 #: .\apps\tracker\templates\tracker\waste_log.html:26
-#: .\apps\tracker\views.py:253
+#: .\apps\tracker\views.py:243
 msgid "Product"
 msgstr "Προϊόν"
 
@@ -39,18 +87,11 @@ msgstr "Προϊόν"
 msgid "Barcode"
 msgstr "Barcode"
 
-#: .\apps\tracker\forms.py:87
-#: .\apps\tracker\templates\tracker\dashboard.html:62
-#: .\apps\tracker\templates\tracker\waste_log.html:26
-#: .\apps\tracker\views.py:253
-msgid "Category"
-msgstr "Κατηγορία"
-
 #: .\apps\tracker\forms.py:88
 msgid "— No category —"
 msgstr "— Χωρίς κατηγορία —"
 
-#: .\apps\tracker\forms.py:90 .\apps\tracker\views.py:253
+#: .\apps\tracker\forms.py:90 .\apps\tracker\views.py:243
 msgid "Unit"
 msgstr "Μονάδα"
 
@@ -65,7 +106,7 @@ msgstr "Ελάχιστο απόθεμα"
 #: .\apps\tracker\forms.py:102
 #: .\apps\tracker\templates\tracker\dashboard.html:62
 #: .\apps\tracker\templates\tracker\waste_log.html:26
-#: .\apps\tracker\views.py:253
+#: .\apps\tracker\views.py:243
 msgid "Quantity"
 msgstr "Ποσότητα"
 
@@ -73,11 +114,11 @@ msgstr "Ποσότητα"
 msgid "Batch number"
 msgstr "Αριθμός παρτίδας"
 
-#: .\apps\tracker\forms.py:104 .\apps\tracker\views.py:254
+#: .\apps\tracker\forms.py:104 .\apps\tracker\views.py:244
 msgid "Expiration date"
 msgstr "Ημερομηνία λήξης"
 
-#: .\apps\tracker\forms.py:105 .\apps\tracker\views.py:254
+#: .\apps\tracker\forms.py:105 .\apps\tracker\views.py:244
 msgid "Notes"
 msgstr "Σημειώσεις"
 
@@ -227,6 +268,7 @@ msgid "Scan barcode"
 msgstr "Σάρωση barcode"
 
 #: .\apps\tracker\templates\tracker\_scan_modal.html:6
+#: .\templates\feedback\_modal.html:10
 msgid "Close"
 msgstr "Κλείσιμο"
 
@@ -361,7 +403,7 @@ msgid "Expires"
 msgstr "Λήξη"
 
 #: .\apps\tracker\templates\tracker\dashboard.html:62
-#: .\apps\tracker\views.py:254
+#: .\apps\tracker\views.py:244
 msgid "Status"
 msgstr "Κατάσταση"
 
@@ -523,55 +565,56 @@ msgstr "Δεν έχει καταγραφεί φύρα ακόμα."
 msgid "This account isn't linked to a business."
 msgstr "Αυτός ο λογαριασμός δεν είναι συνδεδεμένος με επιχείρηση."
 
-#: .\apps\tracker\views.py:54
+#: .\apps\tracker\views.py:44
 msgid "Too many signup attempts from this network. Please try again later."
-msgstr "Πάρα πολλές προσπάθειες εγγραφής από αυτό το δίκτυο. Δοκίμασε ξανά αργότερα."
+msgstr ""
+"Πάρα πολλές προσπάθειες εγγραφής από αυτό το δίκτυο. Δοκίμασε ξανά αργότερα."
 
-#: .\apps\tracker\views.py:66
+#: .\apps\tracker\views.py:56
 msgid "Welcome! Your account has been created."
 msgstr "Καλωσόρισες! Ο λογαριασμός σου δημιουργήθηκε."
 
-#: .\apps\tracker\views.py:124
+#: .\apps\tracker\views.py:114
 msgid "Product added."
 msgstr "Το προϊόν προστέθηκε."
 
-#: .\apps\tracker\views.py:128
+#: .\apps\tracker\views.py:118
 msgid "Add product"
 msgstr "Προσθήκη προϊόντος"
 
-#: .\apps\tracker\views.py:141
+#: .\apps\tracker\views.py:131
 msgid "Product updated."
 msgstr "Το προϊόν ενημερώθηκε."
 
-#: .\apps\tracker\views.py:145
+#: .\apps\tracker\views.py:135
 msgid "Edit product"
 msgstr "Επεξεργασία προϊόντος"
 
-#: .\apps\tracker\views.py:156
+#: .\apps\tracker\views.py:146
 msgid "Product deleted."
 msgstr "Το προϊόν διαγράφηκε."
 
-#: .\apps\tracker\views.py:176
+#: .\apps\tracker\views.py:166
 msgid "Quantity updated."
 msgstr "Ενημερώθηκε η ποσότητα."
 
-#: .\apps\tracker\views.py:192
+#: .\apps\tracker\views.py:182
 msgid "Recorded as waste."
 msgstr "Καταγράφηκε ως φύρα."
 
-#: .\apps\tracker\views.py:254
+#: .\apps\tracker\views.py:244
 msgid "Days"
 msgstr "Ημέρες"
 
-#: .\apps\tracker\views.py:311
+#: .\apps\tracker\views.py:301
 msgid "Category added."
 msgstr "Η κατηγορία προστέθηκε."
 
-#: .\apps\tracker\views.py:328
+#: .\apps\tracker\views.py:318
 msgid "Category deleted."
 msgstr "Η κατηγορία διαγράφηκε."
 
-#: .\apps\tracker\views.py:341
+#: .\apps\tracker\views.py:331
 msgid "Notification settings updated."
 msgstr "Οι ρυθμίσεις ειδοποιήσεων ενημερώθηκαν."
 
@@ -582,3 +625,23 @@ msgstr "Ιστότοπος διαχείρισης Django"
 #: .\templates\admin\base_site.html:7
 msgid "Django administration"
 msgstr "Διαχείριση Django"
+
+#: .\templates\feedback\_modal.html:3
+msgid "Feedback"
+msgstr "Σχόλια"
+
+#: .\templates\feedback\_modal.html:9
+msgid "Send feedback"
+msgstr "Στείλε σχόλιο"
+
+#: .\templates\feedback\_modal.html:12
+msgid "Found a bug, or want a new mini-tool? Let us know."
+msgstr "Βρήκες σφάλμα ή θέλεις ένα νέο εργαλείο; Πες μας."
+
+#: .\templates\feedback\_modal.html:33
+msgid "Email (optional, if you want a reply)"
+msgstr "Email (προαιρετικό, αν θέλεις απάντηση)"
+
+#: .\templates\feedback\_modal.html:36
+msgid "Send"
+msgstr "Αποστολή"
