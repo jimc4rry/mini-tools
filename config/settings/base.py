@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "apps.jira_helpers",
     "apps.feedback",
     "apps.og_image",
+    "apps.newsletter",
 ]
 
 MIDDLEWARE = [

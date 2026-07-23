@@ -233,6 +233,28 @@
       padding: 2.5rem 1rem;
       border-top: 1px solid var(--border);
     }
+    .newsletter-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      padding: 1rem;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .newsletter-bar span { color: var(--muted); font-size: 0.88rem; }
+    .newsletter-form { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+    .newsletter-form input[type="email"] {
+      padding: 0.5rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      font-size: 0.88rem;
+      min-width: 220px;
+    }
 
     /* Feedback modal */
     .feedback-fab {
@@ -603,6 +625,19 @@
         {% block content %}{% endblock %}
       </div>
     </main>
+  </div>
+  <div class="newsletter-bar">
+    <span>{% trans "Get notified when new free tools launch" %}</span>
+    <form method="post" action="{% url 'newsletter:subscribe' %}" class="newsletter-form">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <div style="position:absolute; left:-9999px;" aria-hidden="true">
+        <label for="id_nl_website"></label>
+        <input type="text" id="id_nl_website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+      <input type="email" name="email" placeholder="{% trans 'you@example.com' %}" required>
+      <button type="submit" class="btn-secondary">{% trans "Subscribe" %}</button>
+    </form>
   </div>
   <footer>&copy; {% now "Y" %} Minitools Hub &middot; <a href="{% url 'core:feed' %}">{% trans "RSS feed" %}</a></footer>
   {% include "feedback/_modal.html" %}

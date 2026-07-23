@@ -28,4 +28,5 @@ urlpatterns = [
     path("jira-helpers/", include("apps.jira_helpers.urls")),
     path("feedback/", include("apps.feedback.urls")),
     path("og-image/", include("apps.og_image.urls")),
+    path("newsletter/", include("apps.newsletter.urls")),
 ]
