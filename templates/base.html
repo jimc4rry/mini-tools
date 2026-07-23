@@ -3,6 +3,16 @@
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        if (stored === "light" || stored === "dark") {
+          document.documentElement.setAttribute("data-theme", stored);
+        }
+      } catch (e) {}
+    })();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}Minitools Hub{% endblock %}</title>
@@ -38,12 +48,47 @@
       --border-strong: rgba(255, 255, 255, 0.16);
       --text: #f2f4f9;
       --muted: #97a0b5;
+      --input-bg: rgba(255, 255, 255, 0.03);
+      --code-bg: rgba(255, 255, 255, 0.05);
+      --header-bg: rgba(9, 11, 18, 0.72);
       --accent: #6d5efc;
       --accent-2: #22d3ee;
       --accent-gradient: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
       --radius: 14px;
       --shadow-glow: 0 10px 40px -12px rgba(109, 94, 252, 0.35);
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    :root[data-theme="light"] {
+      --bg: #f5f6fb;
+      --glow-1: rgba(109, 94, 252, 0.14);
+      --glow-2: rgba(34, 211, 238, 0.10);
+      --surface: rgba(9, 11, 18, 0.035);
+      --surface-solid: #ffffff;
+      --border: rgba(9, 11, 18, 0.10);
+      --border-strong: rgba(9, 11, 18, 0.18);
+      --text: #1a1d29;
+      --muted: #5b6178;
+      --input-bg: rgba(9, 11, 18, 0.025);
+      --code-bg: rgba(9, 11, 18, 0.045);
+      --header-bg: rgba(255, 255, 255, 0.72);
+      --shadow-glow: 0 10px 30px -12px rgba(109, 94, 252, 0.25);
+    }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme]) {
+        --bg: #f5f6fb;
+        --glow-1: rgba(109, 94, 252, 0.14);
+        --glow-2: rgba(34, 211, 238, 0.10);
+        --surface: rgba(9, 11, 18, 0.035);
+        --surface-solid: #ffffff;
+        --border: rgba(9, 11, 18, 0.10);
+        --border-strong: rgba(9, 11, 18, 0.18);
+        --text: #1a1d29;
+        --muted: #5b6178;
+        --input-bg: rgba(9, 11, 18, 0.025);
+        --code-bg: rgba(9, 11, 18, 0.045);
+        --header-bg: rgba(255, 255, 255, 0.72);
+        --shadow-glow: 0 10px 30px -12px rgba(109, 94, 252, 0.25);
+      }
     }
     * { box-sizing: border-box; }
     html, body { height: 100%; }
@@ -76,7 +121,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(9, 11, 18, 0.72);
+      background: var(--header-bg);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
@@ -122,6 +167,21 @@
       cursor: pointer;
     }
     .header-search-btn:hover { color: var(--text); border-color: var(--border-strong); }
+    .theme-toggle-btn {
+      margin-left: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.1rem;
+      height: 2.1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .theme-toggle-btn:hover { border-color: var(--border-strong); }
     .search-kbd {
       font-size: 0.72rem;
       border: 1px solid var(--border-strong);
@@ -250,7 +310,7 @@
       padding: 0.5rem 0.8rem;
       border-radius: 8px;
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--input-bg);
       color: var(--text);
       font-size: 0.88rem;
       min-width: 220px;
@@ -465,7 +525,7 @@
     .prose table { width: 100%; border-collapse: collapse; margin: 0.5rem 0 1.25rem; font-size: 0.92rem; }
     .prose th, .prose td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
     .prose th { color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.03em; }
-    .prose code { background: rgba(255,255,255,0.06); padding: 0.15rem 0.4rem; border-radius: 5px; font-size: 0.9em; }
+    .prose code { background: var(--code-bg); padding: 0.15rem 0.4rem; border-radius: 5px; font-size: 0.9em; }
 
     /* Language switcher */
     .lang-switcher { display: flex; gap: 0.4rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
@@ -497,7 +557,7 @@
       padding: 0.65rem 0.8rem;
       border-radius: 8px;
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--input-bg);
       color: var(--text);
       font-size: 0.95rem;
       font-family: inherit;
@@ -623,6 +683,9 @@
       <button type="button" id="header-search-btn" class="header-search-btn" aria-label="{% trans 'Search' %}">
         🔍 <span class="search-kbd">Ctrl K</span>
       </button>
+      <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" aria-label="{% trans 'Toggle dark / light theme' %}">
+        <span class="theme-toggle-icon">🌙</span>
+      </button>
     </nav>
   </header>
   <div class="shell">
@@ -747,6 +810,29 @@
           window.location.href = results[activeIndex].url;
         }
       });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var btn = document.getElementById("theme-toggle-btn");
+      var icon = btn.querySelector(".theme-toggle-icon");
+
+      function currentTheme() {
+        var stored = document.documentElement.getAttribute("data-theme");
+        if (stored) return stored;
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      }
+      function updateIcon() {
+        icon.textContent = currentTheme() === "light" ? "☀️" : "🌙";
+      }
+      btn.addEventListener("click", function () {
+        var next = currentTheme() === "light" ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", next);
+        try { localStorage.setItem("theme", next); } catch (e) {}
+        updateIcon();
+      });
+      updateIcon();
     })();
   </script>
 

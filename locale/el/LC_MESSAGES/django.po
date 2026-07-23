@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 12:07+0300\n"
+"POT-Creation-Date: 2026-07-23 12:24+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -402,7 +402,7 @@ msgstr "Νέο προϊόν"
 msgid "Search by barcode or product name"
 msgstr "Αναζήτηση με barcode ή όνομα προϊόντος"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:41 .\templates\base.html:623
+#: .\apps\tracker\templates\tracker\dashboard.html:41 .\templates\base.html:683
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -657,27 +657,31 @@ msgstr "Ιστότοπος διαχείρισης Django"
 msgid "Django administration"
 msgstr "Διαχείριση Django"
 
-#: .\templates\base.html:642
+#: .\templates\base.html:686
+msgid "Toggle dark / light theme"
+msgstr "Εναλλαγή σκούρου / ανοιχτού θέματος"
+
+#: .\templates\base.html:705
 msgid "Get notified when new free tools launch"
 msgstr "Μάθε πρώτος για νέα δωρεάν εργαλεία"
 
-#: .\templates\base.html:650
+#: .\templates\base.html:713
 msgid "you@example.com"
 msgstr "you@example.com"
 
-#: .\templates\base.html:651
+#: .\templates\base.html:714
 msgid "Subscribe"
 msgstr "Εγγραφή"
 
-#: .\templates\base.html:654
+#: .\templates\base.html:717
 msgid "RSS feed"
 msgstr "Ροή RSS"
 
-#: .\templates\base.html:659
+#: .\templates\base.html:722
 msgid "Search tools, docs, applications…"
 msgstr "Αναζήτηση εργαλείων, εγγράφων, εφαρμογών…"
 
-#: .\templates\base.html:689
+#: .\templates\base.html:752
 msgid "No matches."
 msgstr "Δεν βρέθηκαν αποτελέσματα."
 

@@ -36,7 +36,7 @@
 
 <form method="get" style="display:flex;gap:0.5rem;margin-bottom:1.5rem;max-width:480px;">
   {% if active_filter %}<input type="hidden" name="urgency" value="{{ active_filter }}">{% endif %}
-  <input type="text" id="dashboard-search-input" name="q" value="{{ search_query }}" placeholder="{% trans 'Search by barcode or product name' %}" style="flex:1;padding:0.65rem 0.8rem;border-radius:8px;border:1px solid var(--border);background:rgba(255,255,255,0.03);color:var(--text);">
+  <input type="text" id="dashboard-search-input" name="q" value="{{ search_query }}" placeholder="{% trans 'Search by barcode or product name' %}" style="flex:1;padding:0.65rem 0.8rem;border-radius:8px;border:1px solid var(--border);background:var(--input-bg);color:var(--text);">
   <button type="button" id="scan-search-btn" class="btn-secondary" title="{% trans 'Scan barcode' %}">📷</button>
   <button type="submit" class="btn-secondary">{% trans "Search" %}</button>
   {% if search_query %}<a class="btn-secondary" href="?{% if active_filter %}urgency={{ active_filter }}{% endif %}">✕</a>{% endif %}
