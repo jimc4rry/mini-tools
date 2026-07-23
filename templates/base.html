@@ -187,6 +187,24 @@
       cursor: pointer;
     }
     .theme-toggle-btn:hover { border-color: var(--border-strong); }
+    .header-account { margin-left: 0.75rem; display: inline-block; }
+    .header-account-btn {
+      display: inline-flex;
+      align-items: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: inherit;
+      padding: 0.4rem 0.9rem;
+      cursor: pointer;
+    }
+    .header-account-btn:hover { border-color: var(--border-strong); text-decoration: none; }
+    @media (max-width: 640px) {
+      .header-account-btn { padding: 0.35rem 0.7rem; font-size: 0.8rem; }
+    }
     .search-kbd {
       font-size: 0.72rem;
       border: 1px solid var(--border-strong);
@@ -691,6 +709,14 @@
       <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle dark / light theme">
         <span class="theme-toggle-icon">🌙</span>
       </button>
+      {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}" class="header-account">
+          {% csrf_token %}
+          <button type="submit" class="header-account-btn">{{ user.username }} · Log out</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="header-account-btn">Log in</a>
+      {% endif %}
     </nav>
   </header>
   <div class="shell">
