@@ -16,6 +16,14 @@ if not ALLOWED_HOSTS:
         "(comma-separated) or ensure RAILWAY_PUBLIC_DOMAIN is available."
     )
 
+if not VAULT_FIELD_ENCRYPTION_KEY:
+    raise RuntimeError(
+        "VAULT_FIELD_ENCRYPTION_KEY is empty in production - apps.vault "
+        "would crash the moment it tries to encrypt/decrypt a secret. "
+        "Generate one with: python -c \"from cryptography.fernet import "
+        "Fernet; print(Fernet.generate_key().decode())\" and set it as an env var."
+    )
+
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True

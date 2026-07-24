@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Vault" %}{% endblock %}
+{% block sidebar %}{% include "vault/_sidebar.html" %}{% endblock %}
+{% block main_class %}wide{% endblock %}
+
+{% block content %}
+<div class="top-row">
+  <h1>{% trans "Vault" %}</h1>
+  <a href="{% url 'vault:item_create' %}" class="btn-primary">{% trans "Add item" %}</a>
+</div>
+
+<div class="stat-row">
+  <div class="stat-tile"><span class="n">{{ items|length }}</span><div class="l">{% trans "Items" %}</div></div>
+  <div class="stat-tile"><span class="n">{{ expiring_soon|length }}</span><div class="l">{% trans "Expiring soon" %}</div></div>
+  <div class="stat-tile"><span class="n">{{ monthly_total }}</span><div class="l">{% trans "Monthly cost" %}</div></div>
+  <div class="stat-tile"><span class="n">{{ annual_total }}</span><div class="l">{% trans "Annual cost" %}</div></div>
+</div>
+
+{% if not is_active_subscriber %}
+  <p class="muted">{% blocktrans with limit=trial_item_limit %}Free trial - up to {{ limit }} items.{% endblocktrans %}</p>
+{% endif %}
+
+{% if not is_unlocked %}
+  <div class="card" id="vault-lock-card">
+    <h2>🔒 {% trans "Vault locked" %}</h2>
+    <p class="muted" style="margin-top:0;">{% trans "Enter your Master PIN to reveal or copy any stored secret." %}</p>
+    <form method="post" action="{% url 'vault:unlock' %}" class="top-row" style="gap:0.75rem;">
+      {% csrf_token %}
+      <div class="form-field" style="margin-bottom:0;">
+        <input type="password" name="pin" inputmode="numeric" placeholder="{% trans 'Master PIN' %}" required>
+      </div>
+      <button type="submit" class="btn-primary">{% trans "Unlock" %}</button>
+    </form>
+  </div>
+{% endif %}
+
+{% if expiring_soon %}
+<div class="top-row" style="margin-top:2rem;">
+  <h2 style="font-size:1.1rem; margin:0;">{% trans "Alerts" %}</h2>
+</div>
+<div class="card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Type" %}</th>
+        <th>{% trans "Expires" %}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in expiring_soon %}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.get_item_type_display }}</td>
+          <td>
+            <span class="chip chip-{{ item.urgency }}">
+              {% if item.urgency == "expired" %}{% trans "Expired" %}
+              {% elif item.urgency == "critical" %}{% trans "Critical" %}
+              {% elif item.urgency == "warning" %}{% trans "Warning" %}
+              {% else %}{% trans "OK" %}{% endif %}
+            </span>
+            {{ item.expires_at|date:"d/m/Y" }}
+          </td>
+          <td><a href="{% url 'vault:item_edit' item.pk %}" class="btn-secondary">{% trans "Manage" %}</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+
+<div class="top-row" style="margin-top:2rem;">
+  <h2 style="font-size:1.1rem; margin:0;">{% trans "All items" %}</h2>
+</div>
+<div class="card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Type" %}</th>
+        <th>{% trans "Vendor" %}</th>
+        <th>{% trans "Secret" %}</th>
+        <th>{% trans "Billing" %}</th>
+        <th>{% trans "Cost" %}</th>
+        <th>{% trans "Expires" %}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.get_item_type_display }}</td>
+          <td class="muted">{{ item.vendor|default:"—" }}</td>
+          <td>
+            <span class="vault-secret-mask" data-item-id="{{ item.pk }}">••••••••</span>
+            <button type="button" class="btn-secondary vault-reveal-btn" data-item-id="{{ item.pk }}">{% trans "Show" %}</button>
+          </td>
+          <td class="muted">{{ item.get_billing_cycle_display }}</td>
+          <td class="muted">{% if item.cost_amount %}{{ item.cost_amount }} {{ item.cost_currency }}{% else %}—{% endif %}</td>
+          <td>
+            {% if item.expires_at %}
+              <span class="chip chip-{{ item.urgency }}">{{ item.expires_at|date:"d/m/Y" }}</span>
+            {% else %}—{% endif %}
+          </td>
+          <td>
+            <a href="{% url 'vault:item_edit' item.pk %}" class="btn-secondary">{% trans "Edit" %}</a>
+            <a href="{% url 'vault:item_delete' item.pk %}" class="btn-secondary">{% trans "Delete" %}</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="8" class="muted" style="text-align:center;">{% trans "No items yet." %}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<script>
+(function() {
+  const revealUrl = (id) => "{% url 'vault:reveal_item' 0 %}".replace("0", id);
+
+  document.querySelectorAll(".vault-reveal-btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.itemId;
+      const mask = document.querySelector(`.vault-secret-mask[data-item-id="${id}"]`);
+      if (btn.dataset.revealed === "1") {
+        mask.textContent = "••••••••";
+        btn.dataset.revealed = "0";
+        btn.textContent = "{% trans 'Show' %}";
+        return;
+      }
+      const res = await fetch(revealUrl(id), { headers: { "X-Requested-With": "XMLHttpRequest" } });
+      if (res.status === 403) {
+        document.getElementById("vault-lock-card") && document.getElementById("vault-lock-card").scrollIntoView();
+        window.location.reload();
+        return;
+      }
+      const data = await res.json();
+      mask.textContent = data.secret_value || "";
+      btn.dataset.revealed = "1";
+      btn.textContent = "{% trans 'Hide' %}";
+      navigator.clipboard && navigator.clipboard.writeText(data.secret_value || "");
+    });
+  });
+})();
+</script>
+{% endblock %}

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "apps.newsletter",
     "apps.billing",
     "apps.platform_admin",
+    "apps.vault",
 ]
 
 MIDDLEWARE = [
@@ -76,6 +77,7 @@ TEMPLATES = [
                 "apps.core.context_processors.site_context",
                 "apps.core.context_processors.current_tool_context",
                 "apps.feedback.context_processors.unread_badge",
+                "apps.vault.context_processors.vault_alerts",
             ],
         },
     },
@@ -150,3 +152,9 @@ PADDLE_WEBHOOK_SECRET = env("PADDLE_WEBHOOK_SECRET", default="")
 TWILIO_ACCOUNT_SID = env("TWILIO_ACCOUNT_SID", default="")
 TWILIO_AUTH_TOKEN = env("TWILIO_AUTH_TOKEN", default="")
 TWILIO_WHATSAPP_FROM = env("TWILIO_WHATSAPP_FROM", default="")
+
+# Field-level encryption key for apps.vault (License & Subscription Vault) -
+# encrypts secret_value at rest via Fernet (see apps/vault/fields.py).
+# Generate with: python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+# Blank only works in dev (see config/settings/prod.py's startup guard).
+VAULT_FIELD_ENCRYPTION_KEY = env("VAULT_FIELD_ENCRYPTION_KEY", default="")

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Set up your Vault" %}{% endblock %}
+{% block content %}
+<div class="card" style="max-width:420px; margin:0 auto;">
+  <h2>{% trans "Set up your License & Subscription Vault" %}</h2>
+  <p class="muted" style="margin-top:0;">{% trans "Choose a Master PIN - you'll need it to reveal or copy any secret you store." %}</p>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}<div class="helptext">{{ field.help_text }}</div>{% endif %}
+        {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
+      </div>
+    {% endfor %}
+    {% if form.non_field_errors %}<div class="field-error">{{ form.non_field_errors|join:", " }}</div>{% endif %}
+    <button class="btn-primary" type="submit">{% trans "Start free trial" %}</button>
+  </form>
+</div>
+{% endblock %}

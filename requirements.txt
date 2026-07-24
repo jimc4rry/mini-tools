@@ -10,3 +10,4 @@ qrcode==7.4.2
 Pillow==10.1.0
 requests==2.32.3
 python-barcode==0.15.1
+cryptography==49.0.0

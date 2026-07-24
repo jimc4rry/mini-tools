@@ -726,6 +726,9 @@
       <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" aria-label="{% trans 'Toggle dark / light theme' %}">
         <span class="theme-toggle-icon">🌙</span>
       </button>
+      {% if has_vault_profile %}
+        <a href="{% url 'vault:dashboard' %}">{% trans "Vault" %}{% if vault_expiring_soon_count %} <span class="badge-count">{{ vault_expiring_soon_count }}</span>{% endif %}</a>
+      {% endif %}
       {% if user.is_superuser %}
         <a href="{% url 'platform_admin:dashboard' %}" class="header-account-btn">{% trans "Platform Admin" %}{% if unread_feedback_count %} <span class="badge-count">{{ unread_feedback_count }}</span>{% endif %}</a>
       {% endif %}
