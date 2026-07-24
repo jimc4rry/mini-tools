@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-25 00:09+0300\n"
+"POT-Creation-Date: 2026-07-25 00:32+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -1145,7 +1145,7 @@ msgid "Billing"
 msgstr "Χρέωση"
 
 #: .\apps\vault\templates\vault\dashboard.html:99
-#: .\apps\vault\templates\vault\dashboard.html:131
+#: .\apps\vault\templates\vault\dashboard.html:153
 msgid "Show"
 msgstr "Εμφάνιση"
 
@@ -1153,7 +1153,15 @@ msgstr "Εμφάνιση"
 msgid "No items yet."
 msgstr "Δεν υπάρχουν αντικείμενα ακόμα."
 
-#: .\apps\vault\templates\vault\dashboard.html:143
+#: .\apps\vault\templates\vault\dashboard.html:159
+msgid "Enter your Master PIN to unlock the Vault"
+msgstr "Εισήγαγε το Κύριο PIN σου για να ξεκλειδώσεις το Vault"
+
+#: .\apps\vault\templates\vault\dashboard.html:164
+msgid "Incorrect PIN, or too many attempts - please wait a few minutes."
+msgstr "Λανθασμένο PIN, ή πάρα πολλές προσπάθειες - περίμενε λίγα λεπτά."
+
+#: .\apps\vault\templates\vault\dashboard.html:174
 msgid "Hide"
 msgstr "Απόκρυψη"
 
