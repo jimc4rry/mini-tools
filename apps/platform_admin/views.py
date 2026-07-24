@@ -11,6 +11,7 @@ from django.utils.translation import gettext as _
 from apps.billing.forms import PlatformSubscriptionForm
 from apps.billing.models import Subscription
 from apps.billing.webhooks import sync_tracker_business
+from apps.feedback.models import Feedback
 
 
 def platform_admin_required(view_func):
@@ -62,6 +63,9 @@ def dashboard(request):
         "total_count": Subscription.objects.count(),
         "active_count": Subscription.objects.filter(status=Subscription.Status.ACTIVE).count(),
         "trial_count": Subscription.objects.filter(status=Subscription.Status.TRIAL).count(),
+        # unread_feedback_count itself comes from apps.feedback's context
+        # processor (runs for every superuser request) - just the list here.
+        "recent_feedback": Feedback.objects.order_by("-created_at")[:10],
     }
     return render(request, "platform_admin/dashboard.html", context)
 

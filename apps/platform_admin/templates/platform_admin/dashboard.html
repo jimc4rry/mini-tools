@@ -93,4 +93,40 @@
     </div>
   {% endif %}
 </div>
+
+<div class="top-row" style="margin-top:2rem;">
+  <h2 style="font-size:1.1rem; margin:0;">
+    {% trans "Feedback" %}{% if unread_feedback_count %} <span class="chip chip-critical">{{ unread_feedback_count }} {% trans "unread" %}</span>{% endif %}
+  </h2>
+</div>
+<div class="card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>{% trans "Category" %}</th>
+        <th>{% trans "From" %}</th>
+        <th>{% trans "Message" %}</th>
+        <th>{% trans "Page" %}</th>
+        <th>{% trans "Received" %}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in recent_feedback %}
+        <tr>
+          <td>{% if not item.is_read %}<span class="chip chip-critical">{% trans "New" %}</span>{% endif %}</td>
+          <td>{{ item.get_category_display }}</td>
+          <td>{{ item.name|default:"—" }}{% if item.email %} ({{ item.email }}){% endif %}</td>
+          <td style="max-width:320px;">{{ item.message|truncatechars:120 }}</td>
+          <td class="muted">{{ item.page_path|truncatechars:40|default:"—" }}</td>
+          <td>{{ item.created_at|date:"d/m/Y H:i" }}</td>
+          <td><a href="{% url 'admin:feedback_feedback_change' item.pk %}" class="btn-secondary">{% trans "View" %}</a></td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="7" class="muted" style="text-align:center;">{% trans "No feedback yet." %}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-23 17:30+0300\n"
+"POT-Creation-Date: 2026-07-24 10:12+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -54,7 +54,7 @@ msgid "Applications"
 msgstr "Εφαρμογές"
 
 #: .\apps\core\templates\core\home.html:34
-#: .\apps\tools\templates\tools\list.html:27 .\templates\base.html:710
+#: .\apps\tools\templates\tools\list.html:27 .\templates\base.html:722
 msgid "Tools"
 msgstr "Εργαλεία"
 
@@ -97,7 +97,7 @@ msgstr "Έχεις ήδη λογαριασμό;"
 #: .\apps\tracker\templates\registration\login.html:3
 #: .\apps\tracker\templates\registration\login.html:6
 #: .\apps\tracker\templates\registration\login.html:20
-#: .\apps\tracker\templates\tracker\_sidebar.html:16 .\templates\base.html:726
+#: .\apps\tracker\templates\tracker\_sidebar.html:16 .\templates\base.html:738
 msgid "Log in"
 msgstr "Σύνδεση"
 
@@ -124,7 +124,7 @@ msgstr "Όλα τα έγγραφα"
 msgid "Last updated %(date)s"
 msgstr "Τελευταία ενημέρωση %(date)s"
 
-#: .\apps\docs\templates\docs\list.html:9 .\templates\base.html:709
+#: .\apps\docs\templates\docs\list.html:9 .\templates\base.html:721
 msgid "Documents"
 msgstr "Έγγραφα"
 
@@ -144,7 +144,9 @@ msgstr "Άνοιγμα εφαρμογής"
 msgid "No documents in this project yet."
 msgstr "Δεν υπάρχουν ακόμα έγγραφα σε αυτή την εφαρμογή."
 
-#: .\apps\feedback\forms.py:26 .\apps\tracker\forms.py:81
+#: .\apps\feedback\forms.py:26
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:107
+#: .\apps\tracker\forms.py:81
 #: .\apps\tracker\templates\tracker\dashboard.html:62
 #: .\apps\tracker\templates\tracker\waste_log.html:26
 #: .\apps\tracker\views.py:233 .\templates\feedback\_modal.html:21
@@ -159,7 +161,9 @@ msgstr "Όνομα (προαιρετικό)"
 msgid "Email (optional)"
 msgstr "Email (προαιρετικό)"
 
-#: .\apps\feedback\forms.py:29 .\templates\feedback\_modal.html:29
+#: .\apps\feedback\forms.py:29
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:109
+#: .\templates\feedback\_modal.html:29
 msgid "Message"
 msgstr "Μήνυμα"
 
@@ -208,7 +212,7 @@ msgstr ""
 "εργαλεία."
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:9
-#: .\templates\base.html:718
+#: .\templates\base.html:730
 msgid "Platform Admin"
 msgstr "Διαχείριση Πλατφόρμας"
 
@@ -315,6 +319,39 @@ msgstr "Σελίδα %(current)s από %(total)s"
 msgid "Next"
 msgstr "Επόμενο"
 
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:99
+msgid "Feedback"
+msgstr "Feedback"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:99
+msgid "unread"
+msgstr "μη διαβασμένα"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:108
+msgid "From"
+msgstr "Από"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:110
+msgid "Page"
+msgstr "Σελίδα"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:111
+msgid "Received"
+msgstr "Λήφθηκε"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:118
+msgid "New"
+msgstr "Νέο"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:124
+#: .\templates\admin\app_list.html:38
+msgid "View"
+msgstr "Προβολή"
+
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:127
+msgid "No feedback yet."
+msgstr "Δεν υπάρχει ακόμα feedback."
+
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:9
 msgid "Back"
 msgstr "Πίσω"
@@ -370,7 +407,7 @@ msgstr "Paddle customer ID"
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: .\apps\platform_admin\views.py:82
+#: .\apps\platform_admin\views.py:86
 msgid "Subscription updated."
 msgstr "Η συνδρομή ενημερώθηκε."
 
@@ -586,7 +623,7 @@ msgstr "Φύρα"
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: .\apps\tracker\templates\tracker\_sidebar.html:12 .\templates\base.html:723
+#: .\apps\tracker\templates\tracker\_sidebar.html:12 .\templates\base.html:735
 msgid "Log out"
 msgstr "Αποσύνδεση"
 
@@ -595,6 +632,7 @@ msgid "Product categories"
 msgstr "Κατηγορίες προϊόντων"
 
 #: .\apps\tracker\templates\tracker\categories.html:20
+#: .\templates\admin\app_list.html:31
 msgid "Add"
 msgstr "Προσθήκη"
 
@@ -657,7 +695,7 @@ msgstr "Νέο προϊόν"
 msgid "Search by barcode or product name"
 msgstr "Αναζήτηση με barcode ή όνομα προϊόντος"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:41 .\templates\base.html:711
+#: .\apps\tracker\templates\tracker\dashboard.html:41 .\templates\base.html:723
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -905,6 +943,31 @@ msgstr "Η κατηγορία διαγράφηκε."
 msgid "Notification settings updated."
 msgstr "Οι ρυθμίσεις ειδοποιήσεων ενημερώθηκαν."
 
+#: .\templates\admin\app_list.html:8
+#, python-format
+msgid "Models in the %(name)s application"
+msgstr "Μοντέλα στην εφαρμογή %(name)s"
+
+#: .\templates\admin\app_list.html:12
+msgid "Model name"
+msgstr "Όνομα μοντέλου"
+
+#: .\templates\admin\app_list.html:13
+msgid "Add link"
+msgstr "Σύνδεσμος προσθήκης"
+
+#: .\templates\admin\app_list.html:14
+msgid "Change or view list link"
+msgstr "Σύνδεσμος επεξεργασίας ή προβολής"
+
+#: .\templates\admin\app_list.html:40
+msgid "Change"
+msgstr "Επεξεργασία"
+
+#: .\templates\admin\app_list.html:52
+msgid "You don’t have permission to view or edit anything."
+msgstr "Δεν έχεις δικαίωμα προβολής ή επεξεργασίας τίποτα."
+
 #: .\templates\admin\base_site.html:4
 msgid "Django site admin"
 msgstr "Ιστότοπος διαχείρισης Django"
@@ -913,31 +976,31 @@ msgstr "Ιστότοπος διαχείρισης Django"
 msgid "Django administration"
 msgstr "Διαχείριση Django"
 
-#: .\templates\base.html:714
+#: .\templates\base.html:726
 msgid "Toggle dark / light theme"
 msgstr "Εναλλαγή σκούρου / ανοιχτού θέματος"
 
-#: .\templates\base.html:744
+#: .\templates\base.html:756
 msgid "Get notified when new free tools launch"
 msgstr "Μάθε πρώτος για νέα δωρεάν εργαλεία"
 
-#: .\templates\base.html:752
+#: .\templates\base.html:764
 msgid "you@example.com"
 msgstr "you@example.com"
 
-#: .\templates\base.html:753
+#: .\templates\base.html:765
 msgid "Subscribe"
 msgstr "Εγγραφή"
 
-#: .\templates\base.html:756
+#: .\templates\base.html:768
 msgid "RSS feed"
 msgstr "Ροή RSS"
 
-#: .\templates\base.html:761
+#: .\templates\base.html:773
 msgid "Search tools, docs, applications…"
 msgstr "Αναζήτηση εργαλείων, εγγράφων, εφαρμογών…"
 
-#: .\templates\base.html:791
+#: .\templates\base.html:803
 msgid "No matches."
 msgstr "Δεν βρέθηκαν αποτελέσματα."
 
@@ -956,6 +1019,3 @@ msgstr "Email (προαιρετικό, αν θέλεις απάντηση)"
 #: .\templates\feedback\_modal.html:36
 msgid "Send"
 msgstr "Αποστολή"
-
-#~ msgid "Feedback"
-#~ msgstr "Feedback"
