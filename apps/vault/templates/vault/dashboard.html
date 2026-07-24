@@ -5,6 +5,26 @@
 {% block main_class %}wide{% endblock %}
 
 {% block content %}
+<style>
+  .vault-secret-cell {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    max-width: 260px;
+  }
+  .vault-secret-mask {
+    font-family: monospace;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    flex: 1 1 140px;
+    min-width: 0;
+  }
+  .vault-secret-cell .vault-reveal-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+</style>
 <div class="top-row">
   <h1>{% trans "Vault" %}</h1>
   <a href="{% url 'vault:item_create' %}" class="btn-primary">{% trans "Add item" %}</a>
@@ -94,7 +114,7 @@
           <td>{{ item.name }}</td>
           <td>{{ item.get_item_type_display }}</td>
           <td class="muted">{{ item.vendor|default:"—" }}</td>
-          <td>
+          <td class="vault-secret-cell">
             <span class="vault-secret-mask" data-item-id="{{ item.pk }}">••••••••</span>
             <button type="button" class="btn-secondary vault-reveal-btn" data-item-id="{{ item.pk }}">{% trans "Show" %}</button>
           </td>
