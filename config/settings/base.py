@@ -75,6 +75,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "apps.core.context_processors.site_context",
                 "apps.core.context_processors.current_tool_context",
+                "apps.feedback.context_processors.unread_badge",
             ],
         },
     },

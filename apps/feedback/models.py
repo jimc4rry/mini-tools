@@ -13,6 +13,10 @@ class Feedback(models.Model):
     category = models.CharField(max_length=20, choices=Category.choices, default=Category.GENERAL)
     message = models.TextField()
     page_path = models.CharField(max_length=500, blank=True)
+    is_read = models.BooleanField(
+        default=False,
+        help_text="Set automatically when a staff member opens this submission in the admin.",
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
