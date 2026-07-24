@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-24 10:12+0300\n"
+"POT-Creation-Date: 2026-07-24 10:20+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -146,6 +146,7 @@ msgstr "Δεν υπάρχουν ακόμα έγγραφα σε αυτή την �
 
 #: .\apps\feedback\forms.py:26
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:107
+#: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:13
 #: .\apps\tracker\forms.py:81
 #: .\apps\tracker\templates\tracker\dashboard.html:62
 #: .\apps\tracker\templates\tracker\waste_log.html:26
@@ -163,6 +164,7 @@ msgstr "Email (προαιρετικό)"
 
 #: .\apps\feedback\forms.py:29
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:109
+#: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:18
 #: .\templates\feedback\_modal.html:29
 msgid "Message"
 msgstr "Μήνυμα"
@@ -320,6 +322,7 @@ msgid "Next"
 msgstr "Επόμενο"
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:99
+#: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:8
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -328,14 +331,17 @@ msgid "unread"
 msgstr "μη διαβασμένα"
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:108
+#: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:14
 msgid "From"
 msgstr "Από"
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:110
+#: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:15
 msgid "Page"
 msgstr "Σελίδα"
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:111
+#: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:16
 msgid "Received"
 msgstr "Λήφθηκε"
 
@@ -352,9 +358,20 @@ msgstr "Προβολή"
 msgid "No feedback yet."
 msgstr "Δεν υπάρχει ακόμα feedback."
 
+#: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:9
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:9
 msgid "Back"
 msgstr "Πίσω"
+
+#: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:22
+msgid "Delete this feedback permanently?"
+msgstr "Οριστική διαγραφή αυτού του feedback;"
+
+#: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:24
+#: .\apps\tracker\templates\tracker\categories.html:35
+#: .\apps\tracker\templates\tracker\dashboard.html:91
+msgid "Delete"
+msgstr "Διαγραφή"
 
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:14
 msgid "Account"
@@ -410,6 +427,12 @@ msgstr "Αποθήκευση"
 #: .\apps\platform_admin\views.py:86
 msgid "Subscription updated."
 msgstr "Η συνδρομή ενημερώθηκε."
+
+#: .\apps\platform_admin\views.py:113
+#, fuzzy
+#| msgid "Product deleted."
+msgid "Feedback deleted."
+msgstr "Το προϊόν διαγράφηκε."
 
 #: .\apps\tools\templates\tools\list.html:9
 #: .\apps\tracker\templates\tracker\_sidebar.html:6
@@ -640,11 +663,6 @@ msgstr "Προσθήκη"
 #, python-format
 msgid "Delete category %(name)s?"
 msgstr "Διαγραφή κατηγορίας %(name)s;"
-
-#: .\apps\tracker\templates\tracker\categories.html:35
-#: .\apps\tracker\templates\tracker\dashboard.html:91
-msgid "Delete"
-msgstr "Διαγραφή"
 
 #: .\apps\tracker\templates\tracker\categories.html:43
 msgid "No categories yet."

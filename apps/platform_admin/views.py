@@ -99,3 +99,22 @@ def subscription_detail(request, pk):
         "business": business,
     }
     return render(request, "platform_admin/subscription_detail.html", context)
+
+
+@platform_admin_required
+def feedback_detail(request, pk):
+    """Full view of one submission, without leaving Platform Admin for the
+    Django admin. Opening it (GET) marks it read, same as the admin change
+    page does - a POST here is only ever the delete button."""
+    feedback = get_object_or_404(Feedback, pk=pk)
+
+    if request.method == "POST":
+        feedback.delete()
+        messages.success(request, _("Feedback deleted."))
+        return redirect("platform_admin:dashboard")
+
+    if not feedback.is_read:
+        feedback.is_read = True
+        feedback.save(update_fields=["is_read"])
+
+    return render(request, "platform_admin/feedback_detail.html", {"feedback": feedback})

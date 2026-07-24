@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Feedback — Platform Admin{% endblock %}
+
+{% block content %}
+<div class="top-row">
+  <h1>{% trans "Feedback" %}</h1>
+  <a href="{% url 'platform_admin:dashboard' %}" class="btn-secondary">← {% trans "Back" %}</a>
+</div>
+
+<div class="card">
+  <p><strong>{% trans "Category" %}:</strong> {{ feedback.get_category_display }}</p>
+  <p><strong>{% trans "From" %}:</strong> {{ feedback.name|default:"—" }}{% if feedback.email %} ({{ feedback.email }}){% endif %}</p>
+  <p><strong>{% trans "Page" %}:</strong> {{ feedback.page_path|default:"—" }}</p>
+  <p><strong>{% trans "Received" %}:</strong> {{ feedback.created_at|date:"d/m/Y H:i" }}</p>
+  <div class="form-field">
+    <label>{% trans "Message" %}</label>
+    <div class="prose" style="white-space:pre-wrap;">{{ feedback.message }}</div>
+  </div>
+
+  <form method="post" onsubmit="return confirm('{% trans "Delete this feedback permanently?" %}');" style="margin-top:1.5rem;">
+    {% csrf_token %}
+    <button type="submit" class="btn-danger">{% trans "Delete" %}</button>
+  </form>
+</div>
+{% endblock %}

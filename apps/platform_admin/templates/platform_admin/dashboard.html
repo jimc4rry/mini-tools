@@ -121,7 +121,7 @@
           <td style="max-width:320px;">{{ item.message|truncatechars:120 }}</td>
           <td class="muted">{{ item.page_path|truncatechars:40|default:"—" }}</td>
           <td>{{ item.created_at|date:"d/m/Y H:i" }}</td>
-          <td><a href="{% url 'admin:feedback_feedback_change' item.pk %}" class="btn-secondary">{% trans "View" %}</a></td>
+          <td><a href="{% url 'platform_admin:feedback_detail' item.pk %}" class="btn-secondary">{% trans "View" %}</a></td>
         </tr>
       {% empty %}
         <tr><td colspan="7" class="muted" style="text-align:center;">{% trans "No feedback yet." %}</td></tr>
