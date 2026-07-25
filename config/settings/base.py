@@ -146,6 +146,22 @@ FEEDBACK_NOTIFY_EMAIL = env("FEEDBACK_NOTIFY_EMAIL", default="")
 # Signature verification is skipped in dev until this is set.
 PADDLE_WEBHOOK_SECRET = env("PADDLE_WEBHOOK_SECRET", default="")
 
+# Paddle client-side token (Paddle dashboard -> Developer Tools -> Authentication -
+# NOT the API key, this one is safe to expose in the browser) used to initialize
+# Paddle.js on the checkout page (see apps/billing/views.py + templates/billing/upgrade.html).
+PADDLE_CLIENT_TOKEN = env("PADDLE_CLIENT_TOKEN", default="")
+# "sandbox" while testing with a Paddle sandbox account, "production" once live.
+PADDLE_ENVIRONMENT = env("PADDLE_ENVIRONMENT", default="sandbox")
+
+# Paddle Price IDs per paid product slug - create a Product + Price in the Paddle
+# dashboard for each paid app, then set these. A product with a blank price ID
+# has no working checkout yet: apps/billing/views.py returns 404 for it instead
+# of opening a broken Paddle overlay.
+PADDLE_PRICE_IDS = {
+    "tracker": env("PADDLE_PRICE_ID_TRACKER", default=""),
+    "vault": env("PADDLE_PRICE_ID_VAULT", default=""),
+}
+
 # Twilio WhatsApp notifications for the Expiration Tracker app (see
 # apps/tracker/management/commands/send_whatsapp_notifications.py).
 # Left blank until a Twilio account is set up.

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% blocktrans with name=product_label %}Upgrade – {{ name }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width:480px;margin:2rem auto;text-align:center;">
+  <h1>{% blocktrans with name=product_label %}Upgrade {{ name }}{% endblocktrans %}</h1>
+  <p class="muted">{% trans "You'll be asked for payment details on Paddle's secure checkout. Your plan activates automatically once payment completes." %}</p>
+  <button id="paddle-checkout-btn" class="btn-primary" type="button">{% trans "Continue to checkout" %}</button>
+  <p id="paddle-checkout-error" class="alert alert-critical" style="display:none;margin-top:1rem;"></p>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var btn = document.getElementById("paddle-checkout-btn");
+  var errorBox = document.getElementById("paddle-checkout-error");
+
+  btn.addEventListener("click", function () {
+    if (typeof Paddle === "undefined") {
+      errorBox.textContent = "{% trans 'Checkout failed to load. Please refresh and try again.' %}";
+      errorBox.style.display = "block";
+      return;
+    }
+
+    var environment = "{{ paddle_environment }}";
+    if (environment === "sandbox") {
+      Paddle.Environment.set("sandbox");
+    }
+
+    Paddle.Initialize({ token: "{{ paddle_client_token }}" });
+
+    Paddle.Checkout.open({
+      items: [{ priceId: "{{ paddle_price_id }}", quantity: 1 }],
+      customData: {
+        user_id: "{{ request.user.id }}",
+        product: "{{ product }}"
+      },
+      customer: {
+        email: "{{ request.user.email }}"
+      }
+    });
+  });
+});
+</script>
+{% endblock %}

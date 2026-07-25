@@ -9,12 +9,15 @@
 {% if business.plan_status == "trial" and business.trial_days_left is not None %}
   <div class="card alert alert-warning">
     {% if business.is_trial_expired %}
-      <strong>{% trans "Your trial has ended." %}</strong> {% trans "Contact us to upgrade your subscription." %}
+      <strong>{% trans "Your trial has ended." %}</strong> {% trans "Upgrade to keep using Expiration Tracker." %}
     {% else %}
       <strong>{% trans "Trial:" %}</strong> {% blocktrans count days=business.trial_days_left %}{{ days }} day left.{% plural %}{{ days }} days left.{% endblocktrans %}
       {% if business.product_limit_reached %}
         {% blocktrans with limit=business.TRIAL_PRODUCT_LIMIT %}You've reached the {{ limit }}-product trial limit.{% endblocktrans %}
       {% endif %}
+    {% endif %}
+    {% if business.is_trial_expired or business.product_limit_reached %}
+      <a href="{% url 'billing:upgrade' product='tracker' %}" class="btn-primary" style="margin-left:0.5rem;">{% trans "Upgrade" %}</a>
     {% endif %}
   </div>
 {% endif %}
