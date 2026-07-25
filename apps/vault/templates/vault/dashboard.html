@@ -38,7 +38,10 @@
 </div>
 
 {% if not is_active_subscriber %}
-  <p class="muted">{% blocktrans with limit=trial_item_limit %}Free trial - up to {{ limit }} items.{% endblocktrans %}</p>
+  <p class="muted">
+    {% blocktrans with limit=trial_item_limit %}Free trial - up to {{ limit }} items.{% endblocktrans %}
+    <a href="{% url 'billing:upgrade' product='vault' %}">{% trans "Upgrade" %}</a>
+  </p>
 {% endif %}
 
 {% if not is_unlocked %}
@@ -124,6 +127,15 @@
             {% if item.expires_at %}
               <span class="chip chip-{{ item.urgency }}">{{ item.expires_at|date:"d/m/Y" }}</span>
             {% else %}—{% endif %}
+            {% if item.auto_check_domain %}
+              <div class="muted" style="font-size:0.75rem; margin-top:0.25rem;">
+                {% if item.last_check_error %}
+                  ⚠️ {{ item.auto_check_domain }}: {{ item.last_check_error }}
+                {% else %}
+                  🔄 {% trans "Auto-checked" %}{% if item.last_checked_at %} {{ item.last_checked_at|date:"d/m/Y" }}{% endif %}
+                {% endif %}
+              </div>
+            {% endif %}
           </td>
           <td>
             <a href="{% url 'vault:item_edit' item.pk %}" class="btn-secondary">{% trans "Edit" %}</a>

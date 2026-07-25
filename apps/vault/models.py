@@ -62,6 +62,17 @@ class VaultItem(models.Model):
     )
     cost_currency = models.CharField(max_length=3, default="EUR", verbose_name=_("Currency"))
     expires_at = models.DateField(null=True, blank=True, verbose_name=_("Renewal / expiry date"))
+    auto_check_domain = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("Auto-check domain (SSL certificates only)"),
+        help_text=_(
+            "If set, a daily job checks this domain's real SSL certificate and keeps "
+            "the renewal date above in sync automatically - e.g. example.com"
+        ),
+    )
+    last_checked_at = models.DateTimeField(null=True, blank=True)
+    last_check_error = models.CharField(max_length=255, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

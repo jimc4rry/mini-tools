@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-25 00:32+0300\n"
+"POT-Creation-Date: 2026-07-25 22:41+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -11,6 +11,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\apps\billing\templates\billing\upgrade.html:3
+#, python-format
+msgid "Upgrade – %(name)s"
+msgstr "Αναβάθμιση – %(name)s"
+
+#: .\apps\billing\templates\billing\upgrade.html:7
+#, python-format
+msgid "Upgrade %(name)s"
+msgstr "Αναβάθμιση %(name)s"
+
+#: .\apps\billing\templates\billing\upgrade.html:8
+msgid ""
+"You'll be asked for payment details on Paddle's secure checkout. Your plan "
+"activates automatically once payment completes."
+msgstr ""
+"Θα σου ζητηθούν στοιχεία πληρωμής στο ασφαλές checkout του Paddle. Το πλάνο "
+"σου ενεργοποιείται αυτόματα μόλις ολοκληρωθεί η πληρωμή."
+
+#: .\apps\billing\templates\billing\upgrade.html:9
+msgid "Continue to checkout"
+msgstr "Συνέχεια στο checkout"
+
+#: .\apps\billing\templates\billing\upgrade.html:20
+msgid "Checkout failed to load. Please refresh and try again."
+msgstr "Το checkout απέτυχε να φορτώσει. Ανανέωσε τη σελίδα και δοκίμασε ξανά."
 
 #: .\apps\core\forms.py:15
 msgid "Email"
@@ -148,7 +174,7 @@ msgstr "Δεν υπάρχουν ακόμα έγγραφα σε αυτή την �
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:107
 #: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:13
 #: .\apps\tracker\forms.py:81
-#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\templates\tracker\dashboard.html:65
 #: .\apps\tracker\templates\tracker\waste_log.html:26
 #: .\apps\tracker\views.py:233 .\templates\feedback\_modal.html:21
 msgid "Category"
@@ -273,7 +299,7 @@ msgstr "Χρήστης"
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:52
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:17
 #: .\apps\tracker\forms.py:75
-#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\templates\tracker\dashboard.html:65
 #: .\apps\tracker\templates\tracker\waste_log.html:26
 #: .\apps\tracker\views.py:233
 msgid "Product"
@@ -281,7 +307,7 @@ msgstr "Προϊόν"
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:53
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:34
-#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\templates\tracker\dashboard.html:65
 #: .\apps\tracker\views.py:234
 msgid "Status"
 msgstr "Κατάσταση"
@@ -301,7 +327,7 @@ msgid "Inactive"
 msgstr "Ανενεργό"
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:76
-#: .\apps\vault\templates\vault\dashboard.html:66
+#: .\apps\vault\templates\vault\dashboard.html:89
 msgid "Manage"
 msgstr "Διαχείριση"
 
@@ -370,8 +396,8 @@ msgstr "Οριστική διαγραφή αυτού του feedback;"
 
 #: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:24
 #: .\apps\tracker\templates\tracker\categories.html:35
-#: .\apps\tracker\templates\tracker\dashboard.html:91
-#: .\apps\vault\templates\vault\dashboard.html:110
+#: .\apps\tracker\templates\tracker\dashboard.html:94
+#: .\apps\vault\templates\vault\dashboard.html:142
 #: .\apps\vault\templates\vault\item_confirm_delete.html:12
 msgid "Delete"
 msgstr "Διαγραφή"
@@ -394,14 +420,14 @@ msgstr "Επιχείρηση Tracker"
 
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:22
 #: .\apps\tracker\templates\tracker\categories.html:27
-#: .\apps\vault\models.py:47 .\apps\vault\templates\vault\dashboard.html:46
-#: .\apps\vault\templates\vault\dashboard.html:81
+#: .\apps\vault\models.py:47 .\apps\vault\templates\vault\dashboard.html:69
+#: .\apps\vault\templates\vault\dashboard.html:104
 msgid "Name"
 msgstr "Όνομα"
 
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:23
-#: .\apps\vault\models.py:49 .\apps\vault\templates\vault\dashboard.html:47
-#: .\apps\vault\templates\vault\dashboard.html:82
+#: .\apps\vault\models.py:49 .\apps\vault\templates\vault\dashboard.html:70
+#: .\apps\vault\templates\vault\dashboard.html:105
 msgid "Type"
 msgstr "Τύπος"
 
@@ -501,7 +527,7 @@ msgid "Minimum required stock"
 msgstr "Ελάχιστο απόθεμα"
 
 #: .\apps\tracker\forms.py:96
-#: .\apps\tracker\templates\tracker\dashboard.html:62
+#: .\apps\tracker\templates\tracker\dashboard.html:65
 #: .\apps\tracker\templates\tracker\waste_log.html:26
 #: .\apps\tracker\views.py:233
 msgid "Quantity"
@@ -627,7 +653,7 @@ msgid "Don't have an account?"
 msgstr "Δεν έχεις λογαριασμό;"
 
 #: .\apps\tracker\templates\tracker\_scan_modal.html:5
-#: .\apps\tracker\templates\tracker\dashboard.html:40
+#: .\apps\tracker\templates\tracker\dashboard.html:43
 msgid "Scan barcode"
 msgstr "Σάρωση barcode"
 
@@ -690,8 +716,8 @@ msgid "Your trial has ended."
 msgstr "Η δοκιμαστική περίοδος έληξε."
 
 #: .\apps\tracker\templates\tracker\dashboard.html:12
-msgid "Contact us to upgrade your subscription."
-msgstr "Επικοινώνησε μαζί μας για να αναβαθμίσεις τη συνδρομή σου."
+msgid "Upgrade to keep using Expiration Tracker."
+msgstr "Αναβάθμισε για να συνεχίσεις να χρησιμοποιείς το Expiration Tracker."
 
 #: .\apps\tracker\templates\tracker\dashboard.html:14
 msgid "Trial:"
@@ -709,134 +735,139 @@ msgstr[1] "Απομένουν %(days)s ημέρες."
 msgid "You've reached the %(limit)s-product trial limit."
 msgstr "Έχεις φτάσει το όριο των %(limit)s προϊόντων του trial."
 
-#: .\apps\tracker\templates\tracker\dashboard.html:24
+#: .\apps\tracker\templates\tracker\dashboard.html:20
+#: .\apps\vault\templates\vault\dashboard.html:43
+msgid "Upgrade"
+msgstr "Αναβάθμιση"
+
+#: .\apps\tracker\templates\tracker\dashboard.html:27
 msgid "Low stock:"
 msgstr "Χαμηλό απόθεμα:"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:32
+#: .\apps\tracker\templates\tracker\dashboard.html:35
 msgid "Export CSV"
 msgstr "Εξαγωγή CSV"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:33
+#: .\apps\tracker\templates\tracker\dashboard.html:36
 msgid "New product"
 msgstr "Νέο προϊόν"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:39
+#: .\apps\tracker\templates\tracker\dashboard.html:42
 msgid "Search by barcode or product name"
 msgstr "Αναζήτηση με barcode ή όνομα προϊόντος"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:41 .\templates\base.html:723
+#: .\apps\tracker\templates\tracker\dashboard.html:44 .\templates\base.html:723
 msgid "Search"
 msgstr "Αναζήτηση"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:46
-#: .\apps\tracker\templates\tracker\dashboard.html:76
-#: .\apps\vault\templates\vault\dashboard.html:59
+#: .\apps\tracker\templates\tracker\dashboard.html:49
+#: .\apps\tracker\templates\tracker\dashboard.html:79
+#: .\apps\vault\templates\vault\dashboard.html:82
 msgid "Expired"
 msgstr "Ληγμένα"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:47
+#: .\apps\tracker\templates\tracker\dashboard.html:50
 msgid "≤ 7 days"
 msgstr "≤ 7 μέρες"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:48
+#: .\apps\tracker\templates\tracker\dashboard.html:51
 msgid "≤ 15 days"
 msgstr "≤ 15 μέρες"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:49
-#: .\apps\tracker\templates\tracker\dashboard.html:79
-#: .\apps\vault\templates\vault\dashboard.html:62
+#: .\apps\tracker\templates\tracker\dashboard.html:52
+#: .\apps\tracker\templates\tracker\dashboard.html:82
+#: .\apps\vault\templates\vault\dashboard.html:85
 msgid "OK"
 msgstr "OK"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:53
+#: .\apps\tracker\templates\tracker\dashboard.html:56
 #, python-format
 msgid "Clear filter (%(filter)s)"
 msgstr "Καθαρισμός φίλτρου (%(filter)s)"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:62
-#: .\apps\vault\templates\vault\dashboard.html:48
-#: .\apps\vault\templates\vault\dashboard.html:87
+#: .\apps\tracker\templates\tracker\dashboard.html:65
+#: .\apps\vault\templates\vault\dashboard.html:71
+#: .\apps\vault\templates\vault\dashboard.html:110
 msgid "Expires"
 msgstr "Λήξη"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:73
+#: .\apps\tracker\templates\tracker\dashboard.html:76
 #, python-format
 msgid "%(days)s day"
 msgid_plural "%(days)s days"
 msgstr[0] "%(days)s ημέρα"
 msgstr[1] "%(days)s ημέρες"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:77
-#: .\apps\vault\templates\vault\dashboard.html:60
+#: .\apps\tracker\templates\tracker\dashboard.html:80
+#: .\apps\vault\templates\vault\dashboard.html:83
 msgid "Critical"
 msgstr "Επείγον"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:78
-#: .\apps\vault\templates\vault\dashboard.html:61
+#: .\apps\tracker\templates\tracker\dashboard.html:81
+#: .\apps\vault\templates\vault\dashboard.html:84
 msgid "Warning"
 msgstr "Προσοχή"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:82
+#: .\apps\tracker\templates\tracker\dashboard.html:85
 msgid "Consume 1"
 msgstr "Ανάλωση κατά 1"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:86
+#: .\apps\tracker\templates\tracker\dashboard.html:89
 msgid "Record as waste"
 msgstr "Καταγραφή ως φύρα"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:86
+#: .\apps\tracker\templates\tracker\dashboard.html:89
 #, python-format
 msgid "Record %(name)s as waste?"
 msgstr "Να καταγραφεί το %(name)s ως φύρα;"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:88
+#: .\apps\tracker\templates\tracker\dashboard.html:91
 msgid "Waste"
 msgstr "Φύρα"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:90
-#: .\apps\vault\templates\vault\dashboard.html:109
+#: .\apps\tracker\templates\tracker\dashboard.html:93
+#: .\apps\vault\templates\vault\dashboard.html:141
 msgid "Edit"
 msgstr "Επεξεργασία"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:100
+#: .\apps\tracker\templates\tracker\dashboard.html:103
 #, python-format
 msgid "No products found for \"%(search_query)s\"."
 msgstr "Δεν βρέθηκαν προϊόντα για \"%(search_query)s\"."
 
-#: .\apps\tracker\templates\tracker\dashboard.html:101
+#: .\apps\tracker\templates\tracker\dashboard.html:104
 msgid "No products in this category."
 msgstr "Δεν υπάρχουν προϊόντα σε αυτή την κατηγορία."
 
-#: .\apps\tracker\templates\tracker\dashboard.html:102
+#: .\apps\tracker\templates\tracker\dashboard.html:105
 msgid "No products yet."
 msgstr "Δεν υπάρχουν προϊόντα."
 
-#: .\apps\tracker\templates\tracker\dashboard.html:102
+#: .\apps\tracker\templates\tracker\dashboard.html:105
 msgid "Add your first product"
 msgstr "Πρόσθεσε το πρώτο σου προϊόν"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:113
+#: .\apps\tracker\templates\tracker\dashboard.html:116
 #: .\apps\tracker\templates\tracker\item_form.html:67
 msgid "Starting camera..."
 msgstr "Εκκίνηση κάμερας..."
 
-#: .\apps\tracker\templates\tracker\dashboard.html:114
+#: .\apps\tracker\templates\tracker\dashboard.html:117
 #: .\apps\tracker\templates\tracker\item_form.html:68
 msgid "The scanning library did not load (needs an internet connection)."
 msgstr "Η βιβλιοθήκη σάρωσης δεν φορτώθηκε (χρειάζεται σύνδεση internet)."
 
-#: .\apps\tracker\templates\tracker\dashboard.html:115
+#: .\apps\tracker\templates\tracker\dashboard.html:118
 #: .\apps\tracker\templates\tracker\item_form.html:69
 msgid "Point the camera at the barcode."
 msgstr "Στόχευσε το barcode με την κάμερα."
 
-#: .\apps\tracker\templates\tracker\dashboard.html:116
+#: .\apps\tracker\templates\tracker\dashboard.html:119
 #: .\apps\tracker\templates\tracker\item_form.html:70
 msgid "Could not access the camera: "
 msgstr "Δεν ήταν δυνατή η πρόσβαση στην κάμερα: "
 
-#: .\apps\tracker\templates\tracker\dashboard.html:117
+#: .\apps\tracker\templates\tracker\dashboard.html:120
 #: .\apps\tracker\templates\tracker\item_form.html:71
 msgid "Scanned: "
 msgstr "Σαρώθηκε: "
@@ -983,7 +1014,7 @@ msgstr "Η κατηγορία διαγράφηκε."
 msgid "Notification settings updated."
 msgstr "Οι ρυθμίσεις ειδοποιήσεων ενημερώθηκαν."
 
-#: .\apps\vault\forms.py:21 .\apps\vault\templates\vault\dashboard.html:31
+#: .\apps\vault\forms.py:21 .\apps\vault\templates\vault\dashboard.html:54
 msgid "Master PIN"
 msgstr "Κύριο PIN"
 
@@ -1061,7 +1092,7 @@ msgstr "Χωρίς επαναλαμβανόμενο κόστος"
 msgid "Vendor / provider"
 msgstr "Προμηθευτής / πάροχος"
 
-#: .\apps\vault\models.py:52 .\apps\vault\templates\vault\dashboard.html:84
+#: .\apps\vault\models.py:52 .\apps\vault\templates\vault\dashboard.html:107
 msgid "Secret"
 msgstr "Μυστικό"
 
@@ -1069,7 +1100,7 @@ msgstr "Μυστικό"
 msgid "Billing cycle"
 msgstr "Κύκλος χρέωσης"
 
-#: .\apps\vault\models.py:61 .\apps\vault\templates\vault\dashboard.html:86
+#: .\apps\vault\models.py:61 .\apps\vault\templates\vault\dashboard.html:109
 msgid "Cost"
 msgstr "Κόστος"
 
@@ -1081,87 +1112,104 @@ msgstr "Νόμισμα"
 msgid "Renewal / expiry date"
 msgstr "Ημερομηνία ανανέωσης / λήξης"
 
+#: .\apps\vault\models.py:68
+msgid "Auto-check domain (SSL certificates only)"
+msgstr "Domain για αυτόματο έλεγχο (μόνο για SSL certificates)"
+
+#: .\apps\vault\models.py:70
+msgid ""
+"If set, a daily job checks this domain's real SSL certificate and keeps the "
+"renewal date above in sync automatically - e.g. example.com"
+msgstr ""
+"Αν το ορίσεις, μια καθημερινή εργασία ελέγχει το πραγματικό SSL certificate "
+"αυτού του domain και κρατάει την παραπάνω ημερομηνία ανανέωσης "
+"συγχρονισμένη αυτόματα - π.χ. example.com"
+
 #: .\apps\vault\templates\vault\_sidebar.html:2
 #: .\apps\vault\templates\vault\dashboard.html:3
-#: .\apps\vault\templates\vault\dashboard.html:9 .\templates\base.html:730
+#: .\apps\vault\templates\vault\dashboard.html:29 .\templates\base.html:730
 msgid "Vault"
 msgstr "Vault"
 
-#: .\apps\vault\templates\vault\dashboard.html:10
+#: .\apps\vault\templates\vault\dashboard.html:30
 #: .\apps\vault\templates\vault\item_form.html:3
 #: .\apps\vault\templates\vault\item_form.html:8
 msgid "Add item"
 msgstr "Προσθήκη αντικειμένου"
 
-#: .\apps\vault\templates\vault\dashboard.html:14
+#: .\apps\vault\templates\vault\dashboard.html:34
 msgid "Items"
 msgstr "Αντικείμενα"
 
-#: .\apps\vault\templates\vault\dashboard.html:15
+#: .\apps\vault\templates\vault\dashboard.html:35
 msgid "Expiring soon"
 msgstr "Λήγουν σύντομα"
 
-#: .\apps\vault\templates\vault\dashboard.html:16
+#: .\apps\vault\templates\vault\dashboard.html:36
 msgid "Monthly cost"
 msgstr "Μηνιαίο κόστος"
 
-#: .\apps\vault\templates\vault\dashboard.html:17
+#: .\apps\vault\templates\vault\dashboard.html:37
 msgid "Annual cost"
 msgstr "Ετήσιο κόστος"
 
-#: .\apps\vault\templates\vault\dashboard.html:21
+#: .\apps\vault\templates\vault\dashboard.html:42
 #, python-format
 msgid "Free trial - up to %(limit)s items."
 msgstr "Δωρεάν δοκιμή - έως %(limit)s αντικείμενα."
 
-#: .\apps\vault\templates\vault\dashboard.html:26
+#: .\apps\vault\templates\vault\dashboard.html:49
 msgid "Vault locked"
 msgstr "Το Vault είναι κλειδωμένο"
 
-#: .\apps\vault\templates\vault\dashboard.html:27
+#: .\apps\vault\templates\vault\dashboard.html:50
 msgid "Enter your Master PIN to reveal or copy any stored secret."
 msgstr ""
 "Εισήγαγε το Κύριο PIN σου για να αποκαλύψεις ή να αντιγράψεις οποιοδήποτε "
 "αποθηκευμένο μυστικό."
 
-#: .\apps\vault\templates\vault\dashboard.html:33
+#: .\apps\vault\templates\vault\dashboard.html:56
 msgid "Unlock"
 msgstr "Ξεκλείδωμα"
 
-#: .\apps\vault\templates\vault\dashboard.html:40
+#: .\apps\vault\templates\vault\dashboard.html:63
 msgid "Alerts"
 msgstr "Ειδοποιήσεις"
 
-#: .\apps\vault\templates\vault\dashboard.html:75
+#: .\apps\vault\templates\vault\dashboard.html:98
 msgid "All items"
 msgstr "Όλα τα αντικείμενα"
 
-#: .\apps\vault\templates\vault\dashboard.html:83
+#: .\apps\vault\templates\vault\dashboard.html:106
 msgid "Vendor"
 msgstr "Προμηθευτής"
 
-#: .\apps\vault\templates\vault\dashboard.html:85
+#: .\apps\vault\templates\vault\dashboard.html:108
 msgid "Billing"
 msgstr "Χρέωση"
 
-#: .\apps\vault\templates\vault\dashboard.html:99
-#: .\apps\vault\templates\vault\dashboard.html:153
+#: .\apps\vault\templates\vault\dashboard.html:122
+#: .\apps\vault\templates\vault\dashboard.html:185
 msgid "Show"
 msgstr "Εμφάνιση"
 
-#: .\apps\vault\templates\vault\dashboard.html:114
+#: .\apps\vault\templates\vault\dashboard.html:135
+msgid "Auto-checked"
+msgstr "Αυτόματος έλεγχος"
+
+#: .\apps\vault\templates\vault\dashboard.html:146
 msgid "No items yet."
 msgstr "Δεν υπάρχουν αντικείμενα ακόμα."
 
-#: .\apps\vault\templates\vault\dashboard.html:159
+#: .\apps\vault\templates\vault\dashboard.html:191
 msgid "Enter your Master PIN to unlock the Vault"
 msgstr "Εισήγαγε το Κύριο PIN σου για να ξεκλειδώσεις το Vault"
 
-#: .\apps\vault\templates\vault\dashboard.html:164
+#: .\apps\vault\templates\vault\dashboard.html:196
 msgid "Incorrect PIN, or too many attempts - please wait a few minutes."
 msgstr "Λανθασμένο PIN, ή πάρα πολλές προσπάθειες - περίμενε λίγα λεπτά."
 
-#: .\apps\vault\templates\vault\dashboard.html:174
+#: .\apps\vault\templates\vault\dashboard.html:206
 msgid "Hide"
 msgstr "Απόκρυψη"
 
@@ -1320,3 +1368,6 @@ msgstr "Email (προαιρετικό, αν θέλεις απάντηση)"
 #: .\templates\feedback\_modal.html:36
 msgid "Send"
 msgstr "Αποστολή"
+
+#~ msgid "Contact us to upgrade your subscription."
+#~ msgstr "Επικοινώνησε μαζί μας για να αναβαθμίσεις τη συνδρομή σου."

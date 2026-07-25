@@ -106,9 +106,11 @@ class VaultItemForm(forms.ModelForm):
             "cost_amount",
             "cost_currency",
             "expires_at",
+            "auto_check_domain",
         ]
         widgets = {
             "secret_value": forms.Textarea(attrs={"rows": 3, "autocomplete": "off"}),
             "notes": forms.Textarea(attrs={"rows": 3}),
             "expires_at": forms.DateInput(attrs={"type": "date"}),
+            "auto_check_domain": forms.TextInput(attrs={"placeholder": "example.com"}),
         }
