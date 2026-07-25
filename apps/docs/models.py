@@ -51,6 +51,15 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def short_description(self):
+        """
+        The opening paragraph of `description`, plain text - safe to use in
+        <meta name="description">/og:description without leaking Markdown
+        syntax (## headers, bullet dashes) from the rest of the content.
+        """
+        return self.description.strip().split("\n\n", 1)[0]
+
     def get_absolute_url(self):
         return reverse("project_detail", args=[self.slug])
 
