@@ -1,0 +1,68 @@
+{% load i18n %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ invoice.number }}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #1a1a2e; max-width: 720px; margin: 2rem auto; padding: 0 1.5rem; }
+    .top-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; }
+    h1 { font-size: 1.6rem; margin: 0; }
+    .muted { color: #666; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+    th, td { text-align: left; padding: 0.6rem 0.5rem; border-bottom: 1px solid #ddd; }
+    th { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; color: #666; }
+    .total-row td { font-weight: 700; border-top: 2px solid #1a1a2e; border-bottom: none; }
+    .print-btn { margin: 1.5rem 0; }
+    @media print { .print-btn { display: none; } body { margin: 0; max-width: none; } }
+  </style>
+</head>
+<body>
+  <button class="print-btn" onclick="window.print()">{% trans "Print / Save as PDF" %}</button>
+
+  <div class="top-row">
+    <div>
+      <h1>{{ invoice.get_kind_display }} {{ invoice.number }}</h1>
+      <p class="muted">
+        {% trans "Issued" %}: {{ invoice.issue_date|date:"d/m/Y" }}<br>
+        {% trans "Due" %}: {{ invoice.due_date|date:"d/m/Y" }}
+      </p>
+    </div>
+    <div>
+      <strong>{% trans "Bill to" %}</strong><br>
+      {{ invoice.client.name }}<br>
+      {% if invoice.client.email %}{{ invoice.client.email }}<br>{% endif %}
+      {% if invoice.client.address %}{{ invoice.client.address|linebreaksbr }}{% endif %}
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>{% trans "Description" %}</th>
+        <th>{% trans "Qty" %}</th>
+        <th>{% trans "Unit price" %}</th>
+        <th>{% trans "Total" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in invoice.items.all %}
+        <tr>
+          <td>{{ item.description }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.unit_price }} {{ invoice.currency }}</td>
+          <td>{{ item.line_total }} {{ invoice.currency }}</td>
+        </tr>
+      {% endfor %}
+      <tr class="total-row">
+        <td colspan="3">{% trans "Total" %}</td>
+        <td>{{ invoice.total }} {{ invoice.currency }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  {% if invoice.notes %}
+    <p class="muted" style="margin-top:2rem;">{{ invoice.notes|linebreaksbr }}</p>
+  {% endif %}
+</body>
+</html>

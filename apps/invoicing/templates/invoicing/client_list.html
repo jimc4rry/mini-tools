@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Clients" %}{% endblock %}
+{% block sidebar %}{% include "invoicing/_sidebar.html" %}{% endblock %}
+{% block main_class %}wide{% endblock %}
+
+{% block content %}
+<div class="top-row">
+  <h1>{% trans "Clients" %}</h1>
+  <a href="{% url 'invoicing:client_create' %}" class="btn-primary">{% trans "New client" %}</a>
+</div>
+
+<div class="card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Email" %}</th>
+        <th>{% trans "Phone" %}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for client in clients %}
+        <tr>
+          <td>{{ client.name }}</td>
+          <td class="muted">{{ client.email|default:"—" }}</td>
+          <td class="muted">{{ client.phone|default:"—" }}</td>
+          <td>
+            <a href="{% url 'invoicing:client_edit' client.pk %}" class="btn-secondary">{% trans "Edit" %}</a>
+            <a href="{% url 'invoicing:client_delete' client.pk %}" class="btn-secondary">{% trans "Delete" %}</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="4" class="muted" style="text-align:center;">{% trans "No clients yet." %}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

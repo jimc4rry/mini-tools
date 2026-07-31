@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Delete client" %}{% endblock %}
+{% block sidebar %}{% include "invoicing/_sidebar.html" %}{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width:480px; margin:0 auto;">
+  <h2>{% trans "Delete client" %}</h2>
+  <p>{% blocktrans with name=client.name %}Are you sure you want to permanently delete "{{ name }}"? This isn't possible while they still have invoices - delete those first.{% endblocktrans %}</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn-danger">{% trans "Delete" %}</button>
+    <a href="{% url 'invoicing:client_list' %}" class="btn-secondary">{% trans "Cancel" %}</a>
+  </form>
+</div>
+{% endblock %}

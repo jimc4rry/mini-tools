@@ -1,0 +1,13 @@
+{% load i18n %}
+<h3>{% trans "Invoicing" %}</h3>
+<ul>
+  <li><a href="{% url 'invoicing:dashboard' %}"{% if request.resolver_match.view_name == 'invoicing:dashboard' %} class="active"{% endif %}>{% trans "Dashboard" %}</a></li>
+  <li><a href="{% url 'invoicing:client_list' %}"{% if request.resolver_match.view_name == 'invoicing:client_list' %} class="active"{% endif %}>{% trans "Clients" %}</a></li>
+  <li>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="rail-btn">{% trans "Log out" %}</button>
+    </form>
+  </li>
+</ul>
+{% include "_language_switcher.html" %}

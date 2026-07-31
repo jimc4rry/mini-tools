@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Delete invoice" %}{% endblock %}
+{% block sidebar %}{% include "invoicing/_sidebar.html" %}{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width:480px; margin:0 auto;">
+  <h2>{% trans "Delete invoice" %}</h2>
+  <p>{% blocktrans with number=invoice.number %}Are you sure you want to permanently delete {{ number }}?{% endblocktrans %}</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn-danger">{% trans "Delete" %}</button>
+    <a href="{% url 'invoicing:dashboard' %}" class="btn-secondary">{% trans "Cancel" %}</a>
+  </form>
+</div>
+{% endblock %}

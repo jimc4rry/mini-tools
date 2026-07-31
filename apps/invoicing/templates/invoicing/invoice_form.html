@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% if is_new %}{% trans "New invoice" %}{% else %}{% trans "Edit invoice" %}{% endif %}{% endblock %}
+{% block sidebar %}{% include "invoicing/_sidebar.html" %}{% endblock %}
+{% block main_class %}wide{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h2>{% if is_new %}{% trans "New invoice" %}{% else %}{{ invoice.number }}{% endif %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="top-row" style="flex-wrap:wrap; gap:1rem; align-items:flex-start;">
+      {% for field in form %}
+        <div class="form-field" style="min-width:180px;">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <h3 style="font-size:1rem;">{% trans "Line items" %}</h3>
+    {{ formset.management_form }}
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>{% trans "Description" %}</th>
+          <th>{% trans "Qty" %}</th>
+          <th>{% trans "Unit price" %}</th>
+          {% if formset.can_delete %}<th>{% trans "Remove" %}</th>{% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for item_form in formset %}
+          <tr>
+            <td>{{ item_form.description }}{% if item_form.errors %}<div class="field-error">{{ item_form.errors|join:", " }}</div>{% endif %}{{ item_form.id }}</td>
+            <td>{{ item_form.quantity }}</td>
+            <td>{{ item_form.unit_price }}</td>
+            {% if formset.can_delete %}<td>{{ item_form.DELETE }}</td>{% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <button class="btn-primary" type="submit" style="margin-top:1rem;">{% trans "Save" %}</button>
+    <a href="{% url 'invoicing:dashboard' %}" class="btn-secondary">{% trans "Cancel" %}</a>
+  </form>
+</div>
+{% endblock %}

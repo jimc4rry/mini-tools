@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "apps.platform_admin",
     "apps.vault",
     "apps.wellness",
+    "apps.invoicing",
 ]
 
 MIDDLEWARE = [
@@ -80,6 +81,7 @@ TEMPLATES = [
                 "apps.feedback.context_processors.unread_badge",
                 "apps.vault.context_processors.vault_alerts",
                 "apps.wellness.context_processors.wellness_alerts",
+                "apps.invoicing.context_processors.invoicing_alerts",
             ],
         },
     },

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Invoicing" %}{% endblock %}
+{% block sidebar %}{% include "invoicing/_sidebar.html" %}{% endblock %}
+{% block main_class %}wide{% endblock %}
+
+{% block content %}
+<div class="top-row">
+  <h1>{% trans "Invoicing" %}</h1>
+  <div>
+    <a href="{% url 'invoicing:client_create' %}" class="btn-secondary">{% trans "New client" %}</a>
+    <a href="{% url 'invoicing:invoice_create' %}" class="btn-primary">{% trans "New invoice" %}</a>
+  </div>
+</div>
+
+<div class="stat-row">
+  <div class="stat-tile"><span class="n">{{ outstanding }} €</span><div class="l">{% trans "Outstanding" %}</div></div>
+  <div class="stat-tile"><span class="n">{{ overdue|length }}</span><div class="l">{% trans "Overdue" %}</div></div>
+  <div class="stat-tile"><span class="n">{{ paid_this_month }} €</span><div class="l">{% trans "Paid this month" %}</div></div>
+  <div class="stat-tile"><span class="n">{{ client_count }}</span><div class="l">{% trans "Clients" %}</div></div>
+</div>
+
+<div class="card">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>{% trans "Number" %}</th>
+        <th>{% trans "Client" %}</th>
+        <th>{% trans "Type" %}</th>
+        <th>{% trans "Status" %}</th>
+        <th>{% trans "Due" %}</th>
+        <th>{% trans "Total" %}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for invoice in invoices %}
+        <tr>
+          <td>{{ invoice.number }}</td>
+          <td>{{ invoice.client.name }}</td>
+          <td>{{ invoice.get_kind_display }}</td>
+          <td>
+            {% if invoice.display_status == "overdue" %}
+              <span class="chip chip-expired">{% trans "Overdue" %}</span>
+            {% elif invoice.status == "paid" %}
+              <span class="chip chip-ok">{% trans "Paid" %}</span>
+            {% elif invoice.status == "sent" %}
+              <span class="chip chip-warning">{% trans "Sent" %}</span>
+            {% elif invoice.status == "cancelled" %}
+              <span class="chip chip-critical">{% trans "Cancelled" %}</span>
+            {% else %}
+              <span class="chip">{% trans "Draft" %}</span>
+            {% endif %}
+          </td>
+          <td>{{ invoice.due_date|date:"d/m/Y" }}</td>
+          <td>{{ invoice.total }} {{ invoice.currency }}</td>
+          <td>
+            <a href="{% url 'invoicing:invoice_print' invoice.pk %}" class="btn-secondary" target="_blank">{% trans "Print" %}</a>
+            <a href="{% url 'invoicing:invoice_edit' invoice.pk %}" class="btn-secondary">{% trans "Edit" %}</a>
+            {% if invoice.status == "draft" %}
+              <form method="post" action="{% url 'invoicing:invoice_mark_sent' invoice.pk %}" style="display:inline;">
+                {% csrf_token %}<button type="submit" class="btn-secondary">{% trans "Mark sent" %}</button>
+              </form>
+            {% elif invoice.status == "sent" %}
+              <form method="post" action="{% url 'invoicing:invoice_mark_paid' invoice.pk %}" style="display:inline;">
+                {% csrf_token %}<button type="submit" class="btn-secondary">{% trans "Mark paid" %}</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="7" class="muted" style="text-align:center;">{% trans "No invoices yet." %}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

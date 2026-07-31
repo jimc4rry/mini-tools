@@ -36,4 +36,5 @@ urlpatterns = [
     path("platform-admin/", include("apps.platform_admin.urls")),
     path("vault/", include("apps.vault.urls")),
     path("wellness/", include("apps.wellness.urls")),
+    path("invoicing/", include("apps.invoicing.urls")),
 ]

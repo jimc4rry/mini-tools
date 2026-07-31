@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-31 23:12+0300\n"
+"POT-Creation-Date: 2026-07-31 23:35+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -38,7 +38,8 @@ msgstr "Συνέχεια στο checkout"
 msgid "Checkout failed to load. Please refresh and try again."
 msgstr "Το checkout απέτυχε να φορτώσει. Ανανέωσε τη σελίδα και δοκίμασε ξανά."
 
-#: .\apps\core\forms.py:15
+#: .\apps\core\forms.py:15 .\apps\invoicing\models.py:16
+#: .\apps\invoicing\templates\invoicing\client_list.html:18
 msgid "Email"
 msgstr "Email"
 
@@ -123,7 +124,7 @@ msgstr "Έχεις ήδη λογαριασμό;"
 #: .\apps\tracker\templates\registration\login.html:3
 #: .\apps\tracker\templates\registration\login.html:6
 #: .\apps\tracker\templates\registration\login.html:20
-#: .\apps\tracker\templates\tracker\_sidebar.html:16 .\templates\base.html:744
+#: .\apps\tracker\templates\tracker\_sidebar.html:16 .\templates\base.html:747
 msgid "Log in"
 msgstr "Σύνδεση"
 
@@ -224,6 +225,335 @@ msgstr "Δεν στάλθηκε το σχόλιό σου - έλεγξε το π�
 msgid "Thanks for the feedback!"
 msgstr "Ευχαριστούμε για το σχόλιο!"
 
+#: .\apps\invoicing\models.py:15
+#: .\apps\invoicing\templates\invoicing\client_list.html:17
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:22
+#: .\apps\tracker\templates\tracker\categories.html:27
+#: .\apps\vault\models.py:47 .\apps\vault\templates\vault\dashboard.html:69
+#: .\apps\vault\templates\vault\dashboard.html:104
+msgid "Name"
+msgstr "Όνομα"
+
+#: .\apps\invoicing\models.py:17
+#: .\apps\invoicing\templates\invoicing\client_list.html:19
+msgid "Phone"
+msgstr "Τηλέφωνο"
+
+#: .\apps\invoicing\models.py:18
+msgid "Address"
+msgstr "Διεύθυνση"
+
+#: .\apps\invoicing\models.py:19 .\apps\invoicing\models.py:52
+#: .\apps\tracker\forms.py:99 .\apps\tracker\views.py:234
+#: .\apps\vault\models.py:53
+msgid "Notes"
+msgstr "Σημειώσεις"
+
+#: .\apps\invoicing\models.py:31
+msgid "Quote"
+msgstr "Προσφορά"
+
+#: .\apps\invoicing\models.py:32
+msgid "Invoice"
+msgstr "Τιμολόγιο"
+
+#: .\apps\invoicing\models.py:35
+#: .\apps\invoicing\templates\invoicing\dashboard.html:52
+msgid "Draft"
+msgstr "Πρόχειρο"
+
+#: .\apps\invoicing\models.py:36
+#: .\apps\invoicing\templates\invoicing\dashboard.html:48
+msgid "Sent"
+msgstr "Απεσταλμένο"
+
+#: .\apps\invoicing\models.py:37
+#: .\apps\invoicing\templates\invoicing\dashboard.html:46
+msgid "Paid"
+msgstr "Πληρωμένο"
+
+#: .\apps\invoicing\models.py:38
+#: .\apps\invoicing\templates\invoicing\dashboard.html:50
+msgid "Cancelled"
+msgstr "Ακυρώθηκε"
+
+#: .\apps\invoicing\models.py:44
+#: .\apps\invoicing\templates\invoicing\dashboard.html:28
+msgid "Client"
+msgstr "Πελάτης"
+
+#: .\apps\invoicing\models.py:47
+#: .\apps\invoicing\templates\invoicing\dashboard.html:27
+msgid "Number"
+msgstr "Αριθμός"
+
+#: .\apps\invoicing\models.py:49
+msgid "Issue date"
+msgstr "Ημερομηνία έκδοσης"
+
+#: .\apps\invoicing\models.py:50
+msgid "Due date"
+msgstr "Ημερομηνία λήξης"
+
+#: .\apps\invoicing\models.py:51 .\apps\vault\models.py:63
+msgid "Currency"
+msgstr "Νόμισμα"
+
+#: .\apps\invoicing\models.py:85
+#: .\apps\invoicing\templates\invoicing\invoice_form.html:27
+#: .\apps\invoicing\templates\invoicing\invoice_print.html:42
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: .\apps\invoicing\models.py:86
+#: .\apps\invoicing\templates\invoicing\invoice_form.html:28
+#: .\apps\invoicing\templates\invoicing\invoice_print.html:43
+msgid "Qty"
+msgstr "Ποσ."
+
+#: .\apps\invoicing\models.py:88
+#: .\apps\invoicing\templates\invoicing\invoice_form.html:29
+#: .\apps\invoicing\templates\invoicing\invoice_print.html:44
+msgid "Unit price"
+msgstr "Τιμή μονάδας"
+
+#: .\apps\invoicing\templates\invoicing\_sidebar.html:2
+#: .\apps\invoicing\templates\invoicing\dashboard.html:3
+#: .\apps\invoicing\templates\invoicing\dashboard.html:9
+#: .\templates\base.html:736
+msgid "Invoicing"
+msgstr "Invoicing"
+
+#: .\apps\invoicing\templates\invoicing\_sidebar.html:4
+#: .\apps\tracker\templates\tracker\_sidebar.html:5
+#: .\apps\vault\templates\vault\_sidebar.html:4
+#: .\apps\wellness\templates\wellness\_sidebar.html:4
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: .\apps\invoicing\templates\invoicing\_sidebar.html:5
+#: .\apps\invoicing\templates\invoicing\client_list.html:3
+#: .\apps\invoicing\templates\invoicing\client_list.html:9
+#: .\apps\invoicing\templates\invoicing\dashboard.html:20
+msgid "Clients"
+msgstr "Πελάτες"
+
+#: .\apps\invoicing\templates\invoicing\_sidebar.html:9
+#: .\apps\tracker\templates\tracker\_sidebar.html:12
+#: .\apps\vault\templates\vault\_sidebar.html:9
+#: .\apps\wellness\templates\wellness\_sidebar.html:9 .\templates\base.html:744
+msgid "Log out"
+msgstr "Αποσύνδεση"
+
+#: .\apps\invoicing\templates\invoicing\client_confirm_delete.html:3
+#: .\apps\invoicing\templates\invoicing\client_confirm_delete.html:8
+msgid "Delete client"
+msgstr "Διαγραφή πελάτη"
+
+#: .\apps\invoicing\templates\invoicing\client_confirm_delete.html:9
+#, python-format
+msgid ""
+"Are you sure you want to permanently delete \"%(name)s\"? This isn't "
+"possible while they still have invoices - delete those first."
+msgstr ""
+
+#: .\apps\invoicing\templates\invoicing\client_confirm_delete.html:12
+#: .\apps\invoicing\templates\invoicing\client_list.html:31
+#: .\apps\invoicing\templates\invoicing\invoice_confirm_delete.html:12
+#: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:24
+#: .\apps\tracker\templates\tracker\categories.html:35
+#: .\apps\tracker\templates\tracker\dashboard.html:94
+#: .\apps\vault\templates\vault\dashboard.html:142
+#: .\apps\vault\templates\vault\item_confirm_delete.html:12
+msgid "Delete"
+msgstr "Διαγραφή"
+
+#: .\apps\invoicing\templates\invoicing\client_confirm_delete.html:13
+#: .\apps\invoicing\templates\invoicing\client_form.html:19
+#: .\apps\invoicing\templates\invoicing\invoice_confirm_delete.html:13
+#: .\apps\invoicing\templates\invoicing\invoice_form.html:46
+#: .\apps\tracker\templates\tracker\item_confirm_delete.html:13
+#: .\apps\tracker\templates\tracker\item_form.html:27
+#: .\apps\vault\templates\vault\item_confirm_delete.html:13
+#: .\apps\vault\templates\vault\item_form.html:20
+msgid "Cancel"
+msgstr "Άκυρο"
+
+#: .\apps\invoicing\templates\invoicing\client_form.html:3
+#: .\apps\invoicing\templates\invoicing\client_form.html:8
+#: .\apps\invoicing\templates\invoicing\client_list.html:10
+#: .\apps\invoicing\templates\invoicing\dashboard.html:11
+msgid "New client"
+msgstr "Νέος πελάτης"
+
+#: .\apps\invoicing\templates\invoicing\client_form.html:3
+#: .\apps\invoicing\templates\invoicing\client_form.html:8
+msgid "Edit client"
+msgstr "Επεξεργασία πελάτη"
+
+#: .\apps\invoicing\templates\invoicing\client_form.html:18
+#: .\apps\invoicing\templates\invoicing\invoice_form.html:45
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:49
+#: .\apps\tracker\templates\tracker\item_form.html:26
+#: .\apps\tracker\templates\tracker\settings.html:21
+#: .\apps\vault\templates\vault\item_form.html:19
+#: .\apps\vault\templates\vault\settings.html:19
+#: .\apps\wellness\templates\wellness\settings.html:18
+msgid "Save"
+msgstr "Αποθήκευση"
+
+#: .\apps\invoicing\templates\invoicing\client_list.html:30
+#: .\apps\invoicing\templates\invoicing\dashboard.html:59
+#: .\apps\tracker\templates\tracker\dashboard.html:93
+#: .\apps\vault\templates\vault\dashboard.html:141
+msgid "Edit"
+msgstr "Επεξεργασία"
+
+#: .\apps\invoicing\templates\invoicing\client_list.html:35
+msgid "No clients yet."
+msgstr "Δεν υπάρχουν πελάτες ακόμα."
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:12
+#: .\apps\invoicing\templates\invoicing\invoice_form.html:3
+#: .\apps\invoicing\templates\invoicing\invoice_form.html:9
+msgid "New invoice"
+msgstr "Νέο τιμολόγιο"
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:17
+msgid "Outstanding"
+msgstr "Εκκρεμή"
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:18
+#: .\apps\invoicing\templates\invoicing\dashboard.html:44
+msgid "Overdue"
+msgstr "Ληξιπρόθεσμα"
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:19
+msgid "Paid this month"
+msgstr "Πληρώθηκαν αυτόν τον μήνα"
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:29
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:23
+#: .\apps\vault\models.py:49 .\apps\vault\templates\vault\dashboard.html:70
+#: .\apps\vault\templates\vault\dashboard.html:105
+msgid "Type"
+msgstr "Τύπος"
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:30
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:53
+#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:34
+#: .\apps\tracker\templates\tracker\dashboard.html:65
+#: .\apps\tracker\views.py:234
+msgid "Status"
+msgstr "Κατάσταση"
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:31
+#: .\apps\invoicing\templates\invoicing\invoice_print.html:28
+msgid "Due"
+msgstr "Λήξη"
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:32
+#: .\apps\invoicing\templates\invoicing\invoice_print.html:45
+#: .\apps\invoicing\templates\invoicing\invoice_print.html:58
+#: .\apps\platform_admin\templates\platform_admin\dashboard.html:15
+msgid "Total"
+msgstr "Σύνολο"
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:58
+msgid "Print"
+msgstr "Εκτύπωση"
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:62
+msgid "Mark sent"
+msgstr "Σήμανση ως απεσταλμένο"
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:66
+msgid "Mark paid"
+msgstr "Σήμανση ως πληρωμένο"
+
+#: .\apps\invoicing\templates\invoicing\dashboard.html:72
+msgid "No invoices yet."
+msgstr "Δεν υπάρχουν τιμολόγια ακόμα."
+
+#: .\apps\invoicing\templates\invoicing\invoice_confirm_delete.html:3
+#: .\apps\invoicing\templates\invoicing\invoice_confirm_delete.html:8
+msgid "Delete invoice"
+msgstr "Διαγραφή τιμολογίου"
+
+#: .\apps\invoicing\templates\invoicing\invoice_confirm_delete.html:9
+#, python-format
+msgid "Are you sure you want to permanently delete %(number)s?"
+msgstr "Είσαι σίγουρος ότι θες να διαγράψεις οριστικά το %(number)s;"
+
+#: .\apps\invoicing\templates\invoicing\invoice_form.html:3
+msgid "Edit invoice"
+msgstr "Επεξεργασία τιμολογίου"
+
+#: .\apps\invoicing\templates\invoicing\invoice_form.html:22
+msgid "Line items"
+msgstr "Γραμμές τιμολογίου"
+
+#: .\apps\invoicing\templates\invoicing\invoice_form.html:30
+msgid "Remove"
+msgstr "Αφαίρεση"
+
+#: .\apps\invoicing\templates\invoicing\invoice_print.html:21
+msgid "Print / Save as PDF"
+msgstr "Εκτύπωση / Αποθήκευση ως PDF"
+
+#: .\apps\invoicing\templates\invoicing\invoice_print.html:27
+msgid "Issued"
+msgstr "Εκδόθηκε"
+
+#: .\apps\invoicing\templates\invoicing\invoice_print.html:32
+msgid "Bill to"
+msgstr "Χρέωση σε"
+
+#: .\apps\invoicing\views.py:77
+msgid "Client added."
+msgstr "Ο πελάτης προστέθηκε."
+
+#: .\apps\invoicing\views.py:91
+msgid "Client updated."
+msgstr "Ο πελάτης ενημερώθηκε."
+
+#: .\apps\invoicing\views.py:107
+msgid ""
+"Can't delete this client - they still have invoices. Delete those first."
+msgstr "Δεν μπορείς να διαγράψεις αυτόν τον πελάτη - έχει ακόμα τιμολόγια. Διάγραψε αυτά πρώτα."
+
+#: .\apps\invoicing\views.py:110
+msgid "Client deleted."
+msgstr "Ο πελάτης διαγράφηκε."
+
+#: .\apps\invoicing\views.py:118
+msgid "Add a client first."
+msgstr "Πρόσθεσε πρώτα έναν πελάτη."
+
+#: .\apps\invoicing\views.py:131
+msgid "Invoice created."
+msgstr "Το τιμολόγιο δημιουργήθηκε."
+
+#: .\apps\invoicing\views.py:154
+msgid "Invoice updated."
+msgstr "Το τιμολόγιο ενημερώθηκε."
+
+#: .\apps\invoicing\views.py:171
+msgid "Invoice deleted."
+msgstr "Το τιμολόγιο διαγράφηκε."
+
+#: .\apps\invoicing\views.py:192
+msgid "Marked as sent."
+msgstr "Σημειώθηκε ως απεσταλμένο."
+
+#: .\apps\invoicing\views.py:202
+msgid "Marked as paid."
+msgstr "Σημειώθηκε ως πληρωμένο."
+
+#: .\apps\invoicing\views.py:212
+msgid "Cancelled."
+msgstr "Ακυρώθηκε."
+
 #: .\apps\newsletter\views.py:26
 msgid "Too many attempts from this network. Please try again in a few minutes."
 msgstr ""
@@ -240,7 +570,7 @@ msgstr ""
 "εργαλεία."
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:9
-#: .\templates\base.html:736
+#: .\templates\base.html:739
 msgid "Platform Admin"
 msgstr "Διαχείριση Πλατφόρμας"
 
@@ -255,10 +585,6 @@ msgid ""
 msgstr ""
 "Κάθε συνδρομή στο Hub, σε κάθε εφαρμογή - πλάνα, δοκιμές και χειροκίνητες "
 "αλλαγές."
-
-#: .\apps\platform_admin\templates\platform_admin\dashboard.html:15
-msgid "Total"
-msgstr "Σύνολο"
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:16
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:67
@@ -304,13 +630,6 @@ msgstr "Χρήστης"
 #: .\apps\tracker\views.py:233
 msgid "Product"
 msgstr "Προϊόν"
-
-#: .\apps\platform_admin\templates\platform_admin\dashboard.html:53
-#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:34
-#: .\apps\tracker\templates\tracker\dashboard.html:65
-#: .\apps\tracker\views.py:234
-msgid "Status"
-msgstr "Κατάσταση"
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:54
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:38
@@ -394,14 +713,6 @@ msgstr "Πίσω"
 msgid "Delete this feedback permanently?"
 msgstr "Οριστική διαγραφή αυτού του feedback;"
 
-#: .\apps\platform_admin\templates\platform_admin\feedback_detail.html:24
-#: .\apps\tracker\templates\tracker\categories.html:35
-#: .\apps\tracker\templates\tracker\dashboard.html:94
-#: .\apps\vault\templates\vault\dashboard.html:142
-#: .\apps\vault\templates\vault\item_confirm_delete.html:12
-msgid "Delete"
-msgstr "Διαγραφή"
-
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:14
 msgid "Account"
 msgstr "Λογαριασμός"
@@ -417,19 +728,6 @@ msgstr "Εγγράφηκε"
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:21
 msgid "Tracker business"
 msgstr "Επιχείρηση Tracker"
-
-#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:22
-#: .\apps\tracker\templates\tracker\categories.html:27
-#: .\apps\vault\models.py:47 .\apps\vault\templates\vault\dashboard.html:69
-#: .\apps\vault\templates\vault\dashboard.html:104
-msgid "Name"
-msgstr "Όνομα"
-
-#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:23
-#: .\apps\vault\models.py:49 .\apps\vault\templates\vault\dashboard.html:70
-#: .\apps\vault\templates\vault\dashboard.html:105
-msgid "Type"
-msgstr "Τύπος"
 
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:24
 msgid "Products"
@@ -450,15 +748,6 @@ msgstr "Paddle subscription ID"
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:46
 msgid "Paddle customer ID"
 msgstr "Paddle customer ID"
-
-#: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:49
-#: .\apps\tracker\templates\tracker\item_form.html:26
-#: .\apps\tracker\templates\tracker\settings.html:21
-#: .\apps\vault\templates\vault\item_form.html:19
-#: .\apps\vault\templates\vault\settings.html:19
-#: .\apps\wellness\templates\wellness\settings.html:18
-msgid "Save"
-msgstr "Αποθήκευση"
 
 #: .\apps\platform_admin\views.py:86
 msgid "Subscription updated."
@@ -541,11 +830,6 @@ msgstr "Αριθμός παρτίδας"
 #: .\apps\tracker\forms.py:98 .\apps\tracker\views.py:234
 msgid "Expiration date"
 msgstr "Ημερομηνία λήξης"
-
-#: .\apps\tracker\forms.py:99 .\apps\tracker\views.py:234
-#: .\apps\vault\models.py:53
-msgid "Notes"
-msgstr "Σημειώσεις"
 
 #: .\apps\tracker\forms.py:130
 #, python-format
@@ -667,12 +951,6 @@ msgstr "Κλείσιμο"
 msgid "Expiration Tracker"
 msgstr "Expiration Tracker"
 
-#: .\apps\tracker\templates\tracker\_sidebar.html:5
-#: .\apps\vault\templates\vault\_sidebar.html:4
-#: .\apps\wellness\templates\wellness\_sidebar.html:4
-msgid "Dashboard"
-msgstr "Dashboard"
-
 #: .\apps\tracker\templates\tracker\_sidebar.html:7
 #: .\apps\tracker\templates\tracker\waste_log.html:3
 #: .\apps\tracker\templates\tracker\waste_log.html:7
@@ -686,12 +964,6 @@ msgstr "Φύρα"
 #: .\apps\wellness\templates\wellness\settings.html:8
 msgid "Settings"
 msgstr "Ρυθμίσεις"
-
-#: .\apps\tracker\templates\tracker\_sidebar.html:12
-#: .\apps\vault\templates\vault\_sidebar.html:9
-#: .\apps\wellness\templates\wellness\_sidebar.html:9 .\templates\base.html:741
-msgid "Log out"
-msgstr "Αποσύνδεση"
 
 #: .\apps\tracker\templates\tracker\categories.html:7
 msgid "Product categories"
@@ -830,11 +1102,6 @@ msgstr "Να καταγραφεί το %(name)s ως φύρα;"
 msgid "Waste"
 msgstr "Φύρα"
 
-#: .\apps\tracker\templates\tracker\dashboard.html:93
-#: .\apps\vault\templates\vault\dashboard.html:141
-msgid "Edit"
-msgstr "Επεξεργασία"
-
 #: .\apps\tracker\templates\tracker\dashboard.html:103
 #, python-format
 msgid "No products found for \"%(search_query)s\"."
@@ -893,13 +1160,6 @@ msgstr "Αυτή η ενέργεια δεν αναιρείται."
 #: .\apps\tracker\templates\tracker\item_confirm_delete.html:12
 msgid "Yes, delete"
 msgstr "Ναι, διαγραφή"
-
-#: .\apps\tracker\templates\tracker\item_confirm_delete.html:13
-#: .\apps\tracker\templates\tracker\item_form.html:27
-#: .\apps\vault\templates\vault\item_confirm_delete.html:13
-#: .\apps\vault\templates\vault\item_form.html:20
-msgid "Cancel"
-msgstr "Άκυρο"
 
 #: .\apps\tracker\templates\tracker\item_form.html:16
 msgid "Scan"
@@ -1108,10 +1368,6 @@ msgstr "Κύκλος χρέωσης"
 #: .\apps\vault\models.py:61 .\apps\vault\templates\vault\dashboard.html:109
 msgid "Cost"
 msgstr "Κόστος"
-
-#: .\apps\vault\models.py:63
-msgid "Currency"
-msgstr "Νόμισμα"
 
 #: .\apps\vault\models.py:64
 msgid "Renewal / expiry date"
@@ -1373,8 +1629,10 @@ msgstr "Έφτασες στο επιθυμητό σου βάρος!"
 #, python-format
 msgid "At your current pace, about %(weeks)s week to your goal weight."
 msgid_plural "At your current pace, about %(weeks)s weeks to your goal weight."
-msgstr[0] "Με τον ρυθμό σου, περίπου %(weeks)s εβδομάδα μέχρι το επιθυμητό βάρος."
-msgstr[1] "Με τον ρυθμό σου, περίπου %(weeks)s εβδομάδες μέχρι το επιθυμητό βάρος."
+msgstr[0] ""
+"Με τον ρυθμό σου, περίπου %(weeks)s εβδομάδα μέχρι το επιθυμητό βάρος."
+msgstr[1] ""
+"Με τον ρυθμό σου, περίπου %(weeks)s εβδομάδες μέχρι το επιθυμητό βάρος."
 
 #: .\apps\wellness\templates\wellness\dashboard.html:53
 msgid "Log weight"
@@ -1400,7 +1658,9 @@ msgstr "Εβδομαδιαίο Joker"
 msgid ""
 "One day a week, eat whatever you want - guilt-free. Just enjoy it slowly and "
 "on purpose."
-msgstr "Μία μέρα την εβδομάδα, φάε ό,τι θες - χωρίς ενοχές. Απόλαυσέ το απλά αργά και συνειδητά."
+msgstr ""
+"Μία μέρα την εβδομάδα, φάε ό,τι θες - χωρίς ενοχές. Απόλαυσέ το απλά αργά "
+"και συνειδητά."
 
 #: .\apps\wellness\templates\wellness\dashboard.html:82
 msgid "Use today's Joker"
@@ -1408,7 +1668,8 @@ msgstr "Χρησιμοποίησε το σημερινό Joker"
 
 #: .\apps\wellness\templates\wellness\dashboard.html:85
 msgid "Joker already used this week - enjoy the rest of it."
-msgstr "Το Joker χρησιμοποιήθηκε ήδη αυτή την εβδομάδα - απόλαυσε το υπόλοιπό της."
+msgstr ""
+"Το Joker χρησιμοποιήθηκε ήδη αυτή την εβδομάδα - απόλαυσε το υπόλοιπό της."
 
 #: .\apps\wellness\templates\wellness\settings.html:3
 msgid "Wellness settings"
@@ -1426,7 +1687,9 @@ msgstr "Ας σε ρυθμίσουμε"
 msgid ""
 "A few details so we can calculate your numbers - no calorie counting, just a "
 "starting point."
-msgstr "Μερικά στοιχεία για να υπολογίσουμε τους αριθμούς σου - όχι μέτρημα θερμίδων, απλά ένα σημείο εκκίνησης."
+msgstr ""
+"Μερικά στοιχεία για να υπολογίσουμε τους αριθμούς σου - όχι μέτρημα "
+"θερμίδων, απλά ένα σημείο εκκίνησης."
 
 #: .\apps\wellness\templates\wellness\start_trial.html:17
 msgid "Start"
@@ -1505,27 +1768,27 @@ msgstr "Διαχείριση Django"
 msgid "Toggle dark / light theme"
 msgstr "Εναλλαγή σκούρου / ανοιχτού θέματος"
 
-#: .\templates\base.html:762
+#: .\templates\base.html:765
 msgid "Get notified when new free tools launch"
 msgstr "Μάθε πρώτος για νέα δωρεάν εργαλεία"
 
-#: .\templates\base.html:770
+#: .\templates\base.html:773
 msgid "you@example.com"
 msgstr "you@example.com"
 
-#: .\templates\base.html:771
+#: .\templates\base.html:774
 msgid "Subscribe"
 msgstr "Εγγραφή"
 
-#: .\templates\base.html:774
+#: .\templates\base.html:777
 msgid "RSS feed"
 msgstr "Ροή RSS"
 
-#: .\templates\base.html:779
+#: .\templates\base.html:782
 msgid "Search tools, docs, applications…"
 msgstr "Αναζήτηση εργαλείων, εγγράφων, εφαρμογών…"
 
-#: .\templates\base.html:809
+#: .\templates\base.html:812
 msgid "No matches."
 msgstr "Δεν βρέθηκαν αποτελέσματα."
 
