@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load i18n tickets_extras %}
+{% block title %}{% blocktrans with name=board.name %}{{ name }} - Calendar{% endblocktrans %}{% endblock %}
+{% block sidebar %}{% include "tickets/_sidebar.html" %}{% endblock %}
+{% block main_class %}wide{% endblock %}
+
+{% block content %}
+<style>
+  .ticket-calendar { width: 100%; border-collapse: collapse; }
+  .ticket-calendar th { padding: 0.5rem; text-align: center; font-size: 0.75rem; text-transform: uppercase; color: var(--muted); }
+  .ticket-calendar td {
+    vertical-align: top; border: 1px solid var(--border); padding: 0.4rem;
+    height: 90px; width: 14.28%;
+  }
+  .ticket-calendar td.empty { background: transparent; border-color: transparent; }
+  .ticket-calendar td.today { border-color: var(--accent-2); }
+  .cal-day-number { font-size: 0.8rem; color: var(--muted); }
+  .cal-ticket-dot {
+    display: block; font-size: 0.72rem; margin-top: 0.2rem; padding: 0.1rem 0.3rem;
+    border-radius: 4px; background: var(--surface); border: 1px solid var(--border);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+</style>
+
+<div class="top-row">
+  <div>
+    <h1>{{ board.name }}</h1>
+    <a href="{% url 'tickets:board_detail' board.pk %}" class="muted">← {% trans "Back to board" %}</a>
+  </div>
+  <div class="top-row" style="gap:0.5rem;">
+    <a class="btn-secondary" href="?year={{ prev_year }}&month={{ prev_month }}">← {% trans "Previous" %}</a>
+    <strong>{{ month_label|date:"F Y" }}</strong>
+    <a class="btn-secondary" href="?year={{ next_year }}&month={{ next_month }}">{% trans "Next" %} →</a>
+  </div>
+</div>
+
+<table class="ticket-calendar">
+  <thead>
+    <tr>
+      <th>{% trans "Mon" %}</th>
+      <th>{% trans "Tue" %}</th>
+      <th>{% trans "Wed" %}</th>
+      <th>{% trans "Thu" %}</th>
+      <th>{% trans "Fri" %}</th>
+      <th>{% trans "Sat" %}</th>
+      <th>{% trans "Sun" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for week in weeks %}
+      <tr>
+        {% for day in week %}
+          {% if day == 0 %}
+            <td class="empty"></td>
+          {% else %}
+            <td{% if day == today.day and current_month == today.month and current_year == today.year %} class="today"{% endif %}>
+              <div class="cal-day-number">{{ day }}</div>
+              {% with day_tickets=tickets_by_day|get_item:day %}
+                {% for ticket in day_tickets %}
+                  <a href="{% url 'tickets:ticket_detail' ticket.pk %}" class="cal-ticket-dot">{{ ticket.title }}</a>
+                {% endfor %}
+              {% endwith %}
+            </td>
+          {% endif %}
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

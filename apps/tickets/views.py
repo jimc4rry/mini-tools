@@ -1,3 +1,4 @@
+import calendar
 import datetime
 import json
 
@@ -13,8 +14,8 @@ from django.views.decorators.http import require_POST
 
 from apps.billing.models import Subscription
 
-from .forms import BoardForm, CommentForm, InviteMemberForm, TicketForm
-from .models import TICKETS_TRIAL_LENGTH_DAYS, Board, Ticket
+from .forms import BoardForm, CommentForm, InviteMemberForm, TagForm, TicketForm
+from .models import TICKETS_TRIAL_LENGTH_DAYS, Board, Tag, Ticket
 
 
 def _ensure_subscription(user):
@@ -64,12 +65,18 @@ def board_create(request):
 @login_required
 def board_detail(request, pk):
     board = _get_board_or_404(request, pk)
-    tickets = board.tickets.select_related("assignee", "reporter")
+    tickets = board.tickets.select_related("assignee", "reporter").prefetch_related("tags")
     columns = [
         (status, label, tickets.filter(status=status))
         for status, label in Ticket.Status.choices
     ]
-    return render(request, "tickets/board_detail.html", {"board": board, "columns": columns})
+    context = {
+        "board": board,
+        "columns": columns,
+        "priority_choices": Ticket.Priority.choices,
+        "tags": board.tags.all(),
+    }
+    return render(request, "tickets/board_detail.html", context)
 
 
 @login_required
@@ -94,7 +101,12 @@ def board_settings(request, pk):
     return render(
         request,
         "tickets/board_settings.html",
-        {"board": board, "form": form, "members": board.memberships.select_related("user")},
+        {
+            "board": board,
+            "form": form,
+            "members": board.memberships.select_related("user"),
+            "tags": board.tags.all(),
+        },
     )
 
 
@@ -130,6 +142,7 @@ def ticket_create(request, pk):
             ticket.board = board
             ticket.reporter = request.user
             ticket.save()
+            form.save_m2m()  # commit=False skips the tags M2M - must save it explicitly
             messages.success(request, _("Ticket created."))
             return redirect("tickets:board_detail", pk=board.pk)
     else:
@@ -173,6 +186,81 @@ def ticket_detail(request, pk):
         "comments": ticket.comments.select_related("author"),
     }
     return render(request, "tickets/ticket_detail.html", context)
+
+
+@login_required
+def board_calendar(request, pk):
+    """
+    Month-view calendar of this board's tickets by due_date, built with
+    Python's stdlib `calendar` module - no JS calendar widget/library.
+    `?year=&month=` navigate months; defaults to the current month.
+    """
+    board = _get_board_or_404(request, pk)
+
+    today = timezone.localdate()
+    try:
+        year = int(request.GET.get("year", today.year))
+        month = int(request.GET.get("month", today.month))
+        first_of_month = datetime.date(year, month, 1)
+    except (TypeError, ValueError):
+        return HttpResponseBadRequest("Invalid year/month")
+
+    tickets_by_day = {}
+    for ticket in board.tickets.filter(
+        due_date__year=year, due_date__month=month
+    ).select_related("assignee"):
+        tickets_by_day.setdefault(ticket.due_date.day, []).append(ticket)
+
+    cal = calendar.Calendar(firstweekday=0)  # Monday first
+    weeks = cal.monthdayscalendar(year, month)  # 0 = day outside this month
+
+    prev_month = first_of_month - datetime.timedelta(days=1)
+    next_month = (first_of_month + datetime.timedelta(days=32)).replace(day=1)
+
+    context = {
+        "board": board,
+        "weeks": weeks,
+        "tickets_by_day": tickets_by_day,
+        "month_label": first_of_month,
+        "prev_year": prev_month.year,
+        "prev_month": prev_month.month,
+        "next_year": next_month.year,
+        "next_month": next_month.month,
+        "today": today,
+        "current_year": year,
+        "current_month": month,
+    }
+    return render(request, "tickets/board_calendar.html", context)
+
+
+@login_required
+def tag_create(request, pk):
+    board = _get_board_or_404(request, pk)
+    if board.owner_id != request.user.id:
+        raise Http404
+
+    if request.method == "POST":
+        form = TagForm(request.POST)
+        if form.is_valid():
+            tag = form.save(commit=False)
+            tag.board = board
+            tag.save()
+            messages.success(request, _("Tag added."))
+            return redirect("tickets:board_settings", pk=board.pk)
+    else:
+        form = TagForm()
+    return render(request, "tickets/tag_form.html", {"form": form, "board": board})
+
+
+@login_required
+@require_POST
+def tag_delete(request, pk, tag_pk):
+    board = _get_board_or_404(request, pk)
+    if board.owner_id != request.user.id:
+        raise Http404
+    get_object_or_404(Tag, pk=tag_pk, board=board).delete()
+    messages.success(request, _("Tag deleted."))
+    return redirect("tickets:board_settings", pk=board.pk)
 
 
 @login_required

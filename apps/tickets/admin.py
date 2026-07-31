@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Board, BoardMembership, Comment, Ticket
+from .models import Board, BoardMembership, Comment, Tag, Ticket
 
 
 class BoardMembershipInline(admin.TabularInline):
@@ -15,11 +15,19 @@ class BoardAdmin(admin.ModelAdmin):
     inlines = [BoardMembershipInline]
 
 
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ("name", "board", "color")
+    list_filter = ("board",)
+    search_fields = ("name",)
+
+
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ("title", "board", "status", "priority", "assignee", "reporter")
+    list_display = ("title", "board", "status", "priority", "due_date", "assignee", "reporter")
     list_filter = ("status", "priority")
     search_fields = ("title", "board__name")
+    date_hierarchy = "due_date"
 
 
 @admin.register(Comment)

@@ -41,6 +41,24 @@
 </div>
 
 <div class="card" style="max-width:480px;">
+  <h2 style="font-size:1.1rem;">{% trans "Tags" %}</h2>
+  <ul>
+    {% for tag in tags %}
+      <li>
+        <span class="chip" style="background:{{ tag.color }}22; color:{{ tag.color }};">{{ tag.name }}</span>
+        <form method="post" action="{% url 'tickets:tag_delete' board.pk tag.pk %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn-secondary">{% trans "Remove" %}</button>
+        </form>
+      </li>
+    {% empty %}
+      <li class="muted">{% trans "No tags yet." %}</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'tickets:tag_create' board.pk %}" class="btn-secondary">{% trans "New tag" %}</a>
+</div>
+
+<div class="card" style="max-width:480px;">
   <h2 style="font-size:1.1rem;">{% trans "Danger zone" %}</h2>
   <form method="post" action="{% url 'tickets:board_delete' board.pk %}" onsubmit="return confirm('{% trans "Delete this board and all its tickets permanently?" %}');">
     {% csrf_token %}

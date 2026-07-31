@@ -21,18 +21,47 @@
     padding: 0.7rem; cursor: grab;
   }
   .kanban-card.dragging { opacity: 0.4; }
+  .kanban-card.filtered-out { display: none; }
   .kanban-card a { color: var(--text); font-weight: 600; }
   .kanban-card .muted { font-size: 0.8rem; }
+  .kanban-card .chip { margin-right: 0.3rem; margin-top: 0.3rem; }
+  .ticket-filter-bar {
+    display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 0.75rem; margin-bottom: 1rem;
+  }
+  .ticket-filter-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .ticket-filter-tags label { font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem; }
 </style>
 
 <div class="top-row">
   <div>
     <h1>{{ board.name }}</h1>
+    <a href="{% url 'tickets:board_calendar' board.pk %}" class="muted">{% trans "Calendar" %}</a>
     {% if board.owner == request.user %}
-      <a href="{% url 'tickets:board_settings' board.pk %}" class="muted">{% trans "Manage members" %}</a>
+      · <a href="{% url 'tickets:board_settings' board.pk %}" class="muted">{% trans "Manage members" %}</a>
     {% endif %}
   </div>
   <a href="{% url 'tickets:ticket_create' board.pk %}" class="btn-primary">{% trans "New ticket" %}</a>
+</div>
+
+<div class="ticket-filter-bar" id="ticket-filter-bar" data-board-id="{{ board.pk }}">
+  <input type="text" id="filter-search" placeholder="{% trans 'Search title or description...' %}" style="flex:1; min-width:200px;">
+  <select id="filter-priority">
+    <option value="">{% trans "All priorities" %}</option>
+    {% for value, label in priority_choices %}
+      <option value="{{ value }}">{{ label }}</option>
+    {% endfor %}
+  </select>
+  <div class="ticket-filter-tags">
+    {% for tag in tags %}
+      <label>
+        <input type="checkbox" class="filter-tag-checkbox" value="{{ tag.pk }}">
+        <span class="chip" style="background:{{ tag.color }}22; color:{{ tag.color }};">{{ tag.name }}</span>
+      </label>
+    {% endfor %}
+  </div>
+  <button type="button" class="btn-secondary" id="filter-clear">{% trans "Clear filters" %}</button>
 </div>
 
 <div class="kanban-board">
@@ -44,10 +73,32 @@
       </div>
       <div class="kanban-column-body" data-status="{{ status }}">
         {% for ticket in column_tickets %}
-          <div class="kanban-card" draggable="true" data-ticket-id="{{ ticket.pk }}">
+          <div
+            class="kanban-card"
+            draggable="true"
+            data-ticket-id="{{ ticket.pk }}"
+            data-priority="{{ ticket.priority }}"
+            data-tags="{% for tag in ticket.tags.all %}{{ tag.pk }},{% endfor %}"
+            data-search="{{ ticket.title|lower }} {{ ticket.description|lower }}"
+          >
             <a href="{% url 'tickets:ticket_detail' ticket.pk %}">{{ ticket.title }}</a>
-            <div class="muted">
-              {% if ticket.priority == "high" %}<span class="chip chip-critical">{% trans "High" %}</span>{% endif %}
+            <div>
+              {% if ticket.priority == "critical" %}<span class="chip chip-critical">{% trans "Critical" %}</span>
+              {% elif ticket.priority == "high" %}<span class="chip chip-warning">{% trans "High" %}</span>
+              {% elif ticket.priority == "medium" %}<span class="chip chip-info">{% trans "Medium" %}</span>
+              {% else %}<span class="chip chip-secondary">{% trans "Low" %}</span>{% endif %}
+              {% if ticket.due_status == "overdue" %}
+                <span class="chip chip-expired">{% trans "Overdue" %} {{ ticket.due_date|date:"d/m" }}</span>
+              {% elif ticket.due_status == "soon" %}
+                <span class="chip chip-warning">{{ ticket.due_date|date:"d/m" }}</span>
+              {% elif ticket.due_status == "ok" %}
+                <span class="chip chip-ok">{{ ticket.due_date|date:"d/m" }}</span>
+              {% endif %}
+              {% for tag in ticket.tags.all %}
+                <span class="chip" style="background:{{ tag.color }}22; color:{{ tag.color }};">{{ tag.name }}</span>
+              {% endfor %}
+            </div>
+            <div class="muted" style="margin-top:0.3rem;">
               {% if ticket.assignee %}{{ ticket.assignee.username }}{% else %}{% trans "Unassigned" %}{% endif %}
             </div>
           </div>
@@ -114,6 +165,73 @@
       }
     });
   });
+
+  // --- Filter bar: vanilla JS, no reload, persisted to localStorage per board ---
+  const filterBar = document.getElementById("ticket-filter-bar");
+  const storageKey = "ticketFilters:" + filterBar.dataset.boardId;
+  const searchInput = document.getElementById("filter-search");
+  const priorityInput = document.getElementById("filter-priority");
+  const tagCheckboxes = document.querySelectorAll(".filter-tag-checkbox");
+
+  function loadFilters() {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey)) || {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveFilters(filters) {
+    localStorage.setItem(storageKey, JSON.stringify(filters));
+  }
+
+  function currentFilters() {
+    return {
+      search: searchInput.value.trim().toLowerCase(),
+      priority: priorityInput.value,
+      tags: Array.from(tagCheckboxes).filter((cb) => cb.checked).map((cb) => cb.value),
+    };
+  }
+
+  function applyFilters() {
+    const filters = currentFilters();
+    saveFilters(filters);
+
+    document.querySelectorAll(".kanban-card").forEach((card) => {
+      let visible = true;
+      if (filters.search && !card.dataset.search.includes(filters.search)) visible = false;
+      if (filters.priority && card.dataset.priority !== filters.priority) visible = false;
+      if (filters.tags.length) {
+        const cardTags = card.dataset.tags.split(",").filter(Boolean);
+        if (!filters.tags.some((t) => cardTags.includes(t))) visible = false;
+      }
+      card.classList.toggle("filtered-out", !visible);
+    });
+  }
+
+  function restoreFilters() {
+    const saved = loadFilters();
+    if (saved.search) searchInput.value = saved.search;
+    if (saved.priority) priorityInput.value = saved.priority;
+    if (saved.tags) {
+      tagCheckboxes.forEach((cb) => {
+        cb.checked = saved.tags.includes(cb.value);
+      });
+    }
+    applyFilters();
+  }
+
+  searchInput.addEventListener("input", applyFilters);
+  priorityInput.addEventListener("change", applyFilters);
+  tagCheckboxes.forEach((cb) => cb.addEventListener("change", applyFilters));
+  document.getElementById("filter-clear").addEventListener("click", () => {
+    searchInput.value = "";
+    priorityInput.value = "";
+    tagCheckboxes.forEach((cb) => { cb.checked = false; });
+    applyFilters();
+  });
+
+  restoreFilters();
 })();
 </script>
 {% endblock %}
