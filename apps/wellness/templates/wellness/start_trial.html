@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Set up Wellness" %}{% endblock %}
+{% block content %}
+<div class="card" style="max-width:480px; margin:0 auto;">
+  <h2>{% trans "Let's get you set up" %}</h2>
+  <p class="muted" style="margin-top:0;">{% trans "A few details so we can calculate your numbers - no calorie counting, just a starting point." %}</p>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
+      </div>
+    {% endfor %}
+    <button class="btn-primary" type="submit">{% trans "Start" %}</button>
+  </form>
+</div>
+{% endblock %}

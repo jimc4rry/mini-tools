@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-25 23:21+0300\n"
+"POT-Creation-Date: 2026-07-31 23:12+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -123,7 +123,7 @@ msgstr "Έχεις ήδη λογαριασμό;"
 #: .\apps\tracker\templates\registration\login.html:3
 #: .\apps\tracker\templates\registration\login.html:6
 #: .\apps\tracker\templates\registration\login.html:20
-#: .\apps\tracker\templates\tracker\_sidebar.html:16 .\templates\base.html:741
+#: .\apps\tracker\templates\tracker\_sidebar.html:16 .\templates\base.html:744
 msgid "Log in"
 msgstr "Σύνδεση"
 
@@ -240,7 +240,7 @@ msgstr ""
 "εργαλεία."
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:9
-#: .\templates\base.html:733
+#: .\templates\base.html:736
 msgid "Platform Admin"
 msgstr "Διαχείριση Πλατφόρμας"
 
@@ -456,6 +456,7 @@ msgstr "Paddle customer ID"
 #: .\apps\tracker\templates\tracker\settings.html:21
 #: .\apps\vault\templates\vault\item_form.html:19
 #: .\apps\vault\templates\vault\settings.html:19
+#: .\apps\wellness\templates\wellness\settings.html:18
 msgid "Save"
 msgstr "Αποθήκευση"
 
@@ -668,6 +669,7 @@ msgstr "Expiration Tracker"
 
 #: .\apps\tracker\templates\tracker\_sidebar.html:5
 #: .\apps\vault\templates\vault\_sidebar.html:4
+#: .\apps\wellness\templates\wellness\_sidebar.html:4
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -680,11 +682,14 @@ msgstr "Φύρα"
 #: .\apps\tracker\templates\tracker\_sidebar.html:8
 #: .\apps\tracker\templates\tracker\settings.html:3
 #: .\apps\vault\templates\vault\_sidebar.html:5
+#: .\apps\wellness\templates\wellness\_sidebar.html:5
+#: .\apps\wellness\templates\wellness\settings.html:8
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
 #: .\apps\tracker\templates\tracker\_sidebar.html:12
-#: .\apps\vault\templates\vault\_sidebar.html:9 .\templates\base.html:738
+#: .\apps\vault\templates\vault\_sidebar.html:9
+#: .\apps\wellness\templates\wellness\_sidebar.html:9 .\templates\base.html:741
 msgid "Log out"
 msgstr "Αποσύνδεση"
 
@@ -1292,6 +1297,177 @@ msgstr "Το Vault ξεκλειδώθηκε."
 msgid "PIN updated."
 msgstr "Το PIN ενημερώθηκε."
 
+#: .\apps\wellness\forms.py:19 .\apps\wellness\models.py:31
+msgid "Biological sex"
+msgstr "Βιολογικό φύλο"
+
+#: .\apps\wellness\forms.py:20 .\apps\wellness\models.py:32
+msgid "Age"
+msgstr "Ηλικία"
+
+#: .\apps\wellness\forms.py:21 .\apps\wellness\models.py:33
+msgid "Height (cm)"
+msgstr "Ύψος (εκ.)"
+
+#: .\apps\wellness\forms.py:23
+msgid "Current weight (kg)"
+msgstr "Τρέχον βάρος (κιλά)"
+
+#: .\apps\wellness\forms.py:26 .\apps\wellness\models.py:35
+msgid "Goal weight (kg)"
+msgstr "Επιθυμητό βάρος (κιλά)"
+
+#: .\apps\wellness\forms.py:29 .\apps\wellness\models.py:41
+msgid "Activity level"
+msgstr "Επίπεδο δραστηριότητας"
+
+#: .\apps\wellness\forms.py:55 .\apps\wellness\models.py:105
+#: .\apps\wellness\templates\wellness\dashboard.html:52
+msgid "Weight (kg)"
+msgstr "Βάρος (κιλά)"
+
+#: .\apps\wellness\models.py:12
+msgid "Male"
+msgstr "Άντρας"
+
+#: .\apps\wellness\models.py:13
+msgid "Female"
+msgstr "Γυναίκα"
+
+#: .\apps\wellness\models.py:16
+msgid "Sedentary (little/no exercise)"
+msgstr "Καθιστική ζωή (καθόλου/ελάχιστη άσκηση)"
+
+#: .\apps\wellness\models.py:17
+msgid "Moderate (exercise 3-5x/week)"
+msgstr "Μέτρια δραστηριότητα (άσκηση 3-5 φορές/εβδομάδα)"
+
+#: .\apps\wellness\models.py:18
+msgid "Active (hard exercise 6-7x/week)"
+msgstr "Έντονη δραστηριότητα (έντονη άσκηση 6-7 φορές/εβδομάδα)"
+
+#: .\apps\wellness\models.py:122
+msgid "Mission"
+msgstr "Αποστολή"
+
+#: .\apps\wellness\templates\wellness\_sidebar.html:2
+#: .\apps\wellness\templates\wellness\dashboard.html:3
+#: .\apps\wellness\templates\wellness\dashboard.html:22
+#: .\templates\base.html:733
+msgid "Wellness"
+msgstr "Wellness"
+
+#: .\apps\wellness\templates\wellness\dashboard.html:28
+msgid "Today's weight"
+msgstr "Σημερινό βάρος"
+
+#: .\apps\wellness\templates\wellness\dashboard.html:32
+msgid "No weigh-in yet."
+msgstr "Δεν έχεις ζυγιστεί ακόμα."
+
+#: .\apps\wellness\templates\wellness\dashboard.html:43
+msgid "You're at your goal weight!"
+msgstr "Έφτασες στο επιθυμητό σου βάρος!"
+
+#: .\apps\wellness\templates\wellness\dashboard.html:45
+#, python-format
+msgid "At your current pace, about %(weeks)s week to your goal weight."
+msgid_plural "At your current pace, about %(weeks)s weeks to your goal weight."
+msgstr[0] "Με τον ρυθμό σου, περίπου %(weeks)s εβδομάδα μέχρι το επιθυμητό βάρος."
+msgstr[1] "Με τον ρυθμό σου, περίπου %(weeks)s εβδομάδες μέχρι το επιθυμητό βάρος."
+
+#: .\apps\wellness\templates\wellness\dashboard.html:53
+msgid "Log weight"
+msgstr "Καταγραφή βάρους"
+
+#: .\apps\wellness\templates\wellness\dashboard.html:56
+msgid "Logged for today"
+msgstr "Καταγράφηκε για σήμερα"
+
+#: .\apps\wellness\templates\wellness\dashboard.html:61
+msgid "Today's missions"
+msgstr "Σημερινές αποστολές"
+
+#: .\apps\wellness\templates\wellness\dashboard.html:71
+msgid "No missions configured yet."
+msgstr "Δεν έχουν οριστεί αποστολές ακόμα."
+
+#: .\apps\wellness\templates\wellness\dashboard.html:77
+msgid "Weekly Joker"
+msgstr "Εβδομαδιαίο Joker"
+
+#: .\apps\wellness\templates\wellness\dashboard.html:79
+msgid ""
+"One day a week, eat whatever you want - guilt-free. Just enjoy it slowly and "
+"on purpose."
+msgstr "Μία μέρα την εβδομάδα, φάε ό,τι θες - χωρίς ενοχές. Απόλαυσέ το απλά αργά και συνειδητά."
+
+#: .\apps\wellness\templates\wellness\dashboard.html:82
+msgid "Use today's Joker"
+msgstr "Χρησιμοποίησε το σημερινό Joker"
+
+#: .\apps\wellness\templates\wellness\dashboard.html:85
+msgid "Joker already used this week - enjoy the rest of it."
+msgstr "Το Joker χρησιμοποιήθηκε ήδη αυτή την εβδομάδα - απόλαυσε το υπόλοιπό της."
+
+#: .\apps\wellness\templates\wellness\settings.html:3
+msgid "Wellness settings"
+msgstr "Ρυθμίσεις Wellness"
+
+#: .\apps\wellness\templates\wellness\start_trial.html:3
+msgid "Set up Wellness"
+msgstr "Ρύθμισε το Wellness"
+
+#: .\apps\wellness\templates\wellness\start_trial.html:6
+msgid "Let's get you set up"
+msgstr "Ας σε ρυθμίσουμε"
+
+#: .\apps\wellness\templates\wellness\start_trial.html:7
+msgid ""
+"A few details so we can calculate your numbers - no calorie counting, just a "
+"starting point."
+msgstr "Μερικά στοιχεία για να υπολογίσουμε τους αριθμούς σου - όχι μέτρημα θερμίδων, απλά ένα σημείο εκκίνησης."
+
+#: .\apps\wellness\templates\wellness\start_trial.html:17
+msgid "Start"
+msgstr "Έναρξη"
+
+#: .\apps\wellness\views.py:25
+msgid "Good morning - today is a fresh start."
+msgstr "Καλημέρα - σήμερα είναι μια νέα αρχή."
+
+#: .\apps\wellness\views.py:27
+msgid "Good afternoon - you're doing this for you."
+msgstr "Καλησπέρα - το κάνεις αυτό για σένα."
+
+#: .\apps\wellness\views.py:28
+msgid "Good evening - one more consistent day, that's the whole game."
+msgstr "Καλησπέρα - μια ακόμα συνεπής μέρα, αυτό είναι το παιχνίδι."
+
+#: .\apps\wellness\views.py:81
+msgid "Welcome! Let's build some consistency together."
+msgstr "Καλωσόρισες! Ας χτίσουμε συνέπεια μαζί."
+
+#: .\apps\wellness\views.py:137
+msgid "Weight logged. Nice and steady."
+msgstr "Το βάρος καταγράφηκε. Ήρεμα και σταθερά."
+
+#: .\apps\wellness\views.py:139
+msgid "Please enter a valid weight."
+msgstr "Παρακαλώ γράψε ένα έγκυρο βάρος."
+
+#: .\apps\wellness\views.py:165
+msgid "Enjoy it - slowly and on purpose. That's the whole point of the Joker."
+msgstr "Απόλαυσέ το - αργά και συνειδητά. Αυτό είναι όλο το νόημα του Joker."
+
+#: .\apps\wellness\views.py:168
+msgid "You've already used this week's Joker."
+msgstr "Έχεις ήδη χρησιμοποιήσει το Joker αυτής της εβδομάδας."
+
+#: .\apps\wellness\views.py:182
+msgid "Settings updated."
+msgstr "Οι ρυθμίσεις ενημερώθηκαν."
+
 #: .\templates\admin\app_list.html:8
 #, python-format
 msgid "Models in the %(name)s application"
@@ -1329,27 +1505,27 @@ msgstr "Διαχείριση Django"
 msgid "Toggle dark / light theme"
 msgstr "Εναλλαγή σκούρου / ανοιχτού θέματος"
 
-#: .\templates\base.html:759
+#: .\templates\base.html:762
 msgid "Get notified when new free tools launch"
 msgstr "Μάθε πρώτος για νέα δωρεάν εργαλεία"
 
-#: .\templates\base.html:767
+#: .\templates\base.html:770
 msgid "you@example.com"
 msgstr "you@example.com"
 
-#: .\templates\base.html:768
+#: .\templates\base.html:771
 msgid "Subscribe"
 msgstr "Εγγραφή"
 
-#: .\templates\base.html:771
+#: .\templates\base.html:774
 msgid "RSS feed"
 msgstr "Ροή RSS"
 
-#: .\templates\base.html:776
+#: .\templates\base.html:779
 msgid "Search tools, docs, applications…"
 msgstr "Αναζήτηση εργαλείων, εγγράφων, εφαρμογών…"
 
-#: .\templates\base.html:806
+#: .\templates\base.html:809
 msgid "No matches."
 msgstr "Δεν βρέθηκαν αποτελέσματα."
 

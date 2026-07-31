@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "apps.billing",
     "apps.platform_admin",
     "apps.vault",
+    "apps.wellness",
 ]
 
 MIDDLEWARE = [
@@ -78,6 +79,7 @@ TEMPLATES = [
                 "apps.core.context_processors.current_tool_context",
                 "apps.feedback.context_processors.unread_badge",
                 "apps.vault.context_processors.vault_alerts",
+                "apps.wellness.context_processors.wellness_alerts",
             ],
         },
     },

@@ -1,0 +1,13 @@
+{% load i18n %}
+<h3>{% trans "Wellness" %}</h3>
+<ul>
+  <li><a href="{% url 'wellness:dashboard' %}"{% if request.resolver_match.view_name == 'wellness:dashboard' %} class="active"{% endif %}>{% trans "Dashboard" %}</a></li>
+  <li><a href="{% url 'wellness:settings' %}"{% if request.resolver_match.view_name == 'wellness:settings' %} class="active"{% endif %}>{% trans "Settings" %}</a></li>
+  <li>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="rail-btn">{% trans "Log out" %}</button>
+    </form>
+  </li>
+</ul>
+{% include "_language_switcher.html" %}

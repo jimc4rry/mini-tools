@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Wellness" %}{% endblock %}
+{% block sidebar %}{% include "wellness/_sidebar.html" %}{% endblock %}
+
+{% block content %}
+<style>
+  .wellness-mission { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+  .wellness-mission:last-child { border-bottom: none; }
+  .wellness-mission form { margin: 0; }
+  .wellness-check-btn {
+    width: 1.6rem; height: 1.6rem; border-radius: 999px; border: 2px solid var(--border-strong);
+    background: transparent; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+    color: #2ecc71; font-weight: 800;
+  }
+  .wellness-check-btn.done { background: rgba(46, 204, 113, 0.15); border-color: #2ecc71; }
+  .wellness-mission-text.done { text-decoration: line-through; color: var(--muted); }
+  .wellness-sparkline { width: 100%; height: 60px; }
+</style>
+
+<div class="top-row">
+  <h1>{% trans "Wellness" %}</h1>
+</div>
+<p class="muted" style="margin-top:-0.5rem;">{{ greeting }}</p>
+
+<div class="top-row" style="align-items:stretch; gap:1rem; flex-wrap:wrap;">
+  <div class="card" style="flex:1; min-width:260px;">
+    <h2 style="font-size:1.1rem;">{% trans "Today's weight" %}</h2>
+    {% if current_weight %}
+      <p style="font-size:2rem; font-weight:800; margin:0;">{{ current_weight }} <span class="muted" style="font-size:1rem;">kg</span></p>
+    {% else %}
+      <p class="muted">{% trans "No weigh-in yet." %}</p>
+    {% endif %}
+
+    {% if sparkline_points %}
+      <svg class="wellness-sparkline" viewBox="0 0 280 60" preserveAspectRatio="none">
+        <polyline points="{{ sparkline_points }}" fill="none" stroke="#22d3ee" stroke-width="2" />
+      </svg>
+    {% endif %}
+
+    {% if weeks_to_goal is not None %}
+      {% if weeks_to_goal == 0 %}
+        <p class="chip chip-ok">{% trans "You're at your goal weight!" %}</p>
+      {% else %}
+        <p class="muted">{% blocktrans count weeks=weeks_to_goal %}At your current pace, about {{ weeks }} week to your goal weight.{% plural %}At your current pace, about {{ weeks }} weeks to your goal weight.{% endblocktrans %}</p>
+      {% endif %}
+    {% endif %}
+
+    {% if not already_logged_today %}
+      <form method="post" action="{% url 'wellness:log_weight' %}" class="top-row" style="gap:0.5rem; margin-top:0.75rem;">
+        {% csrf_token %}
+        <input type="number" step="0.1" name="weight_kg" placeholder="{% trans 'Weight (kg)' %}" required style="max-width:140px;">
+        <button type="submit" class="btn-primary">{% trans "Log weight" %}</button>
+      </form>
+    {% else %}
+      <p class="chip chip-ok" style="margin-top:0.75rem;">{% trans "Logged for today" %}</p>
+    {% endif %}
+  </div>
+
+  <div class="card" style="flex:1; min-width:260px;">
+    <h2 style="font-size:1.1rem;">{% trans "Today's missions" %}</h2>
+    {% for log in missions %}
+      <div class="wellness-mission">
+        <form method="post" action="{% url 'wellness:toggle_mission' log.pk %}">
+          {% csrf_token %}
+          <button type="submit" class="wellness-check-btn{% if log.is_completed %} done{% endif %}">{% if log.is_completed %}✓{% endif %}</button>
+        </form>
+        <span class="wellness-mission-text{% if log.is_completed %} done{% endif %}">{{ log.mission.text }}</span>
+      </div>
+    {% empty %}
+      <p class="muted">{% trans "No missions configured yet." %}</p>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="card" style="margin-top:1rem;">
+  <h2 style="font-size:1.1rem;">🃏 {% trans "Weekly Joker" %}</h2>
+  {% if joker_available %}
+    <p class="muted">{% trans "One day a week, eat whatever you want - guilt-free. Just enjoy it slowly and on purpose." %}</p>
+    <form method="post" action="{% url 'wellness:use_grace_day' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn-secondary">{% trans "Use today's Joker" %}</button>
+    </form>
+  {% else %}
+    <p class="chip chip-ok">{% trans "Joker already used this week - enjoy the rest of it." %}</p>
+  {% endif %}
+</div>
+{% endblock %}
