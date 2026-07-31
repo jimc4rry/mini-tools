@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ ticket.title }}{% endblock %}
+{% block sidebar %}{% include "tickets/_sidebar.html" %}{% endblock %}
+
+{% block content %}
+<p><a href="{% url 'tickets:board_detail' board.pk %}">← {{ board.name }}</a></p>
+
+<div class="card">
+  <form method="post">
+    {% csrf_token %}
+    {% for field in edit_form %}
+      <div class="form-field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
+      </div>
+    {% endfor %}
+    <button class="btn-primary" type="submit">{% trans "Save" %}</button>
+  </form>
+</div>
+
+<div class="card">
+  <h2 style="font-size:1.1rem;">{% trans "Comments" %}</h2>
+  {% for comment in comments %}
+    <div style="padding:0.6rem 0; border-bottom:1px solid var(--border);">
+      <strong>{{ comment.author.username }}</strong>
+      <span class="muted">{{ comment.created_at|date:"d/m/Y H:i" }}</span>
+      <p style="margin:0.3rem 0 0;">{{ comment.body|linebreaksbr }}</p>
+    </div>
+  {% empty %}
+    <p class="muted">{% trans "No comments yet." %}</p>
+  {% endfor %}
+
+  <form method="post" style="margin-top:1rem;">
+    {% csrf_token %}
+    <input type="hidden" name="add_comment" value="1">
+    {% for field in comment_form %}
+      <div class="form-field">
+        {{ field }}
+        {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
+      </div>
+    {% endfor %}
+    <button class="btn-secondary" type="submit">{% trans "Add comment" %}</button>
+  </form>
+</div>
+{% endblock %}

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "apps.vault",
     "apps.wellness",
     "apps.invoicing",
+    "apps.tickets",
 ]
 
 MIDDLEWARE = [
@@ -82,6 +83,7 @@ TEMPLATES = [
                 "apps.vault.context_processors.vault_alerts",
                 "apps.wellness.context_processors.wellness_alerts",
                 "apps.invoicing.context_processors.invoicing_alerts",
+                "apps.tickets.context_processors.tickets_alerts",
             ],
         },
     },

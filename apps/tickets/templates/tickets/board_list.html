@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Tickets" %}{% endblock %}
+{% block sidebar %}{% include "tickets/_sidebar.html" %}{% endblock %}
+{% block main_class %}wide{% endblock %}
+
+{% block content %}
+<div class="top-row">
+  <h1>{% trans "Boards" %}</h1>
+  <a href="{% url 'tickets:board_create' %}" class="btn-primary">{% trans "New board" %}</a>
+</div>
+
+<div class="grid">
+  {% for board in boards %}
+    <div class="card">
+      <a href="{% url 'tickets:board_detail' board.pk %}"><strong>{{ board.name }}</strong></a>
+      <p class="muted">
+        {% if board.owner == request.user %}
+          {% trans "You own this board" %}
+        {% else %}
+          {% blocktrans with owner=board.owner.username %}Owned by {{ owner }}{% endblocktrans %}
+        {% endif %}
+      </p>
+    </div>
+  {% empty %}
+    <p class="muted">{% trans "No boards yet." %}</p>
+  {% endfor %}
+</div>
+{% endblock %}

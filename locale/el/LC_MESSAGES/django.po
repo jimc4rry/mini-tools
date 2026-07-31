@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: minitools 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-31 23:35+0300\n"
+"POT-Creation-Date: 2026-08-01 00:07+0300\n"
 "PO-Revision-Date: 2026-07-22 18:40+0300\n"
 "Last-Translator: \n"
 "Language-Team: Greek\n"
@@ -124,7 +124,7 @@ msgstr "Έχεις ήδη λογαριασμό;"
 #: .\apps\tracker\templates\registration\login.html:3
 #: .\apps\tracker\templates\registration\login.html:6
 #: .\apps\tracker\templates\registration\login.html:20
-#: .\apps\tracker\templates\tracker\_sidebar.html:16 .\templates\base.html:747
+#: .\apps\tracker\templates\tracker\_sidebar.html:16 .\templates\base.html:750
 msgid "Log in"
 msgstr "Σύνδεση"
 
@@ -228,6 +228,7 @@ msgstr "Ευχαριστούμε για το σχόλιο!"
 #: .\apps\invoicing\models.py:15
 #: .\apps\invoicing\templates\invoicing\client_list.html:17
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:22
+#: .\apps\tickets\models.py:12
 #: .\apps\tracker\templates\tracker\categories.html:27
 #: .\apps\vault\models.py:47 .\apps\vault\templates\vault\dashboard.html:69
 #: .\apps\vault\templates\vault\dashboard.html:104
@@ -299,19 +300,20 @@ msgstr "Ημερομηνία λήξης"
 msgid "Currency"
 msgstr "Νόμισμα"
 
-#: .\apps\invoicing\models.py:85
+#: .\apps\invoicing\models.py:86
 #: .\apps\invoicing\templates\invoicing\invoice_form.html:27
 #: .\apps\invoicing\templates\invoicing\invoice_print.html:42
+#: .\apps\tickets\models.py:59
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: .\apps\invoicing\models.py:86
+#: .\apps\invoicing\models.py:87
 #: .\apps\invoicing\templates\invoicing\invoice_form.html:28
 #: .\apps\invoicing\templates\invoicing\invoice_print.html:43
 msgid "Qty"
 msgstr "Ποσ."
 
-#: .\apps\invoicing\models.py:88
+#: .\apps\invoicing\models.py:89
 #: .\apps\invoicing\templates\invoicing\invoice_form.html:29
 #: .\apps\invoicing\templates\invoicing\invoice_print.html:44
 msgid "Unit price"
@@ -339,9 +341,10 @@ msgid "Clients"
 msgstr "Πελάτες"
 
 #: .\apps\invoicing\templates\invoicing\_sidebar.html:9
+#: .\apps\tickets\templates\tickets\_sidebar.html:8
 #: .\apps\tracker\templates\tracker\_sidebar.html:12
 #: .\apps\vault\templates\vault\_sidebar.html:9
-#: .\apps\wellness\templates\wellness\_sidebar.html:9 .\templates\base.html:744
+#: .\apps\wellness\templates\wellness\_sidebar.html:9 .\templates\base.html:747
 msgid "Log out"
 msgstr "Αποσύνδεση"
 
@@ -372,6 +375,8 @@ msgstr "Διαγραφή"
 #: .\apps\invoicing\templates\invoicing\client_form.html:19
 #: .\apps\invoicing\templates\invoicing\invoice_confirm_delete.html:13
 #: .\apps\invoicing\templates\invoicing\invoice_form.html:46
+#: .\apps\tickets\templates\tickets\board_form.html:19
+#: .\apps\tickets\templates\tickets\ticket_form.html:19
 #: .\apps\tracker\templates\tracker\item_confirm_delete.html:13
 #: .\apps\tracker\templates\tracker\item_form.html:27
 #: .\apps\vault\templates\vault\item_confirm_delete.html:13
@@ -394,6 +399,7 @@ msgstr "Επεξεργασία πελάτη"
 #: .\apps\invoicing\templates\invoicing\client_form.html:18
 #: .\apps\invoicing\templates\invoicing\invoice_form.html:45
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:49
+#: .\apps\tickets\templates\tickets\ticket_detail.html:19
 #: .\apps\tracker\templates\tracker\item_form.html:26
 #: .\apps\tracker\templates\tracker\settings.html:21
 #: .\apps\vault\templates\vault\item_form.html:19
@@ -494,6 +500,7 @@ msgid "Line items"
 msgstr "Γραμμές τιμολογίου"
 
 #: .\apps\invoicing\templates\invoicing\invoice_form.html:30
+#: .\apps\tickets\templates\tickets\board_settings.html:36
 msgid "Remove"
 msgstr "Αφαίρεση"
 
@@ -520,7 +527,9 @@ msgstr "Ο πελάτης ενημερώθηκε."
 #: .\apps\invoicing\views.py:107
 msgid ""
 "Can't delete this client - they still have invoices. Delete those first."
-msgstr "Δεν μπορείς να διαγράψεις αυτόν τον πελάτη - έχει ακόμα τιμολόγια. Διάγραψε αυτά πρώτα."
+msgstr ""
+"Δεν μπορείς να διαγράψεις αυτόν τον πελάτη - έχει ακόμα τιμολόγια. Διάγραψε "
+"αυτά πρώτα."
 
 #: .\apps\invoicing\views.py:110
 msgid "Client deleted."
@@ -570,7 +579,7 @@ msgstr ""
 "εργαλεία."
 
 #: .\apps\platform_admin\templates\platform_admin\dashboard.html:9
-#: .\templates\base.html:739
+#: .\templates\base.html:742
 msgid "Platform Admin"
 msgstr "Διαχείριση Πλατφόρμας"
 
@@ -718,6 +727,7 @@ msgid "Account"
 msgstr "Λογαριασμός"
 
 #: .\apps\platform_admin\templates\platform_admin\subscription_detail.html:15
+#: .\apps\tickets\forms.py:38
 msgid "Username"
 msgstr "Username"
 
@@ -756,6 +766,185 @@ msgstr "Η συνδρομή ενημερώθηκε."
 #: .\apps\platform_admin\views.py:113
 msgid "Feedback deleted."
 msgstr "Το σχόλιο διαγράφηκε."
+
+#: .\apps\tickets\forms.py:34
+msgid "Add a comment..."
+msgstr "Πρόσθεσε ένα σχόλιο..."
+
+#: .\apps\tickets\forms.py:43
+msgid "No account with that username."
+msgstr "Δεν υπάρχει λογαριασμός με αυτό το username."
+
+#: .\apps\tickets\models.py:48
+msgid "To Do"
+msgstr "Προς υλοποίηση"
+
+#: .\apps\tickets\models.py:49
+msgid "In Progress"
+msgstr "Σε εξέλιξη"
+
+#: .\apps\tickets\models.py:50
+msgid "Done"
+msgstr "Ολοκληρωμένο"
+
+#: .\apps\tickets\models.py:53
+msgid "Low"
+msgstr "Χαμηλή"
+
+#: .\apps\tickets\models.py:54
+msgid "Medium"
+msgstr "Μεσαία"
+
+#: .\apps\tickets\models.py:55
+#: .\apps\tickets\templates\tickets\board_detail.html:50
+msgid "High"
+msgstr "Υψηλή"
+
+#: .\apps\tickets\models.py:58
+msgid "Title"
+msgstr "Τίτλος"
+
+#: .\apps\tickets\models.py:62
+msgid "Priority"
+msgstr "Προτεραιότητα"
+
+#: .\apps\tickets\models.py:73
+msgid "Assignee"
+msgstr "Ανάθεση σε"
+
+#: .\apps\tickets\models.py:88
+msgid "Comment"
+msgstr "Σχόλιο"
+
+#: .\apps\tickets\templates\tickets\_sidebar.html:2
+#: .\apps\tickets\templates\tickets\board_list.html:3 .\templates\base.html:739
+msgid "Tickets"
+msgstr "Tickets"
+
+#: .\apps\tickets\templates\tickets\_sidebar.html:4
+#: .\apps\tickets\templates\tickets\board_list.html:9
+msgid "Boards"
+msgstr "Πίνακες"
+
+#: .\apps\tickets\templates\tickets\board_detail.html:32
+msgid "Manage members"
+msgstr "Διαχείριση μελών"
+
+#: .\apps\tickets\templates\tickets\board_detail.html:35
+#: .\apps\tickets\templates\tickets\ticket_form.html:3
+#: .\apps\tickets\templates\tickets\ticket_form.html:8
+msgid "New ticket"
+msgstr "Νέο ticket"
+
+#: .\apps\tickets\templates\tickets\board_detail.html:51
+msgid "Unassigned"
+msgstr "Χωρίς ανάθεση"
+
+#: .\apps\tickets\templates\tickets\board_form.html:3
+#: .\apps\tickets\templates\tickets\board_form.html:8
+#: .\apps\tickets\templates\tickets\board_list.html:10
+msgid "New board"
+msgstr "Νέος πίνακας"
+
+#: .\apps\tickets\templates\tickets\board_form.html:18
+#: .\apps\tickets\templates\tickets\ticket_form.html:18
+msgid "Create"
+msgstr "Δημιουργία"
+
+#: .\apps\tickets\templates\tickets\board_list.html:19
+msgid "You own this board"
+msgstr "Είσαι ο ιδιοκτήτης αυτού του πίνακα"
+
+#: .\apps\tickets\templates\tickets\board_list.html:21
+#, python-format
+msgid "Owned by %(owner)s"
+msgstr "Ιδιοκτήτης: %(owner)s"
+
+#: .\apps\tickets\templates\tickets\board_list.html:26
+msgid "No boards yet."
+msgstr "Δεν υπάρχουν πίνακες ακόμα."
+
+#: .\apps\tickets\templates\tickets\board_settings.html:3
+msgid "Board settings"
+msgstr "Ρυθμίσεις πίνακα"
+
+#: .\apps\tickets\templates\tickets\board_settings.html:9
+msgid "Back to board"
+msgstr "Πίσω στον πίνακα"
+
+#: .\apps\tickets\templates\tickets\board_settings.html:13
+msgid "Invite a member"
+msgstr "Πρόσκληση μέλους"
+
+#: .\apps\tickets\templates\tickets\board_settings.html:23
+#: .\apps\tracker\templates\tracker\categories.html:20
+#: .\templates\admin\app_list.html:31
+msgid "Add"
+msgstr "Προσθήκη"
+
+#: .\apps\tickets\templates\tickets\board_settings.html:28
+msgid "Members"
+msgstr "Μέλη"
+
+#: .\apps\tickets\templates\tickets\board_settings.html:30
+msgid "owner"
+msgstr "ιδιοκτήτης"
+
+#: .\apps\tickets\templates\tickets\board_settings.html:44
+msgid "Danger zone"
+msgstr "Επικίνδυνη ζώνη"
+
+#: .\apps\tickets\templates\tickets\board_settings.html:45
+msgid "Delete this board and all its tickets permanently?"
+msgstr "Οριστική διαγραφή αυτού του πίνακα και όλων των tickets του;"
+
+#: .\apps\tickets\templates\tickets\board_settings.html:47
+msgid "Delete board"
+msgstr "Διαγραφή πίνακα"
+
+#: .\apps\tickets\templates\tickets\ticket_detail.html:24
+msgid "Comments"
+msgstr "Σχόλια"
+
+#: .\apps\tickets\templates\tickets\ticket_detail.html:32
+msgid "No comments yet."
+msgstr "Δεν υπάρχουν σχόλια ακόμα."
+
+#: .\apps\tickets\templates\tickets\ticket_detail.html:44
+msgid "Add comment"
+msgstr "Προσθήκη σχολίου"
+
+#: .\apps\tickets\views.py:57
+msgid "Board created."
+msgstr "Ο πίνακας δημιουργήθηκε."
+
+#: .\apps\tickets\views.py:86
+msgid "That's already the board owner."
+msgstr "Αυτός είναι ήδη ο ιδιοκτήτης του πίνακα."
+
+#: .\apps\tickets\views.py:89
+msgid "Member added."
+msgstr "Το μέλος προστέθηκε."
+
+#: .\apps\tickets\views.py:108
+msgid "Member removed."
+msgstr "Το μέλος αφαιρέθηκε."
+
+#: .\apps\tickets\views.py:119
+msgid "Board deleted."
+msgstr "Ο πίνακας διαγράφηκε."
+
+#: .\apps\tickets\views.py:133
+msgid "Ticket created."
+msgstr "Το ticket δημιουργήθηκε."
+
+#: .\apps\tickets\views.py:154
+msgid "Comment added."
+msgstr "Το σχόλιο προστέθηκε."
+
+#: .\apps\tickets\views.py:161
+msgid "Ticket updated."
+msgstr "Το ticket ενημερώθηκε."
 
 #: .\apps\tools\templates\tools\list.html:9
 #: .\apps\tracker\templates\tracker\_sidebar.html:6
@@ -968,11 +1157,6 @@ msgstr "Ρυθμίσεις"
 #: .\apps\tracker\templates\tracker\categories.html:7
 msgid "Product categories"
 msgstr "Κατηγορίες προϊόντων"
-
-#: .\apps\tracker\templates\tracker\categories.html:20
-#: .\templates\admin\app_list.html:31
-msgid "Add"
-msgstr "Προσθήκη"
 
 #: .\apps\tracker\templates\tracker\categories.html:33
 #, python-format
@@ -1768,27 +1952,27 @@ msgstr "Διαχείριση Django"
 msgid "Toggle dark / light theme"
 msgstr "Εναλλαγή σκούρου / ανοιχτού θέματος"
 
-#: .\templates\base.html:765
+#: .\templates\base.html:768
 msgid "Get notified when new free tools launch"
 msgstr "Μάθε πρώτος για νέα δωρεάν εργαλεία"
 
-#: .\templates\base.html:773
+#: .\templates\base.html:776
 msgid "you@example.com"
 msgstr "you@example.com"
 
-#: .\templates\base.html:774
+#: .\templates\base.html:777
 msgid "Subscribe"
 msgstr "Εγγραφή"
 
-#: .\templates\base.html:777
+#: .\templates\base.html:780
 msgid "RSS feed"
 msgstr "Ροή RSS"
 
-#: .\templates\base.html:782
+#: .\templates\base.html:785
 msgid "Search tools, docs, applications…"
 msgstr "Αναζήτηση εργαλείων, εγγράφων, εφαρμογών…"
 
-#: .\templates\base.html:812
+#: .\templates\base.html:815
 msgid "No matches."
 msgstr "Δεν βρέθηκαν αποτελέσματα."
 

@@ -735,6 +735,9 @@
       {% if has_invoicing_profile %}
         <a href="{% url 'invoicing:dashboard' %}">{% trans "Invoicing" %}{% if invoicing_overdue_count %} <span class="badge-count">{{ invoicing_overdue_count }}</span>{% endif %}</a>
       {% endif %}
+      {% if has_tickets_profile %}
+        <a href="{% url 'tickets:board_list' %}">{% trans "Tickets" %}{% if tickets_assigned_count %} <span class="badge-count">{{ tickets_assigned_count }}</span>{% endif %}</a>
+      {% endif %}
       {% if user.is_superuser %}
         <a href="{% url 'platform_admin:dashboard' %}" class="header-account-btn">{% trans "Platform Admin" %}{% if unread_feedback_count %} <span class="badge-count">{{ unread_feedback_count }}</span>{% endif %}</a>
       {% endif %}

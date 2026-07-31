@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Board settings" %}{% endblock %}
+{% block sidebar %}{% include "tickets/_sidebar.html" %}{% endblock %}
+
+{% block content %}
+<div class="top-row">
+  <h1>{{ board.name }}</h1>
+  <a href="{% url 'tickets:board_detail' board.pk %}" class="btn-secondary">← {% trans "Back to board" %}</a>
+</div>
+
+<div class="card" style="max-width:480px;">
+  <h2 style="font-size:1.1rem;">{% trans "Invite a member" %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="form-field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<div class="field-error">{{ field.errors|join:", " }}</div>{% endif %}
+      </div>
+    {% endfor %}
+    <button class="btn-primary" type="submit">{% trans "Add" %}</button>
+  </form>
+</div>
+
+<div class="card" style="max-width:480px;">
+  <h2 style="font-size:1.1rem;">{% trans "Members" %}</h2>
+  <ul>
+    <li>{{ board.owner.username }} ({% trans "owner" %})</li>
+    {% for membership in members %}
+      <li>
+        {{ membership.user.username }}
+        <form method="post" action="{% url 'tickets:board_remove_member' board.pk membership.pk %}" style="display:inline;">
+          {% csrf_token %}
+          <button type="submit" class="btn-secondary">{% trans "Remove" %}</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="card" style="max-width:480px;">
+  <h2 style="font-size:1.1rem;">{% trans "Danger zone" %}</h2>
+  <form method="post" action="{% url 'tickets:board_delete' board.pk %}" onsubmit="return confirm('{% trans "Delete this board and all its tickets permanently?" %}');">
+    {% csrf_token %}
+    <button type="submit" class="btn-danger">{% trans "Delete board" %}</button>
+  </form>
+</div>
+{% endblock %}

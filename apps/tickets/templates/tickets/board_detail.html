@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{{ board.name }}{% endblock %}
+{% block sidebar %}{% include "tickets/_sidebar.html" %}{% endblock %}
+{% block main_class %}wide{% endblock %}
+
+{% block content %}
+<style>
+  .kanban-board { display: flex; gap: 1rem; overflow-x: auto; align-items: flex-start; }
+  .kanban-column { flex: 1 0 280px; max-width: 320px; }
+  .kanban-column-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+  .kanban-column-body {
+    min-height: 120px; max-height: 70vh; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 0.6rem;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 0.6rem;
+  }
+  .kanban-column-body.drag-over { border-color: var(--accent-2); }
+  .kanban-card {
+    background: var(--card-bg, var(--surface)); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 0.7rem; cursor: grab;
+  }
+  .kanban-card.dragging { opacity: 0.4; }
+  .kanban-card a { color: var(--text); font-weight: 600; }
+  .kanban-card .muted { font-size: 0.8rem; }
+</style>
+
+<div class="top-row">
+  <div>
+    <h1>{{ board.name }}</h1>
+    {% if board.owner == request.user %}
+      <a href="{% url 'tickets:board_settings' board.pk %}" class="muted">{% trans "Manage members" %}</a>
+    {% endif %}
+  </div>
+  <a href="{% url 'tickets:ticket_create' board.pk %}" class="btn-primary">{% trans "New ticket" %}</a>
+</div>
+
+<div class="kanban-board">
+  {% for status, label, column_tickets in columns %}
+    <div class="kanban-column">
+      <div class="kanban-column-header">
+        <strong>{{ label }}</strong>
+        <span class="muted">{{ column_tickets|length }}</span>
+      </div>
+      <div class="kanban-column-body" data-status="{{ status }}">
+        {% for ticket in column_tickets %}
+          <div class="kanban-card" draggable="true" data-ticket-id="{{ ticket.pk }}">
+            <a href="{% url 'tickets:ticket_detail' ticket.pk %}">{{ ticket.title }}</a>
+            <div class="muted">
+              {% if ticket.priority == "high" %}<span class="chip chip-critical">{% trans "High" %}</span>{% endif %}
+              {% if ticket.assignee %}{{ ticket.assignee.username }}{% else %}{% trans "Unassigned" %}{% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+(function() {
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+    return match ? decodeURIComponent(match[2]) : null;
+  }
+
+  const moveUrl = (id) => "{% url 'tickets:ticket_move' 0 %}".replace("0", id);
+
+  function moveTicket(id, status) {
+    return fetch(moveUrl(id), {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": getCookie("csrftoken"),
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      body: JSON.stringify({ status }),
+    });
+  }
+
+  let draggedCard = null;
+
+  document.querySelectorAll(".kanban-card").forEach((card) => {
+    card.addEventListener("dragstart", () => {
+      draggedCard = card;
+      card.classList.add("dragging");
+    });
+    card.addEventListener("dragend", () => {
+      card.classList.remove("dragging");
+      draggedCard = null;
+    });
+  });
+
+  document.querySelectorAll(".kanban-column-body").forEach((column) => {
+    column.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      column.classList.add("drag-over");
+    });
+    column.addEventListener("dragleave", () => {
+      column.classList.remove("drag-over");
+    });
+    column.addEventListener("drop", async (e) => {
+      e.preventDefault();
+      column.classList.remove("drag-over");
+      if (!draggedCard) return;
+
+      const ticketId = draggedCard.dataset.ticketId;
+      const newStatus = column.dataset.status;
+      column.appendChild(draggedCard);
+
+      const res = await moveTicket(ticketId, newStatus);
+      if (!res.ok) {
+        window.location.reload();
+      }
+    });
+  });
+})();
+</script>
+{% endblock %}

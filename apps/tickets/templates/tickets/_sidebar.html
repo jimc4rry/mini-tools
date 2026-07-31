@@ -1,0 +1,12 @@
+{% load i18n %}
+<h3>{% trans "Tickets" %}</h3>
+<ul>
+  <li><a href="{% url 'tickets:board_list' %}"{% if request.resolver_match.view_name == 'tickets:board_list' %} class="active"{% endif %}>{% trans "Boards" %}</a></li>
+  <li>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="rail-btn">{% trans "Log out" %}</button>
+    </form>
+  </li>
+</ul>
+{% include "_language_switcher.html" %}
